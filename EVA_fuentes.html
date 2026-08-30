@@ -301,6 +301,41 @@ blockquote cite {
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; opacity: .5; }
 .btn-home{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:600;background:rgba(4,10,6,0.88);border:1px solid rgba(90,170,122,0.3);border-radius:20px;padding:6px 18px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(90,170,122,0.7);text-decoration:none;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
 .btn-home:hover{color:#5aaa7a;border-color:rgba(90,170,122,0.7);background:rgba(4,10,6,0.96);}
+
+/* ─── RESPONSIVE MOBILE ─── */
+@media (max-width:700px){
+  .site-header{padding:56px 16px 28px;}
+  .page-title{font-size:28px;letter-spacing:1px;}
+  .page-subtitle{font-size:16px;}
+  .tab-bar{padding:0 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .tab-bar::-webkit-scrollbar{display:none;}
+  .tab-btn{padding:14px 14px;font-size:10px;letter-spacing:1.5px;white-space:nowrap;flex-shrink:0;}
+  .tab-panel{padding:24px 14px 60px;max-width:100%;}
+  .source-header{padding:14px 12px;gap:10px;flex-wrap:wrap;}
+  .source-year{min-width:60px;font-size:10px;}
+  .source-author{font-size:15px;}
+  .source-work{font-size:13px;}
+  .source-body-inner{padding:0 12px 20px 12px;}
+  blockquote{padding:12px 14px;margin:12px 0;}
+  blockquote p{font-size:15px;}
+  .timeline{padding-left:32px;margin-bottom:28px;}
+  .tl-item{gap:10px;}
+  .tl-year{min-width:80px;font-size:11px;}
+  .tl-desc{font-size:14px;}
+  .tl-tag{display:none;}
+  .pull-quote{padding:20px 16px;margin:24px 0;}
+  .pull-quote p{font-size:17px;}
+  .section-label{margin-bottom:20px;}
+  .credits-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:12px;}
+  .td-title{font-size:13px;}
+  .nav-l,.nav-r{width:28px;height:52px;opacity:.25;}
+  .nav-arrow{width:14px;height:14px;}
+}
+@media (max-width:420px){
+  .page-title{font-size:24px;}
+  .tab-btn{padding:12px 10px;font-size:9px;letter-spacing:1px;}
+  .source-author{font-size:14px;}
+}
 </style>
 </head>
 <body>
