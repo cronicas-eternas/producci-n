@@ -232,27 +232,23 @@ body{
 @media (max-width:700px){
   html,body{overflow:auto;height:auto;min-height:100vh;}
   body{align-items:flex-start;}
-  .main{padding:24px 16px 32px;margin-left:28px;justify-content:flex-start;gap:24px;min-height:auto;}
+  .main{padding:24px 16px 32px;margin-left:28px;justify-content:flex-start;gap:20px;min-height:auto;}
   .tab{width:28px;}
   .tab-inner{padding:20px 0;}
   .header-top{font-size:9px;letter-spacing:4px;}
   .header-rule{width:120px;}
-  .episodes{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:16px;padding:8px 0;flex:none;}
-  .ep-main .ep-frame{width:clamp(120px,32vw,160px);height:clamp(185px,49vw,245px);}
-  .ep-side .ep-frame{width:clamp(95px,25vw,130px);height:clamp(145px,38vw,190px);}
-  .ep-name{font-size:clamp(14px,3.5vw,20px);}
+  /* Ancho disponible = 100vw - tab(28) - padding(32) = 100vw - 60px */
+  /* 3 frames + 2 gaps(10px): frame_main + 2×frame_side + 20 = 100vw - 60px */
+  .episodes{flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:flex-end;gap:10px;padding:8px 0;flex:none;}
+  .ep-main .ep-frame{width:calc((100vw - 80px) * 0.36);height:calc((100vw - 80px) * 0.55);}
+  .ep-side .ep-frame{width:calc((100vw - 80px) * 0.28);height:calc((100vw - 80px) * 0.43);}
+  .ep-name{font-size:clamp(12px,3vw,18px);}
   .ep-tag{font-size:8px;}
   .ep-num{font-size:9px;}
   .nav-r{width:44px;}
   .nav-ch{font-size:32px;}
   .footer{gap:6px;}
   .footer-brand{font-size:9px;letter-spacing:3px;}
-}
-@media (max-width:420px){
-  .main{padding:20px 10px 28px;margin-left:24px;}
-  .episodes{gap:10px;}
-  .ep-main .ep-frame{width:clamp(100px,30vw,140px);height:clamp(155px,46vw,215px);}
-  .ep-side .ep-frame{width:clamp(80px,22vw,110px);height:clamp(120px,34vw,170px);}
 }
 </style>
 </head>
