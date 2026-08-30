@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crónicas Eternas</title>
+<title>Eternal Chronicles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -180,7 +180,7 @@ body{
 .ep-main .ep-frame{width:clamp(150px,16vw,220px);height:clamp(230px,24vw,340px)}
 .ep-side .ep-frame{width:clamp(120px,12vw,170px);height:clamp(180px,19vw,270px)}
 
-/* Próximamente overlay */
+/* Coming soon overlay */
 .coming{
   position:absolute;
   inset:0;
@@ -262,10 +262,10 @@ body{
 
 <!-- PAGE TURN OVERLAY -->
 <div id="ptov"></div>
-<a class="btn-lang" href="CRONICAS_ETERNAS_Portada_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
+<a class="btn-lang" href="CRONICAS_ETERNAS_Portada.html"><span class="lang-link">ES</span><span class="lang-sep">·</span><span class="lang-active">EN</span></a>
 
 <!-- NAV DERECHA → PANDORA -->
-<div class="nav-r" onclick="turnPage('PANDORA_album.html','right')">
+<div class="nav-r" onclick="turnPage('PANDORA_album_en.html','right')">
   <span class="nav-ch">❯</span>
 </div>
 
@@ -273,7 +273,7 @@ body{
 <div class="tab" onclick="window.location.href='#index'">
   <div class="tab-inner">
     <div class="tab-line"></div>
-    <div class="tab-text">Índice</div>
+    <div class="tab-text">Index</div>
     <div class="tab-line"></div>
   </div>
 </div>
@@ -283,9 +283,9 @@ body{
 
   <!-- HEADER -->
   <div class="header">
-    <div class="header-top">Primera temporada · 2026</div>
+    <div class="header-top">First Season · 2026</div>
     <div class="title">Crónicas Eternas</div>
-    <div class="subtitle">El arte como memoria de los primeros</div>
+    <div class="subtitle">Art as the Memory of the First Ones</div>
     <div class="header-rule"></div>
   </div>
 
@@ -299,11 +299,11 @@ body{
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alaux%2C_Jean_-_Pandora_carried_off_by_Mercury.jpg?width=400"
              alt="Pandora — Jean Alaux"
              onerror="this.src='album_assets/vasija13056.jpg'">
-        <div class="coming"><span>Ver álbum</span></div>
+        <div class="coming"><span>View album</span></div>
       </div>
       <div class="ep-label">
         <span class="ep-name">Pandora</span>
-        <span class="ep-tag">Mitología Griega · 460 a.C. – 1951</span>
+        <span class="ep-tag">Greek Mythology · 460 BC – 1951</span>
       </div>
     </a>
 
@@ -316,7 +316,7 @@ body{
       </div>
       <div class="ep-label">
         <span class="ep-name">Eva</span>
-        <span class="ep-tag">Tradición Judeocristiana · c. 3000 a.C. – 2025</span>
+        <span class="ep-tag">Judeo-Christian Tradition · c. 3000 BC – 2025</span>
       </div>
     </a>
 
@@ -326,11 +326,11 @@ body{
       <div class="ep-frame">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg?width=400"
              alt="Enkidu — Caspar David Friedrich">
-        <div class="coming"><span>Próximamente</span></div>
+        <div class="coming"><span>Coming soon</span></div>
       </div>
       <div class="ep-label">
         <span class="ep-name">Enkidu</span>
-        <span class="ep-tag">Mesopotamia · 2100 a.C. – 1872 d.C.</span>
+        <span class="ep-tag">Mesopotamia · 2100 BC – 1872 AD</span>
       </div>
     </a>
 
@@ -339,7 +339,7 @@ body{
   <!-- FOOTER — ESCARABAJO -->
   <div class="footer">
     <div class="scarab-wrap">
-      <svg width="72" height="52" viewBox="0 0 72 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Escarabajo egipcio, símbolo editorial de Crónicas Eternas">
+      <svg width="72" height="52" viewBox="0 0 72 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Egyptian scarab, editorial symbol of Eternal Chronicles">
         <!-- Disco solar -->
         <circle cx="36" cy="6" r="5" fill="none" stroke="#9a7030" stroke-width="1.2"/>
         <line x1="36" y1="1" x2="36" y2="0" stroke="#9a7030" stroke-width="1"/>
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(pandoraCard){
     pandoraCard.addEventListener('click',function(e){
       e.preventDefault();
-      turnPage('PANDORA_album.html','right');
+      turnPage('PANDORA_album_en.html','right');
     });
   }
 });
