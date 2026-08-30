@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EVA · Fuentes y Material — Crónicas Eternas</title>
+<title>EVA · Sources & Material — Crónicas Eternas</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
 
@@ -352,16 +352,26 @@ blockquote cite {
 .lang-sep{color:#2e4a38;}
 .lang-link{color:#2e4a38;text-decoration:none;transition:color .2s;}
 .lang-link:hover{color:#5aaa7a;}
+
+/* ── READABILITY IMPROVEMENTS ── */
+.source-note { color: var(--text) !important; font-size: 14.5px; line-height: 1.7; }
+.source-note strong { color: var(--text-bright); }
+blockquote { padding: 20px 24px; background: rgba(58,122,90,0.1) !important; }
+blockquote p { font-size: 19px !important; line-height: 1.6; }
+.section-label { color: var(--accent-light) !important; font-size: 11px; letter-spacing: 2.5px; }
+.pull-quote p { font-size: 28px !important; }
+.source-header:hover { background: rgba(58,122,90,0.05); }
+
 </style>
 </head>
 <body>
 <div id="ptov"></div>
 <a class="btn-home" href="CRONICAS_ETERNAS_Portada_en.html">⌂ &nbsp;Home</a>
 <a class="btn-lang" onclick="localStorage.setItem('ce_lang','es')" href="EVA_fuentes.html"><span class="lang-link">ES</span><span class="lang-sep">·</span><span class="lang-active">EN</span></a>
-<a class="btn-lang" onclick="localStorage.setItem('ce_lang','es')" href="EVA_fuentes_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
+
 
 <!-- NAV LEFT → álbum EVA -->
-<div class="nav-l" onclick="turnPage('EVA_album_en.html','left')" title="← Álbum">
+<div class="nav-l" onclick="turnPage('EVA_album_en.html','left')" title="← Album">
   <div class="nav-arrow"></div>
 </div>
 <!-- NAV RIGHT → futuro -->
@@ -371,70 +381,70 @@ blockquote cite {
 
 <header class="site-header">
   <div class="breadcrumb">Crónicas Eternas · <span>Eva</span></div>
-  <div class="ep-title">T1 · E02 · Cristiana / Gnóstica</div>
-  <h1 class="page-title">Archivo de Fuentes</h1>
-  <p class="page-subtitle">Los textos que construyeron a Eva · Referencias y material de producción</p>
+  <div class="ep-title">T1 · E02 · Christian / Gnostic</div>
+  <h1 class="page-title">Sources Archive</h1>
+  <p class="page-subtitle">The texts that built Eve · References and production material</p>
   <div class="gold-line"></div>
 </header>
 
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Fuentes Primarias</button>
-  <button class="tab-btn" onclick="switchTab('arte',this)">Créditos de Arte</button>
+  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Primary Sources</button>
+  <button class="tab-btn" onclick="switchTab('arte',this)">Art Credits</button>
 </nav>
 
 <!-- ═══════ TAB 1: FUENTES ═══════ -->
 <div id="tab-fuentes" class="tab-panel active">
 
-  <div class="section-label">Cronología de fuentes · c. 1200 a.C. — 1945 d.C.</div>
+  <div class="section-label">Timeline of sources · c. 1200 BC — 1945 AD</div>
 
   <div class="timeline reveal">
     <div class="tl-item" onclick="openCard('c-genesis')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 900–500 a.C.</div>
-      <div class="tl-desc">Génesis 2–3 · La creación de Eva y la caída</div>
-      <div class="tl-tag">Fuente principal</div>
+      <div class="tl-year">c. 900–500 BC</div>
+      <div class="tl-desc">Genesis 2–3 · The creation of Eve and the Fall</div>
+      <div class="tl-tag">Primary source</div>
     </div>
     <div class="tl-item" onclick="openCard('c-bensira')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 180 a.C.</div>
-      <div class="tl-desc">Ben Sira (Eclesiástico) · «De la mujer vino el principio del pecado»</div>
-      <div class="tl-tag">Deuterocanónico</div>
+      <div class="tl-year">c. 180 BC</div>
+      <div class="tl-desc">Ben Sira (Ecclesiasticus) · "Of the woman came the beginning of sin"</div>
+      <div class="tl-tag">Deuterocanonical</div>
     </div>
     <div class="tl-item" onclick="openCard('c-pablo')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 50–60 d.C.</div>
-      <div class="tl-desc">Pablo de Tarso — 1 Timoteo 2 · Eva como engañada primero</div>
-      <div class="tl-tag">Epístola</div>
+      <div class="tl-year">c. AD 50–60</div>
+      <div class="tl-desc">Paul of Tarsus — 1 Timothy 2 · Eve as the first deceived</div>
+      <div class="tl-tag">Epistle</div>
     </div>
     <div class="tl-item" onclick="openCard('c-nag')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 100–300 d.C.</div>
-      <div class="tl-desc">Nag Hammadi — Apócrifo de Juan · Eva como Epínoia</div>
-      <div class="tl-tag">Gnóstico</div>
+      <div class="tl-year">c. AD 100–300</div>
+      <div class="tl-desc">Nag Hammadi — Apocryphon of John · Eve as Epinoia</div>
+      <div class="tl-tag">Gnostic</div>
     </div>
     <div class="tl-item" onclick="openCard('c-realidad')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 100–350 d.C.</div>
-      <div class="tl-desc">Testimonio de la Verdad · La serpiente como instrumento de sabiduría</div>
-      <div class="tl-tag">Gnóstico</div>
+      <div class="tl-year">c. AD 100–350</div>
+      <div class="tl-desc">Testimony of Truth · The serpent as instrument of wisdom</div>
+      <div class="tl-tag">Gnostic</div>
     </div>
     <div class="tl-item" onclick="openCard('c-alfabeto')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 700–1000 d.C.</div>
-      <div class="tl-desc">Alfabeto de Ben Sira · Primera mención escrita de Lilith como primera mujer</div>
-      <div class="tl-tag">Midrash medieval</div>
+      <div class="tl-year">c. AD 700–1000</div>
+      <div class="tl-desc">Alphabet of Ben Sira · First written mention of Lilith as first woman</div>
+      <div class="tl-tag">Medieval Midrash</div>
     </div>
     <div class="tl-item" onclick="openCard('c-zohar')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 1280 d.C.</div>
-      <div class="tl-desc">Zohar · «Al principio del mundo existió una hembra…»</div>
-      <div class="tl-tag">Cabalá</div>
+      <div class="tl-year">c. AD 1280</div>
+      <div class="tl-desc">Zohar · “At the beginning of the world there was a female…”</div>
+      <div class="tl-tag">Kabbalah</div>
     </div>
     <div class="tl-item" onclick="openCard('c-jung')">
       <div class="tl-dot"></div>
-      <div class="tl-year">1945 d.C.</div>
-      <div class="tl-desc">Carl Jung — Aurora Consurgens · Eva como anima</div>
-      <div class="tl-tag">Psicología analítica</div>
+      <div class="tl-year">1945 AD</div>
+      <div class="tl-desc">Carl Jung — Aurora Consurgens · Eve as anima</div>
+      <div class="tl-tag">Analytical psychology</div>
     </div>
   </div>
 
@@ -442,16 +452,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-genesis">
     <div class="source-header" onclick="toggleCard('c-genesis')">
-      <div class="source-year">c. 900–500 a.C.</div>
+      <div class="source-year">c. 900–500 BC</div>
       <div class="source-meta">
-        <div class="source-author">Génesis 2–3</div>
-        <div class="source-work">Tanaj / Antiguo Testamento · Fuente canónica</div>
+        <div class="source-author">Genesis 2–3</div>
+        <div class="source-work">Hebrew Bible / Old Testament · Canonical source</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> La creación de Eva aparece en dos versiones distintas dentro del Génesis. El Génesis 1 (atribuido a la fuente Sacerdotal, siglo VI a.C.) crea al hombre y la mujer simultáneamente. El Génesis 2-3 (fuente Yahvista, siglos X-IX a.C.) narra la creación de Eva de la costilla de Adán — la versión que el episodio desarrolla.</div>
+        <div class="source-note"><strong>Context:</strong> The creation of Eve appears in two distinct versions within Genesis. Genesis 1 (attributed to the Priestly source, 6th century BC) creates man and woman simultaneously. Genesis 2–3 (the Yahwist source, 10th–9th century BC) narrates the creation of Eve from Adam’s rib — the version the episode develops.</div>
 
         <blockquote>
           <p>“And the rib, which the LORD God had taken from man, made he a woman, and brought her unto the man. And Adam said, This is now bone of my bones, and flesh of my flesh: she shall be called Woman, because she was taken out of Man.”</p>
@@ -468,76 +478,76 @@ blockquote cite {
           <cite>— Genesis 3:1 · King James Version (1611)4–16</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Nota crítica:</strong> Existen dos tradiciones editoriales dentro del Génesis. En Génesis 1:27, hombre y mujer son creados simultáneamente («varón y hembra los creó»). En Génesis 2, Eva es creada de la costilla de Adán. La coexistencia de ambas versiones es la base del desarrollo posterior del mito de Lilith como «primera mujer» anterior a Eva.</div>
-        <div class="source-note" style="margin-top:10px;"><strong>Edición:</strong> Biblia de Jerusalén (Desclée de Brouwer, 1976) · Versión Reina-Valera 1960 para las citas.</div>
+        <div class="source-note"><strong>Critical note:</strong> Two editorial traditions exist within Genesis. In Genesis 1:27, man and woman are created simultaneously (“male and female he created them”). In Genesis 2, Eve is created from Adam’s rib. The coexistence of both versions is the basis for the later development of the Lilith myth as the “first woman” prior to Eve.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Edition:</strong> King James Version (1611) · Authorised Version for all quotations.</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-bensira">
     <div class="source-header" onclick="toggleCard('c-bensira')">
-      <div class="source-year">c. 180 a.C.</div>
+      <div class="source-year">c. 180 BC</div>
       <div class="source-meta">
-        <div class="source-author">Jesús Ben Sira</div>
+        <div class="source-author">Jesus Ben Sira</div>
         <div class="source-work">Eclesiástico (Siracida) · 25:24</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> El Eclesiástico es un texto deuterocanónico (incluido en la Biblia católica pero no en el canon judío ni protestante). Esta es la primera interpretación explícita de Eva como origen del pecado — anterior al texto paulino.</div>
+        <div class="source-note"><strong>Context:</strong> Ecclesiasticus is a deuterocanonical text (included in the Catholic Bible but not in the Jewish or Protestant canon). This is the first explicit interpretation of Eve as the origin of sin — predating the Pauline texts.</div>
 
         <blockquote>
           <p>“Of the woman came the beginning of sin, and through her we all die.”</p>
           <cite>— Eclesiástico (Siracida) 25:24</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Significado:</strong> Ben Sira lee el Génesis con una lente misógina que el texto original no contiene explícitamente. Esta línea, junto con el texto paulino de 1 Timoteo 2, establece la tradición teológica que culpa a Eva de la muerte humana. El propio Génesis no dice esto: dice que el hombre también comió, que ambos son expulsados, y que ambos reciben maldiciones específicas.</div>
+        <div class="source-note"><strong>Significance:</strong> Ben Sira reads Genesis through a misogynistic lens that the original text does not contain explicitly. This line, together with the Pauline text of 1 Timothy 2, establishes the theological tradition blaming Eve for human death. Genesis itself does not say this: it says that the man also ate, that both are expelled, and that both receive specific curses.</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-pablo">
     <div class="source-header" onclick="toggleCard('c-pablo')">
-      <div class="source-year">c. 50–60 d.C.</div>
+      <div class="source-year">c. AD 50–60</div>
       <div class="source-meta">
-        <div class="source-author">Pablo de Tarso (atrib.)</div>
-        <div class="source-work">Primera Epístola a Timoteo · 2:11–15</div>
+        <div class="source-author">Paul of Tarsus (attrib.)</div>
+        <div class="source-work">First Epistle to Timothy · 2:11–15</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> La primera epístola a Timoteo es uno de los textos más influyentes en la construcción teológica de Eva como responsable primaria de la caída. La mayoría de los investigadores bíblicos contemporáneos la consideran pseudoepigráfica (escrita en nombre de Pablo, no por él).</div>
+        <div class="source-note"><strong>Context:</strong> The First Epistle to Timothy is one of the most influential texts in the theological construction of Eve as the primary agent of the Fall. Most contemporary biblical scholars consider it pseudepigraphical (written in Paul’s name, not by him).</div>
 
         <blockquote>
           <p>“Let the woman learn in silence with all subjection… For Adam was first formed, then Eve. And Adam was not deceived, but the woman being deceived was in the transgression.”</p>
           <cite>— 1 Timothy 2:11–14 · King James Version (1611)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Nota crítica:</strong> Este texto introduce la jerarquía de creación (Adán primero = más autoridad) y el argumento del engaño (Eva fue engañada → es más susceptible al error). Son los dos pilares de la teología patriarcal sobre Eva que dominará el pensamiento occidental durante quince siglos.</div>
-        <div class="source-note" style="margin-top:10px;"><strong>Estado académico:</strong> La mayoría de los estudiosos actuales consideran 1 Timoteo deuteropaulino, escrito entre el 80-100 d.C. (cf. Bart Ehrman, <em>Forged</em>, HarperOne, 2011).</div>
+        <div class="source-note"><strong>Critical note:</strong> This text introduces the hierarchy of creation (Adam first = greater authority) and the deception argument (Eve was deceived → she is more susceptible to error). These are the two pillars of the patriarchal theology of Eve that would dominate Western thought for fifteen centuries.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Academic status:</strong> Most current scholars consider 1 Timothy deutero-Pauline, written between AD 80–100 (cf. Bart Ehrman, <em>Forged</em>, HarperOne, 2011).</div>
       </div>
     </div>
   </div>
 
   <div class="pull-quote reveal">
-    <p>«Adán no fue engañado,<br>sino que la mujer, siendo engañada,<br>incurrió en transgresión.»</p>
+    <p>“Adam was not deceived,<br>but the woman being deceived<br>was in the transgression.”</p>
     <cite>1 Timothy 2:14 · KJV · c. AD 80–100 · The text that defined Eve for fifteen centuries</cite>
   </div>
 
   <div class="source-card reveal" id="c-nag">
     <div class="source-header" onclick="toggleCard('c-nag')">
-      <div class="source-year">c. 100–300 d.C.</div>
+      <div class="source-year">c. AD 100–300</div>
       <div class="source-meta">
         <div class="source-author">Textos de Nag Hammadi</div>
-        <div class="source-work">Apócrifo de Juan · Eva como Epínoia (Primer Pensamiento)</div>
+        <div class="source-work">Apocryphon of John · Eve as Epinoia (First Thought)</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> En 1945 se descubrió en Nag Hammadi (Egipto) una biblioteca de 52 textos gnósticos en copto. El <em>Apócrifo de Juan</em> contiene la inversión más radical del mito del Génesis: Eva no es la responsable de la caída — es la portadora del conocimiento divino que desciende al mundo material para despertar a Adán.</div>
+        <div class="source-note"><strong>Context:</strong> In 1945, a library of 52 Gnostic texts in Coptic was discovered at Nag Hammadi, Egypt. The <em>Apocryphon of John</em> contains the most radical inversion of the Genesis myth: Eve is not responsible for the Fall — she is the bearer of divine knowledge who descends into the material world to awaken Adam.</div>
 
         <blockquote>
           <p>«Epínoia de la luz fue escondida dentro de Adán, para que los arcontes no pudieran alcanzarla... Y la llamaron Eva, "la que da vida", porque ella es la madre de todos los vivientes.»</p>
@@ -549,71 +559,71 @@ blockquote cite {
           <cite>— Apocryphon of John (NH II,1) · trans. Frederick Wisse (1977)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Inversión gnóstica:</strong> En esta cosmología, el Demiurgo (el dios del Génesis) no es el Dios verdadero sino un ser ignorante que crea el mundo material como prisión. Eva / Epínoia desciende para liberar a Adán del engaño del Demiurgo. La serpiente es el instrumento de la Sabiduría Superior, no del mal.</div>
-        <div class="source-note" style="margin-top:10px;"><strong>Edición:</strong> James M. Robinson (ed.), <em>The Nag Hammadi Library</em> (Brill, 1978). English translation: Antonio Piñero, <em>Todos los Evangelios</em> (EDAF, 2009).</div>
+        <div class="source-note"><strong>Gnostic inversion:</strong> In this cosmology, the Demiurge (the God of Genesis) is not the true God but an ignorant being who creates the material world as a prison. Eve / Epinoia descends to free Adam from the Demiurge’s deception. The serpent is the instrument of Higher Wisdom, not of evil.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Edition:</strong> James M. Robinson (ed.), <em>The Nag Hammadi Library</em> (Brill, 1978). Translation: Frederick Wisse, in Robinson (1977/1988).</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-realidad">
     <div class="source-header" onclick="toggleCard('c-realidad')">
-      <div class="source-year">c. 100–350 d.C.</div>
+      <div class="source-year">c. AD 100–350</div>
       <div class="source-meta">
         <div class="source-author">Textos de Nag Hammadi</div>
-        <div class="source-work">Testimonio de la Verdad (NH IX,3) · La serpiente como maestra</div>
+        <div class="source-work">Testimony of Truth (NH IX,3) · The serpent as teacher</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> El <em>Testimonio de la Verdad</em> contiene la inversión más completa del mito: la serpiente es el maestro del conocimiento, y el Dios del Génesis actúa como un tirano celoso que teme perder el control sobre sus criaturas.</div>
+        <div class="source-note"><strong>Context:</strong> The <em>Testimony of Truth</em> contains the most complete inversion of the myth: the serpent is the teacher of knowledge, and the God of Genesis acts as a jealous tyrant who fears losing control of his creatures.</div>
 
         <blockquote>
           <p>«¿Qué tipo de Dios es este? Primero envidió a Adán porque comió del árbol del conocimiento. Segundo, dijo: "Adán, ¿dónde estás?" Dios no tiene presciencia. Y la serpiente era más sabia que todos los dioses.»</p>
           <cite>— Testimony of Truth (NH IX,3) · Nag Hammadi Codex IX · trans. Søren Giversen & Birger A. Pearson (1977)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Relevancia:</strong> Este texto es el argumento que más incomodó a los Padres de la Iglesia: si Dios es omnisciente, ¿por qué pregunta dónde está Adán? El <em>Testimonio de la Verdad</em> usa la lógica interna del Génesis para poner en cuestión la naturaleza del Dios que lo narra.</div>
+        <div class="source-note"><strong>Relevance:</strong> This text is the argument that most troubled the Church Fathers: if God is omniscient, why does he ask where Adam is? The <em>Testimony of Truth</em> uses Genesis’s own internal logic to question the nature of the God who narrates it.</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-alfabeto">
     <div class="source-header" onclick="toggleCard('c-alfabeto')">
-      <div class="source-year">c. 700–1000 d.C.</div>
+      <div class="source-year">c. AD 700–1000</div>
       <div class="source-meta">
         <div class="source-author">Anónimo</div>
-        <div class="source-work">Alfabeto de Ben Sira · Primera mujer antes de Eva</div>
+        <div class="source-work">Alphabet of Ben Sira · The first woman before Eve</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> El <em>Alfabeto de Ben Sira</em> (medievo judío, c. 700-1000 d.C.) es el primer texto que nombra a <strong>Lilith</strong> como la primera mujer de Adán, creada simultáneamente de la tierra, que se niega a yacer debajo de él y abandona el Edén. Su ausencia deja espacio para Eva.</div>
+        <div class="source-note"><strong>Context:</strong> The <em>Alphabet of Ben Sira</em> (Jewish medieval, c. AD 700–1000) is the first text to name <strong>Lilith</strong> as Adam’s first wife, created simultaneously from the earth, who refuses to lie beneath him and leaves Eden. Her absence leaves space for Eve.</div>
 
         <blockquote>
           <p>“When the Holy One, blessed be He, created the first man, He decided it was not good for him to be alone, and created a woman for him from the earth, and called her Lilith. They immediately quarrelled. She said: I will not lie below you. He said: I will not lie below you but above you. Each wished to be dominant.”</p>
           <cite>— Alphabet of Ben Sira · c. 9th century AD · trans. Norman Bronznick (1981)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Origen del mito:</strong> Lilith no aparece como personaje en el Génesis — su nombre aparece una sola vez en el libro de Isaías (34:14) como un ser del desierto. El mito de Lilith como primera esposa de Adán es una creación medieval que resuelve la contradicción entre Génesis 1 y Génesis 2.</div>
-        <div class="source-note" style="margin-top:10px;"><strong>Fuente académica:</strong> Raphael Patai, <em>The Hebrew Goddess</em> (Wayne State University Press, 1967). Estudio de referencia sobre la tradición de Lilith.</div>
+        <div class="source-note"><strong>Origin of the myth:</strong> Lilith does not appear as a character in Genesis — her name appears only once, in the book of Isaiah (34:14), as a creature of the desert. The myth of Lilith as Adam’s first wife is a medieval creation that resolves the contradiction between Genesis 1 and Genesis 2.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Academic source:</strong> Raphael Patai, <em>The Hebrew Goddess</em> (Wayne State University Press, 1967). The reference study on the Lilith tradition.</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-zohar">
     <div class="source-header" onclick="toggleCard('c-zohar')">
-      <div class="source-year">c. 1280 d.C.</div>
+      <div class="source-year">c. AD 1280</div>
       <div class="source-meta">
-        <div class="source-author">Moisés de León (atrib.)</div>
-        <div class="source-work">Zohar · Libro del Esplendor · Cabalá</div>
+        <div class="source-author">Moses de León (attrib.)</div>
+        <div class="source-work">Zohar · Book of Splendour · Kabbalah</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> El Zohar es el texto fundamental de la Cabalá judía, escrito probablemente en la España del siglo XIII y atribuido al rabino Simeón bar Yojai (siglo II d.C.). Desarrolla extensamente la dualidad femenina de Lilith vs. Shekhinah como aspecto femenino de la divinidad.</div>
+        <div class="source-note"><strong>Context:</strong> The Zohar is the fundamental text of Jewish Kabbalah, probably written in thirteenth-century Spain and attributed to Rabbi Simeon bar Yochai (2nd century AD). It extensively develops the feminine duality of Lilith vs. the Shekhinah as the feminine aspect of divinity.</div>
 
         <blockquote>
           <p>“At the beginning of the world there was a female on Adam’s left side, hardened in evil… called Lilith. This woman assumed the role of Samael.”</p>
@@ -625,36 +635,36 @@ blockquote cite {
           <cite>— Zohar III, 19a · trans. Harry Sperling & Maurice Simon (1984)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Relevancia para el episodio:</strong> La tradición cabalística genera la dualidad Lilith/Eva como el principio femenino oscuro vs. el principio femenino luminoso — ambos necesarios, ninguno completo sin el otro. Esta es la raíz de la interpretación gnóstica moderna de Eva como portadora de sabiduría divina encarnada.</div>
+        <div class="source-note"><strong>Relevance for the episode:</strong> The Kabbalistic tradition generates the Lilith/Eve duality as the dark feminine principle vs. the luminous feminine principle — both necessary, neither complete without the other. This is the root of the modern Gnostic interpretation of Eve as a bearer of embodied divine wisdom.</div>
       </div>
     </div>
   </div>
 
   <div class="source-card reveal" id="c-jung">
     <div class="source-header" onclick="toggleCard('c-jung')">
-      <div class="source-year">1945 d.C.</div>
+      <div class="source-year">1945 AD</div>
       <div class="source-meta">
         <div class="source-author">Carl Gustav Jung</div>
-        <div class="source-work">Aurora Consurgens · Edición y comentario</div>
+        <div class="source-work">Aurora Consurgens · Edition and commentary</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Jung editó y comentó el manuscrito medieval <em>Aurora Consurgens</em> como parte de su obra <em>Mysterium Coniunctionis</em>. Para Jung, la figura femenina que emerge en los textos alquímicos y gnósticos (Sophia, Epínoia, Aurora) es la proyección del <strong>anima</strong> — el principio femenino inconsciente del psiquismo colectivo masculino.</div>
+        <div class="source-note"><strong>Context:</strong> Jung edited and commented on the medieval manuscript <em>Aurora Consurgens</em> as part of his work <em>Mysterium Coniunctionis</em>. For Jung, the feminine figure that emerges in alchemical and Gnostic texts (Sophia, Epinoia, Aurora) is the projection of the <strong>anima</strong> — the unconscious feminine principle of the collective masculine psyche.</div>
 
         <blockquote>
           <p>“Eve is not merely a historical or theological figure — she is an archetype. The name given in every culture to the feminine principle that awakens masculine consciousness: Sophia among the Gnostics, Prajna in Buddhism, Shakti in Hinduism.”</p>
           <cite>— Jung, <em>Mysterium Coniunctionis</em>, CW vol. 14 (1956) · trans. R.F.C. Hull (1963)</cite>
         </blockquote>
 
-        <div class="source-note"><strong>Source:</strong> C.G. Jung, <em>Mysterium Coniunctionis</em>, Obras Completas vol. 14 (Trotta, 2002). Marie-Louise von Franz, <em>Aurora Consurgens</em> (1966).</div>
+        <div class="source-note"><strong>Source:</strong> C.G. Jung, <em>Mysterium Coniunctionis</em>, Collected Works vol. 14 (Routledge, 1963). Marie-Louise von Franz, <em>Aurora Consurgens</em> (1966).</div>
       </div>
     </div>
   </div>
 
   <div class="pull-quote reveal">
-    <p>«Eva no es solo una figura teológica — es un arquetipo.<br>El nombre que se da en cada cultura al principio femenino<br>que despierta la consciencia.»</p>
+    <p>“Eve is not merely a theological figure — she is an archetype.<br>The name given in every culture to the feminine principle<br>that awakens consciousness.”</p>
     <cite>Carl Gustav Jung · Mysterium Coniunctionis · 1956 · trans. R.F.C. Hull (1963)</cite>
   </div>
 
@@ -670,89 +680,89 @@ blockquote cite {
     <thead>
       <tr>
         <th>#</th>
-        <th>Obra</th>
-        <th>Artista</th>
-        <th>Año</th>
-        <th>Colección</th>
+        <th>Work</th>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Collection</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="td-pos">Apertura</td>
-        <td class="td-title">Die Sünde · El Pecado</td>
+        <td class="td-pos">Opening</td>
+        <td class="td-title">Die Sünde · The Sin</td>
         <td class="td-artist">Franz von Stuck</td>
         <td class="td-year">1893</td>
-        <td class="td-museum">Neue Pinakothek, Múnich, Alemania</td>
+        <td class="td-museum">Neue Pinakothek, Munich, Germany</td>
       </tr>
       <tr>
         <td class="td-pos">01</td>
-        <td class="td-title">El Jardín de las Delicias — El Edén (panel izquierdo)</td>
+        <td class="td-title">The Garden of Earthly Delights — Eden (left panel)</td>
         <td class="td-artist">El Bosco (Hieronymus Bosch)</td>
         <td class="td-year">~1490–1510</td>
         <td class="td-museum">Museo del Prado, Madrid</td>
       </tr>
       <tr>
         <td class="td-pos">02</td>
-        <td class="td-title">El Jardín del Edén con la Caída del Hombre</td>
+        <td class="td-title">The Garden of Eden with the Fall of Man</td>
         <td class="td-artist">Rubens & Jan Brueghel el Viejo</td>
         <td class="td-year">1615</td>
-        <td class="td-museum">Mauritshuis, La Haya, Países Bajos</td>
+        <td class="td-museum">Mauritshuis, The Hague, Netherlands</td>
       </tr>
       <tr>
         <td class="td-pos">03</td>
-        <td class="td-title">La Caída del Hombre</td>
+        <td class="td-title">The Fall of Man</td>
         <td class="td-artist">Tiziano Vecellio</td>
         <td class="td-year">~1550</td>
         <td class="td-museum">Museo del Prado, Madrid</td>
       </tr>
       <tr>
         <td class="td-pos">04</td>
-        <td class="td-title">Tentación y Expulsión (Capilla Sixtina)</td>
-        <td class="td-artist">Miguel Ángel Buonarroti</td>
+        <td class="td-title">Temptation and Expulsion (Sistine Chapel)</td>
+        <td class="td-artist">Michelangelo Buonarroti</td>
         <td class="td-year">1508–12</td>
-        <td class="td-museum">Capilla Sixtina, Ciudad del Vaticano (fresco in situ)</td>
+        <td class="td-museum">Sistine Chapel, Vatican City (fresco in situ)</td>
       </tr>
       <tr>
         <td class="td-pos">05</td>
-        <td class="td-title">Adán y Eva</td>
-        <td class="td-artist">Lucas Cranach el Viejo</td>
+        <td class="td-title">Adam and Eve</td>
+        <td class="td-artist">Lucas Cranach the Elder</td>
         <td class="td-year">1526</td>
-        <td class="td-museum">Courtauld Gallery, Londres, Reino Unido</td>
+        <td class="td-museum">Courtauld Gallery, London, United Kingdom</td>
       </tr>
       <tr>
         <td class="td-pos">06</td>
-        <td class="td-title">The Fall of Man · La Caída del Hombre</td>
+        <td class="td-title">The Fall of Man</td>
         <td class="td-artist">Hendrick Goltzius</td>
         <td class="td-year">1616</td>
         <td class="td-museum">National Gallery of Art, Washington D.C., EE.UU.</td>
       </tr>
       <tr>
         <td class="td-pos">07</td>
-        <td class="td-title">Caída de Adán · Cuaderno Italiano</td>
+        <td class="td-title">Fall of Adam · Italian Sketchbook</td>
         <td class="td-artist">Francisco de Goya</td>
         <td class="td-year">~1771</td>
-        <td class="td-museum">Museo del Prado, Madrid (D6068/23)</td>
+        <td class="td-museum">Museo del Prado, Madrid, Spain (D6068/23)</td>
       </tr>
       <tr>
         <td class="td-pos">08</td>
-        <td class="td-title">Eva, la Serpiente y la Muerte</td>
+        <td class="td-title">Eve, the Serpent and Death</td>
         <td class="td-artist">Hans Baldung Grien</td>
         <td class="td-year">~1510–25</td>
-        <td class="td-museum">National Gallery of Canada, Ottawa, Canadá</td>
+        <td class="td-museum">National Gallery of Canada, Ottawa, Canada</td>
       </tr>
       <tr>
         <td class="td-pos">09</td>
-        <td class="td-title">Expulsión del Paraíso</td>
+        <td class="td-title">Expulsion from Paradise</td>
         <td class="td-artist">Masaccio</td>
         <td class="td-year">~1425</td>
-        <td class="td-museum">Capilla Brancacci, Santa Maria del Carmine, Florencia</td>
+        <td class="td-museum">Brancacci Chapel, Santa Maria del Carmine, Florence</td>
       </tr>
       <tr>
         <td class="td-pos">10</td>
-        <td class="td-title">Expulsión del Jardín del Edén</td>
+        <td class="td-title">Expulsion from the Garden of Eden</td>
         <td class="td-artist">Thomas Cole</td>
         <td class="td-year">1827–28</td>
-        <td class="td-museum">Museum of Fine Arts, Boston, EE.UU.</td>
+        <td class="td-museum">Museum of Fine Arts, Boston, USA</td>
       </tr>
       <tr>
         <td class="td-pos">11</td>
@@ -763,10 +773,10 @@ blockquote cite {
       </tr>
       <tr>
         <td class="td-pos">12</td>
-        <td class="td-title">Sarcófago Dogmático · Panel de la Creación de Eva</td>
-        <td class="td-artist">Anónimo paleocristiano romano</td>
-        <td class="td-year">~320–350 d.C.</td>
-        <td class="td-museum">Museos Vaticanos, Roma (relieve en mármol)</td>
+        <td class="td-title">Dogmatic Sarcophagus · Creation of Eve Panel</td>
+        <td class="td-artist">Anonymous Early Christian Roman</td>
+        <td class="td-year">c. AD 320–350</td>
+        <td class="td-museum">Vatican Museums, Rome (marble relief)</td>
       </tr>
       <tr>
         <td class="td-pos">13</td>
@@ -777,79 +787,79 @@ blockquote cite {
       </tr>
       <tr>
         <td class="td-pos">14</td>
-        <td class="td-title">Atalanta Fugiens · Emblema 33</td>
-        <td class="td-artist">Michael Maier (grabado)</td>
+        <td class="td-title">Atalanta Fugiens · Emblem 33</td>
+        <td class="td-artist">Michael Maier (engraving)</td>
         <td class="td-year">1617</td>
         <td class="td-museum">Public domain · Ed. Johann Theodor de Bry, Oppenheim</td>
       </tr>
       <tr>
         <td class="td-pos">15</td>
-        <td class="td-title">Aurora Consurgens · Sophia como la Aurora</td>
-        <td class="td-artist">Anónimo (atrib. círculo de Tomás de Aquino)</td>
-        <td class="td-year">Siglo XV</td>
-        <td class="td-museum">Zentralbibliothek, Zúrich, Suiza (iluminación sobre pergamino)</td>
+        <td class="td-title">Aurora Consurgens · Sophia as the Dawn</td>
+        <td class="td-artist">Anonymous (attrib. circle of Thomas Aquinas)</td>
+        <td class="td-year">15th century</td>
+        <td class="td-museum">Zentralbibliothek, Zurich, Switzerland (illuminated parchment)</td>
       </tr>
       <tr>
         <td class="td-pos">16</td>
-        <td class="td-title">La Tentación de Adán y Eva</td>
+        <td class="td-title">The Temptation of Adam and Eve</td>
         <td class="td-artist">Masolino da Panicale</td>
         <td class="td-year">~1425</td>
-        <td class="td-museum">Capilla Brancacci, Santa Maria del Carmine, Florencia</td>
+        <td class="td-museum">Brancacci Chapel, Santa Maria del Carmine, Florence</td>
       </tr>
       <tr>
         <td class="td-pos">17</td>
-        <td class="td-title">La Charmeuse de Serpents · La Encantadora de Serpientes</td>
+        <td class="td-title">La Charmeuse de Serpents · The Snake Charmer</td>
         <td class="td-artist">Henri Rousseau</td>
         <td class="td-year">1907</td>
         <td class="td-museum">Musée d'Orsay, París, Francia</td>
       </tr>
       <tr>
         <td class="td-pos">18</td>
-        <td class="td-title">La Caída del Hombre</td>
+        <td class="td-title">The Fall of Man</td>
         <td class="td-artist">Hugo van der Goes</td>
         <td class="td-year">~1479–80</td>
-        <td class="td-museum">Kunsthistorisches Museum, Viena, Austria</td>
+        <td class="td-museum">Kunsthistorisches Museum, Vienna, Austria</td>
       </tr>
       <tr>
         <td class="td-pos">19</td>
-        <td class="td-title">La Tentación de Adán</td>
+        <td class="td-title">The Temptation of Adam</td>
         <td class="td-artist">Jacopo Tintoretto</td>
         <td class="td-year">1552</td>
         <td class="td-museum">Gallerie dell'Accademia, Venecia, Italia</td>
       </tr>
       <tr>
         <td class="td-pos">20</td>
-        <td class="td-title">El Jardín de las Delicias — El Infierno (panel derecho)</td>
+        <td class="td-title">The Garden of Earthly Delights — Hell (right panel)</td>
         <td class="td-artist">El Bosco (Hieronymus Bosch)</td>
         <td class="td-year">~1490–1510</td>
         <td class="td-museum">Museo del Prado, Madrid</td>
       </tr>
       <tr>
         <td class="td-pos">21</td>
-        <td class="td-title">Cain Slaying Abel · Caín matando a Abel</td>
+        <td class="td-title">Cain Slaying Abel</td>
         <td class="td-artist">Peter Paul Rubens</td>
         <td class="td-year">~1608–09</td>
-        <td class="td-museum">Courtauld Gallery, Londres, Reino Unido</td>
+        <td class="td-museum">Courtauld Gallery, London, United Kingdom</td>
       </tr>
       <tr>
         <td class="td-pos">22</td>
-        <td class="td-title">El Primer Duelo · The First Mourning</td>
+        <td class="td-title">The First Mourning</td>
         <td class="td-artist">William-Adolphe Bouguereau</td>
         <td class="td-year">1888</td>
         <td class="td-museum">Museo Nacional de Bellas Artes, Buenos Aires, Argentina</td>
       </tr>
       <tr>
         <td class="td-pos">23</td>
-        <td class="td-title">San Miguel Arcángel expulsa a Lucifer</td>
+        <td class="td-title">Saint Michael the Archangel Expels Lucifer</td>
         <td class="td-artist">Lorenzo Lotto</td>
         <td class="td-year">c. 1545–50</td>
-        <td class="td-museum">Basílica della Santa Casa, Loreto, Italia</td>
+        <td class="td-museum">Basilica della Santa Casa, Loreto, Italy</td>
       </tr>
     </tbody>
   </table>
 
   <div class="source-note" style="margin-top:32px; padding:16px 20px; background:var(--bg3); border:1px solid var(--sep); border-radius:2px;">
-    <strong>Licencias:</strong> Todas las obras son de public domain (anteriores a 1928 o reproducidas bajo uso editorial documentado). Imágenes obtenidas de Wikimedia Commons y archivos de museos. El Cuaderno Italiano de Goya (Museo del Prado) y el Sarcófago Dogmático (Museos Vaticanos) pueden tener restricciones fotográficas adicionales en sus respectivos museos.
+    <strong>Licences:</strong> All works are in the public domain (created before 1928 or reproduced under documented editorial use). Images sourced from Wikimedia Commons and museum archives. Goya’s Italian Sketchbook (Museo del Prado) and the Dogmatic Sarcophagus (Vatican Museums) may have additional photographic restrictions in their respective institutions.
   </div>
 
 </div><!-- /tab-arte -->
@@ -931,6 +941,7 @@ window.addEventListener('DOMContentLoaded', function(){
        style="height:56px;width:auto;opacity:.65;transition:opacity .3s;"
        onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.65'">
   <p style="font-family:Cinzel,serif;font-size:9px;letter-spacing:3px;color:#3a2a10;margin:14px 0 0;text-transform:uppercase;">Crónicas Eternas · MMXXVI</p>
+  <p style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.5px;color:#2e4a38;margin:8px 0 0;"><a href="mailto:productoracronicas@proton.me" style="color:#3a6048;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#5aaa7a'" onmouseout="this.style.color='#3a6048'">productoracronicas@proton.me</a></p>
 </div>
 
 </body>

@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pandora · Fuentes y Material — Crónicas Eternas</title>
+<title>Pandora · Sources & Material — Crónicas Eternas</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
 
@@ -433,6 +433,16 @@ blockquote cite {
 .lang-sep{color:#5a4020;}
 .lang-link{color:#5a4020;text-decoration:none;transition:color .2s;}
 .lang-link:hover{color:#C9A84C;}
+
+/* ── READABILITY IMPROVEMENTS ── */
+.source-note { color: var(--text) !important; font-size: 14.5px; line-height: 1.7; }
+.source-note strong { color: var(--text-bright); }
+blockquote { padding: 20px 24px; background: rgba(201,168,76,0.08) !important; }
+blockquote p { font-size: 19px !important; line-height: 1.6; }
+.section-label { color: var(--gold) !important; font-size: 11px; letter-spacing: 2.5px; }
+.pull-quote p { font-size: 28px !important; }
+.source-header:hover { background: rgba(201,168,76,0.04); }
+
 </style>
 </head>
 <body>
@@ -440,30 +450,30 @@ blockquote cite {
 <div id="ptov"></div>
 <a class="btn-home" href="CRONICAS_ETERNAS_Portada_en.html">⌂ &nbsp;Home</a>
 <a class="btn-lang" onclick="localStorage.setItem('ce_lang','es')" href="PANDORA_fuentes.html"><span class="lang-link">ES</span><span class="lang-sep">·</span><span class="lang-active">EN</span></a>
-<a class="btn-lang" onclick="localStorage.setItem('ce_lang','es')" href="PANDORA_fuentes_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
+
 
 <!-- NAV LEFT → album -->
-<div class="nav-l" onclick="turnPage('PANDORA_album_en.html','left')" title="← Álbum">
+<div class="nav-l" onclick="turnPage('PANDORA_album_en.html','left')" title="← Album">
   <div class="nav-arrow"></div>
 </div>
 <!-- NAV RIGHT → (futuro) -->
-<div class="nav-r" onclick="turnPage('EVA_album.html','right')" title="Álbum EVA →">
+<div class="nav-r" onclick="turnPage('EVA_album.html','right')" title="EVA Album →">
   <div class="nav-arrow"></div>
 </div>
 
 <!-- HEADER -->
 <header class="site-header">
   <div class="breadcrumb">Crónicas Eternas · <span>Pandora</span></div>
-  <div class="ep-title">T1 · E01 · Mitología Griega</div>
-  <h1 class="page-title">Archivo de Fuentes</h1>
-  <p class="page-subtitle">Los textos que construyeron el mito · Referencias y material de producción</p>
+  <div class="ep-title">T1 · E01 · Greek Mythology</div>
+  <h1 class="page-title">Sources Archive</h1>
+  <p class="page-subtitle">The texts that built the myth · References and production material</p>
   <div class="gold-line"></div>
 </header>
 
 <!-- TABS -->
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Fuentes Primarias</button>
-  <button class="tab-btn" onclick="switchTab('arte',this)">Créditos de Arte</button>
+  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Primary Sources</button>
+  <button class="tab-btn" onclick="switchTab('arte',this)">Art Credits</button>
 </nav>
 
 <!-- ═══════════════════════════════════════
@@ -472,56 +482,56 @@ blockquote cite {
 <div id="tab-fuentes" class="tab-panel active">
 
   <!-- Timeline -->
-  <div class="section-label">Cronología del mito · 700 a.C. — 1878 d.C.</div>
+  <div class="section-label">Timeline of the myth · 700 BC — 1878 AD</div>
 
   <div class="timeline reveal">
     <div class="tl-item" onclick="openCard('c-hesiodo-td')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 700 a.C.</div>
-      <div class="tl-desc">Hesíodo — <em>Trabajos y días</em> · La pithos y Elpis</div>
-      <div class="tl-tag">Fuente principal</div>
+      <div class="tl-year">c. 700 BC</div>
+      <div class="tl-desc">Hesiod — <em>Works and Days</em> · The pithos and Elpis</div>
+      <div class="tl-tag">Primary source</div>
     </div>
     <div class="tl-item" onclick="openCard('c-hesiodo-teo')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 700 a.C.</div>
-      <div class="tl-desc">Hesíodo — <em>Teogonía</em> · Primera mención escrita</div>
-      <div class="tl-tag">Fuente primaria</div>
+      <div class="tl-year">c. 700 BC</div>
+      <div class="tl-desc">Hesiod — <em>Theogony</em> · First written mention</div>
+      <div class="tl-tag">Primary source</div>
     </div>
     <div class="tl-item" onclick="openCard('c-esquilo')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 470 a.C.</div>
-      <div class="tl-desc">Esquilo — <em>Prometeo encadenado</em> · El castigo del titán</div>
-      <div class="tl-tag">Teatro griego</div>
+      <div class="tl-year">c. 470 BC</div>
+      <div class="tl-desc">Aeschylus — <em>Prometheus Bound</em> · The titan’s punishment</div>
+      <div class="tl-tag">Greek theatre</div>
     </div>
     <div class="tl-item" onclick="openCard('c-platon')">
       <div class="tl-dot"></div>
-      <div class="tl-year">c. 380 a.C.</div>
-      <div class="tl-desc">Platón — <em>Protágoras</em> · Versión alternativa</div>
-      <div class="tl-tag">Filosofía</div>
+      <div class="tl-year">c. 380 BC</div>
+      <div class="tl-desc">Plato — <em>Protagoras</em> · Alternative version</div>
+      <div class="tl-tag">Philosophy</div>
     </div>
     <div class="tl-item" onclick="openCard('c-erasmo')">
       <div class="tl-dot"></div>
-      <div class="tl-year">1508 d.C.</div>
-      <div class="tl-desc">Erasmo de Rotterdam — <em>Adagia</em> · La jarra se convierte en caja</div>
-      <div class="tl-tag">Error histórico</div>
+      <div class="tl-year">1508 AD</div>
+      <div class="tl-desc">Erasmus of Rotterdam — <em>Adagia</em> · The jar becomes a box</div>
+      <div class="tl-tag">Historical error</div>
     </div>
     <div class="tl-item" onclick="openCard('c-maier')">
       <div class="tl-dot"></div>
-      <div class="tl-year">1618 d.C.</div>
-      <div class="tl-desc">Michael Maier — <em>Atalanta Fugiens</em> · Frontispicio de la edición of 1618</div>
-      <div class="tl-tag">Alquimia</div>
+      <div class="tl-year">1618 AD</div>
+      <div class="tl-desc">Michael Maier — <em>Atalanta Fugiens</em> · Frontispiece of the 1618 edition</div>
+      <div class="tl-tag">Alchemy</div>
     </div>
     <div class="tl-item" onclick="openCard('c-watts')">
       <div class="tl-dot"></div>
-      <div class="tl-year">1885–86 d.C.</div>
-      <div class="tl-desc">G.F. Watts — carta sobre <em>Hope</em> · La cuerda que queda</div>
-      <div class="tl-tag">Arte victoriano</div>
+      <div class="tl-year">1885–86 AD</div>
+      <div class="tl-desc">G.F. Watts — letter on <em>Hope</em> · The last string</div>
+      <div class="tl-tag">Victorian art</div>
     </div>
     <div class="tl-item" onclick="openCard('c-nietzsche')">
       <div class="tl-dot"></div>
-      <div class="tl-year">1878 d.C.</div>
-      <div class="tl-desc">Nietzsche — <em>Humano, demasiado humano</em> · La esperanza como mal</div>
-      <div class="tl-tag">Filosofía moderna</div>
+      <div class="tl-year">1878 AD</div>
+      <div class="tl-desc">Nietzsche — <em>Human, All Too Human</em> · Hope as evil</div>
+      <div class="tl-tag">Modern philosophy</div>
     </div>
   </div>
 
@@ -529,16 +539,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-hesiodo-td">
     <div class="source-header" onclick="toggleCard('c-hesiodo-td')">
-      <div class="source-year">c. 700 a.C.</div>
+      <div class="source-year">c. 700 BC</div>
       <div class="source-meta">
         <div class="source-author">Hesíodo</div>
-        <div class="source-work">Trabajos y días · Erga kai Hēmerai</div>
+        <div class="source-work">Works and Days · Erga kai Hēmerai</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Poema didáctico dirigido a su hermano Perses. Contiene el relato más extenso y detallado del mito de Pandora, la Edad de Oro y el episodio de la pithos. Es la fuente canónica del mito.</div>
+        <div class="source-note"><strong>Context:</strong> A didactic poem addressed to his brother Perses. Contains the most extensive and detailed account of the Pandora myth, the Golden Age, and the pithos episode. The canonical source for the myth.</div>
 
         <blockquote>
           <p>“First of all the deathless gods who dwell on Olympus made a golden race of mortal men who lived in the time of Cronos when he was reigning in heaven. And they lived like gods without sorrow of heart, remote and free from toil and grief.”</p>
@@ -561,10 +571,10 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Nota filológica:</strong> El término original es <em>pithos</em> (πίθος) — una jarra grande de almacenamiento, enterrada en el suelo, usada para guardar aceite, vino y grano. No es una caja. La confusión con <em>pyxis</em> (κυψέλη, «caja pequeña») se introduce cinco siglos después por Erasmo de Rotterdam.
+          <strong>Philological note:</strong> The original term is <em>pithos</em> (πίθος) — a large storage jar, buried in the ground, used to store oil, wine, and grain. It is not a box. The confusion with <em>pyxis</em> (πυξίς, “small box”) was introduced five centuries later by Erasmus of Rotterdam.
         </div>
         <div class="source-note" style="margin-top:10px;">
-          <strong>Edición:</strong> Hesíodo, <em>Trabajos y días</em>, trad. Aurelio Pérez Jiménez (Madrid: Gredos, 1978).
+          <strong>Edition:</strong> Hesiod, <em>Works and Days</em>, trans. H.G. Evelyn-White (Cambridge: Harvard University Press, 1914).
         </div>
       </div>
     </div>
@@ -572,16 +582,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-hesiodo-teo">
     <div class="source-header" onclick="toggleCard('c-hesiodo-teo')">
-      <div class="source-year">c. 700 a.C.</div>
+      <div class="source-year">c. 700 BC</div>
       <div class="source-meta">
         <div class="source-author">Hesíodo</div>
-        <div class="source-work">Teogonía · Theogonia</div>
+        <div class="source-work">Theogony · Theogonia</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Primera mención escrita del nombre Pandora. La versión de la Teogonía es más breve y no menciona la pithos — Pandora aparece como castigo directo, no como portadora de dones.</div>
+        <div class="source-note"><strong>Context:</strong> The first written mention of the name Pandora. The Theogony version is briefer and does not mention the pithos — Pandora appears as a direct punishment, not as a bearer of gifts.</div>
 
         <blockquote>
           <p>“He bade famous Hephaestus make haste and mix earth with water and to put in it the voice and strength of human kind, and fashion a sweet lovely maiden-shape, like to the immortal goddesses in face.”</p>
@@ -594,7 +604,7 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Nota:</strong> «Pandora» (Πανδώρα) en griego significa literalmente «la que tiene todos los dones» o «la que da todos los dones». Hesíodo lo usa en sentido irónico: la que recibió todos los dones de los dioses — como arma contra los hombres. Investigadores modernos discuten si el nombre original significaba «la que da todo» (los dioses la crean como regalo) o «la que tiene todo» (la que recibe los dones).
+          <strong>Note:</strong> “Pandora” (Πανδώρα) in Greek means literally “she who has all gifts” or “she who gives all gifts”. Hesiod uses it ironically: the one who received all the gods’ gifts — as a weapon against men. Modern scholars debate whether the name originally meant “the all-giver” (the gods create her as a gift) or “the all-endowed” (she who receives the gifts).
         </div>
       </div>
     </div>
@@ -602,16 +612,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-esquilo">
     <div class="source-header" onclick="toggleCard('c-esquilo')">
-      <div class="source-year">c. 470 a.C.</div>
+      <div class="source-year">c. 470 BC</div>
       <div class="source-meta">
         <div class="source-author">Esquilo</div>
-        <div class="source-work">Prometeo encadenado · Prometheus Desmotes</div>
+        <div class="source-work">Prometheus Bound · Prometheus Desmotes</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Tragedia griega que narra el castigo de Prometeo desde su perspectiva. Base dramática del cuadro de Peter Paul Rubens y del arquetipo del rebelado que sufre por su audacia.</div>
+        <div class="source-note"><strong>Context:</strong> A Greek tragedy narrating Prometheus’s punishment from his own perspective. The dramatic basis for Peter Paul Rubens’s painting and the archetype of the rebel who suffers for his audacity.</div>
 
         <blockquote>
           <p>“I caused mortals no longer to foresee their doom. I placed in them blind hopes… And besides this, I gave them fire… With it they shall learn many crafts.”</p>
@@ -624,7 +634,7 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Conexión:</strong> El «Prometeo encadenado» de Rubens (c. 1612, Philadelphia Museum of Art) es el último cuadro del episodio — el cierre del ciclo. Prometeo sufre las consecuencias del acto que Pandora encarna.
+          <strong>Connection:</strong> Rubens’s <em>Prometheus Bound</em> (c. 1612, Philadelphia Museum of Art) is the final painting in the episode — the closing of the cycle. Prometheus suffers the consequences of the act that Pandora embodies.
         </div>
       </div>
     </div>
@@ -632,7 +642,7 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-platon">
     <div class="source-header" onclick="toggleCard('c-platon')">
-      <div class="source-year">c. 380 a.C.</div>
+      <div class="source-year">c. 380 BC</div>
       <div class="source-meta">
         <div class="source-author">Platón</div>
         <div class="source-work">Protágoras · 321c–322a</div>
@@ -641,7 +651,7 @@ blockquote cite {
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> En este diálogo, el sofista Protágoras narra una versión diferente del mito de Prometeo donde no hay mención directa de Pandora. Muestra que el mito tenía múltiples versiones en la Grecia clásica y que no era un relato fijo.</div>
+        <div class="source-note"><strong>Context:</strong> In this dialogue, the sophist Protagoras narrates a different version of the Prometheus myth with no direct mention of Pandora. It shows that the myth had multiple versions in classical Greece and was not a fixed narrative.</div>
 
         <blockquote>
           <p>“Prometheus, not knowing how he could devise his salvation, stole from Hephaestus and Athene the gift of skill in the arts, together with fire — for without fire the gift of the arts is useless — and gave it to man.”</p>
@@ -649,7 +659,7 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Significado:</strong> En la versión de Platón, el fuego es metáfora de la <em>techné</em> (habilidad técnica y artesanal). El énfasis está en lo que hace civilizado al hombre — no en el castigo a través de la mujer, como en Hesíodo.
+          <strong>Significance:</strong> In Plato’s version, fire is a metaphor for <em>techné</em> (technical and artisanal skill). The emphasis is on what makes man civilised — not on punishment through woman, as in Hesiod.
         </div>
       </div>
     </div>
@@ -657,13 +667,13 @@ blockquote cite {
 
   <!-- Pull quote -->
   <div class="pull-quote reveal">
-    <p>«Sólo quedó allí dentro la Esperanza,<br>sin poder volar más afuera.»</p>
+    <p>“Only Hope remained there within,<br>and did not fly out at the door.”</p>
     <cite>Hesiod · Works and Days · c. 700 BC · trans. H.G. Evelyn-White (1914)</cite>
   </div>
 
   <div class="source-card reveal" id="c-erasmo">
     <div class="source-header" onclick="toggleCard('c-erasmo')">
-      <div class="source-year">1508 d.C.</div>
+      <div class="source-year">1508 AD</div>
       <div class="source-meta">
         <div class="source-author">Erasmo de Rotterdam</div>
         <div class="source-work">Adagia · «Ex Pyxide Pandorae»</div>
@@ -672,10 +682,10 @@ blockquote cite {
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> El humanista holandés publica su colección de proverbios griegos y latinos. Al traducir el pasaje de la <em>pithos</em> de Hesíodo, usa el término latino <em>pyxis</em> — una caja pequeña, joyero, pastillero. El error se vuelve canónico durante quinientos años.</div>
+        <div class="source-note"><strong>Context:</strong> The Dutch humanist published his collection of Greek and Latin proverbs. When translating Hesiod’s <em>pithos</em> passage, he used the Latin term <em>pyxis</em> — a small box, jewellery case, or pill container. The error became canonical for five hundred years.</div>
 
         <div class="source-note" style="background:rgba(139,32,32,0.1); border-left:2px solid #8b2020; padding:14px 16px; margin:16px 0;">
-          <strong style="color:#c87070;">El error:</strong> <em>Pithos</em> (πίθος) es una vasija enorme, de hasta metro y medio de altura, enterrada en el suelo para almacenar aceite, vino y grano. <em>Pyxis</em> (πυξίς) es una caja pequeña. Erasmo confunde dos términos griegos completamente distintos — o quizás los elige deliberadamente para hacer el relato más visual e íntimo en la tradición cristiana (como el cofre de los pecados).
+          <strong style="color:#c87070;">The error:</strong> <em>Pithos</em> (πίθος) is an enormous jar, up to a metre and a half tall, buried in the ground for storing oil, wine, and grain. <em>Pyxis</em> (πυξίς) is a small box. Erasmus confuses two entirely different Greek terms — or perhaps chose deliberately to make the story more visual and intimate in the Christian tradition (like a coffer of sins).
         </div>
 
         <blockquote>
@@ -687,7 +697,7 @@ blockquote cite {
           <strong>Fuente académica:</strong> Dora Panofsky &amp; Erwin Panofsky, <em>Pandora's Box: The Changing Aspects of a Mythical Symbol</em> (Princeton University Press, 1956). Estudio definitivo sobre la transformación del mito.
         </div>
         <div class="source-note" style="margin-top:10px;">
-          <strong>Consecuencia:</strong> Toda la iconografía occidental desde el Renacimiento hasta hoy muestra a Pandora con una caja o cofre. La vasija original desaparece del imaginario colectivo. Magritte pinta en 1951 una caja. Los libros infantiles muestran una caja. La frase «abrir la caja de Pandora» lleva el error de Erasmo en cada pronunciación.
+          <strong>Consequence:</strong> All Western iconography from the Renaissance to the present shows Pandora with a box or chest. The original jar disappears from the collective imagination. Magritte painted a box in 1951. Children’s books show a box. The phrase “to open Pandora’s box” carries Erasmus’s error in every utterance.
         </div>
       </div>
     </div>
@@ -695,16 +705,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-maier">
     <div class="source-header" onclick="toggleCard('c-maier')">
-      <div class="source-year">1618 d.C.</div>
+      <div class="source-year">1618 AD</div>
       <div class="source-meta">
         <div class="source-author">Michael Maier</div>
-        <div class="source-work">Atalanta Fugiens · Frontispicio (portada)</div>
+        <div class="source-work">Atalanta Fugiens · Frontispiece</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Obra cumbre de la alquimia renacentista. El médico alemán Michael Maier codifica el conocimiento alquímico en 50 emblemas grabados, con fuga musical a tres voces para cada uno. La imagen utilizada en el episodio es el <strong>frontispicio</strong> (portada grabada) de la edición of 1618 — que muestra a Atalanta, Hipómenes, Hércules, Venus y los personajes alegóricos de la carrera, rodeando el título de la obra.</div>
+        <div class="source-note"><strong>Context:</strong> The crowning work of Renaissance alchemy. The German physician Michael Maier encoded alchemical knowledge in 50 engraved emblems, each with a three-voice musical fugue. The image used in the episode is the <strong>frontispiece</strong> (engraved title page) of the 1618 edition — showing Atalanta, Hippomenes, Hercules, Venus, and the allegorical figures of the race, surrounding the work’s title.</div>
 
         <blockquote>
           <p>“In the Renaissance alchemical tradition, Pandora represented the <em>prima materia</em>: the original vessel containing all elements before the Great Work. The jar is not punishment — it is origin.”</p>
@@ -712,7 +722,7 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Nota de producción:</strong> La imagen es el frontispicio completo de <em>Atalanta Fugiens</em>, publicado en Oppenheim por Hieronymi Galleri (1618). Incluye los personajes de la mitología clásica y el título completo: <em>«Emblemata Nova de Secretis Naturæ Chymica»</em>. Public domain.
+          <strong>Production note:</strong> The image is the full frontispiece of <em>Atalanta Fugiens</em>, published in Oppenheim by Hieronymi Galleri (1618). It includes the figures of classical mythology and the full title: <em>«Emblemata Nova de Secretis Naturæ Chymica»</em>. Public domain.
         </div>
       </div>
     </div>
@@ -720,16 +730,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-watts">
     <div class="source-header" onclick="toggleCard('c-watts')">
-      <div class="source-year">1885–86 d.C.</div>
+      <div class="source-year">1885–86 AD</div>
       <div class="source-meta">
         <div class="source-author">George Frederic Watts</div>
-        <div class="source-work">Carta a Madeline Wyndham · 8 dic. 1885</div>
+        <div class="source-work">Letter to Madeline Wyndham · 8 Dec. 1885</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> Watts describe su cuadro <em>Hope</em> en una carta personal antes de su finalización. Es el único documento donde el pintor explica directamente su intención. La pintura (1886) se expone en Tate Britain, Londres.</div>
+        <div class="source-note"><strong>Context:</strong> Watts described his painting <em>Hope</em> in a personal letter before its completion. It is the only document in which the painter directly explains his intention. The painting (1886) is exhibited at Tate Britain, London.</div>
 
         <blockquote>
           <p>“I am painting a picture of Hope sitting on a globe, with her eyes bandaged, touching a lyre that has only one string left.”</p>
@@ -737,10 +747,10 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Relevancia:</strong> La carta confirma la intención del autor: los ojos vendados son deliberados (la esperanza es ciega), la lira rota es deliberada (solo queda una cuerda), la postura encorvada es deliberada. No es un cuadro sobre fe — es sobre la fragilidad de seguir adelante con lo que queda.
+          <strong>Relevance:</strong> The letter confirms the painter’s intention: the blindfold is deliberate (hope is blind), the broken lyre is deliberate (only one string remains), the hunched posture is deliberate. This is not a painting about faith — it is about the fragility of pressing on with what remains.
         </div>
         <div class="source-note" style="margin-top:10px;">
-          <strong>Nota:</strong> Un crítico contemporáneo sugirió que el cuadro casi se llamó «Desesperación». Watts no lo escribió — pero la observación refleja la ambigüedad que el pintor buscó conscientemente.
+          <strong>Note:</strong> A contemporary critic suggested the painting nearly bore the title <em>Despair</em>. Watts did not write this — but the remark reflects the ambiguity the painter consciously sought.
         </div>
       </div>
     </div>
@@ -748,16 +758,16 @@ blockquote cite {
 
   <div class="source-card reveal" id="c-nietzsche">
     <div class="source-header" onclick="toggleCard('c-nietzsche')">
-      <div class="source-year">1878 d.C.</div>
+      <div class="source-year">1878 AD</div>
       <div class="source-meta">
         <div class="source-author">Friedrich Nietzsche</div>
-        <div class="source-work">Humano, demasiado humano · §71</div>
+        <div class="source-work">Human, All Too Human · §71</div>
       </div>
       <div class="source-toggle">+</div>
     </div>
     <div class="source-body">
       <div class="source-body-inner">
-        <div class="source-note"><strong>Contexto:</strong> En su primer libro de aforismos, Nietzsche reinterpreta el mito de Pandora desde una perspectiva radicalmente anti-optimista. Elpis (Esperanza) no es el consuelo que salva a la humanidad — es el último y más peligroso mal.</div>
+        <div class="source-note"><strong>Context:</strong> In his first book of aphorisms, Nietzsche reinterprets the Pandora myth from a radically anti-optimistic perspective. Elpis (Hope) is not the consolation that saves humanity — it is the last and most dangerous evil.</div>
 
         <blockquote>
           <p>“Zeus wanted man, however tortured he might be by the other evils, not to fling away his life, but to go on letting himself be tormented again and again. For this purpose he gives man hope: in truth it is the most evil of evils because it prolongs man’s torment.”</p>
@@ -765,7 +775,7 @@ blockquote cite {
         </blockquote>
 
         <div class="source-note">
-          <strong>Conexión con Hesíodo:</strong> Nietzsche lee algo que Hesíodo dejó ambiguo: ¿por qué la Esperanza queda atrapada en la pithos? ¿Para proteger a los hombres de ella, o para que no puedan escapar de su efecto? Si la esperanza es un bien, debería haberse liberado. Si quedó encerrada, quizás es un mal más.
+          <strong>Connection to Hesiod:</strong> Nietzsche reads something that Hesiod left ambiguous: why does Hope remain trapped in the pithos? To protect men from it, or so they cannot escape its effect? If hope is a good, it should have been released. If it remained enclosed, perhaps it is one more evil.
         </div>
       </div>
     </div>
@@ -787,128 +797,128 @@ blockquote cite {
     <thead>
       <tr>
         <th>#</th>
-        <th>Obra</th>
-        <th>Artista</th>
-        <th>Año</th>
-        <th>Colección</th>
+        <th>Work</th>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Collection</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="td-pos">Apertura</td>
-        <td class="td-title">Mercurio transportando a Pandora al hombre</td>
+        <td class="td-pos">Opening</td>
+        <td class="td-title">Mercury Transporting Pandora to Man</td>
         <td class="td-artist">Jean Alaux</td>
         <td class="td-year">1826</td>
-        <td class="td-museum">Musée des Beaux-Arts de Bordeaux · Burdeos, Francia</td>
+        <td class="td-museum">Musée des Beaux-Arts de Bordeaux · Bordeaux, France</td>
       </tr>
       <tr>
         <td class="td-pos">01</td>
-        <td class="td-title">La Edad de Oro</td>
-        <td class="td-artist">Lucas Cranach el Viejo</td>
+        <td class="td-title">The Golden Age</td>
+        <td class="td-artist">Lucas Cranach the Elder</td>
         <td class="td-year">c. 1530</td>
-        <td class="td-museum">Alte Pinakothek · Múnich, Alemania</td>
+        <td class="td-museum">Alte Pinakothek · Munich, Germany</td>
       </tr>
       <tr>
         <td class="td-pos">02</td>
-        <td class="td-title">Prometeo trayendo el fuego</td>
+        <td class="td-title">Prometheus Bringing Fire</td>
         <td class="td-artist">Jan Cossiers</td>
         <td class="td-year">1637</td>
-        <td class="td-museum">Museo del Prado · Madrid, España</td>
+        <td class="td-museum">Museo del Prado · Madrid, Spain</td>
       </tr>
       <tr>
         <td class="td-pos">03</td>
-        <td class="td-title">Júpiter y Tetis</td>
+        <td class="td-title">Jupiter and Thetis</td>
         <td class="td-artist">Jean-Auguste-Dominique Ingres</td>
         <td class="td-year">1811</td>
-        <td class="td-museum">Musée Granet · Aix-en-Provence, Francia</td>
+        <td class="td-museum">Musée Granet · Aix-en-Provence, France</td>
       </tr>
       <tr>
         <td class="td-pos">04</td>
-        <td class="td-title">Caída de los Gigantes</td>
+        <td class="td-title">Fall of the Giants</td>
         <td class="td-artist">Giulio Romano</td>
         <td class="td-year">1532–1534</td>
-        <td class="td-museum">Palazzo Te · Mantua, Italia (fresco in situ)</td>
+        <td class="td-museum">Palazzo Te · Mantua, Italy (fresco in situ)</td>
       </tr>
       <tr>
         <td class="td-pos">05</td>
-        <td class="td-title">La Fragua de Vulcano</td>
+        <td class="td-title">The Forge of Vulcan</td>
         <td class="td-artist">Diego Velázquez</td>
         <td class="td-year">1630</td>
-        <td class="td-museum">Museo del Prado · Madrid, España</td>
+        <td class="td-museum">Museo del Prado · Madrid, Spain</td>
       </tr>
       <tr>
         <td class="td-pos">06</td>
-        <td class="td-title">Crátera ática — Creación de Pandora</td>
-        <td class="td-artist">Pintor de Nióbides (anónimo)</td>
-        <td class="td-year">460–450 a.C.</td>
-        <td class="td-museum">British Museum · Londres (inv. 1856,1213.1)</td>
+        <td class="td-title">Attic Calyx Krater — Creation of Pandora</td>
+        <td class="td-artist">Niobid Painter (anonymous)</td>
+        <td class="td-year">460–450 BC</td>
+        <td class="td-museum">British Museum · London (inv. 1856,1213.1)</td>
       </tr>
       <tr>
         <td class="td-pos">07</td>
         <td class="td-title">Eva Prima Pandora</td>
-        <td class="td-artist">Jean Cousin el Viejo</td>
+        <td class="td-artist">Jean Cousin the Elder</td>
         <td class="td-year">c. 1550</td>
-        <td class="td-museum">Musée du Louvre · París (RF 2373)</td>
+        <td class="td-museum">Musée du Louvre · Paris (RF 2373)</td>
       </tr>
       <tr>
         <td class="td-pos">08</td>
         <td class="td-title">Pandora</td>
         <td class="td-artist">Barend Graat</td>
         <td class="td-year">1676</td>
-        <td class="td-museum">Rijksmuseum · Ámsterdam (SK-A-5027)</td>
+        <td class="td-museum">Rijksmuseum · Amsterdam (SK-A-5027)</td>
       </tr>
       <tr>
         <td class="td-pos">09</td>
         <td class="td-title">Pandora</td>
         <td class="td-artist">John William Waterhouse</td>
         <td class="td-year">1896</td>
-        <td class="td-museum">Colección privada</td>
+        <td class="td-museum">Private collection</td>
       </tr>
       <tr>
         <td class="td-pos">10</td>
         <td class="td-title">Pandora</td>
         <td class="td-artist">Dante Gabriel Rossetti</td>
         <td class="td-year">1871</td>
-        <td class="td-museum">Lady Lever Art Gallery · Port Sunlight, Reino Unido</td>
+        <td class="td-museum">Lady Lever Art Gallery · Port Sunlight, United Kingdom</td>
       </tr>
       <tr>
         <td class="td-pos">11</td>
         <td class="td-title">Pandora</td>
         <td class="td-artist">Odilon Redon</td>
         <td class="td-year">c. 1914</td>
-        <td class="td-museum">Metropolitan Museum of Art · Nueva York</td>
+        <td class="td-museum">Metropolitan Museum of Art · New York</td>
       </tr>
       <tr>
         <td class="td-pos">12</td>
-        <td class="td-title">Hope (Esperanza)</td>
+        <td class="td-title">Hope</td>
         <td class="td-artist">George Frederic Watts</td>
         <td class="td-year">1886</td>
-        <td class="td-museum">Tate Britain · Londres</td>
+        <td class="td-museum">Tate Britain · London</td>
       </tr>
       <tr>
         <td class="td-pos">13</td>
-        <td class="td-title">La Caja de Pandora</td>
+        <td class="td-title">Pandora’s Box</td>
         <td class="td-artist">René Magritte</td>
         <td class="td-year">1951</td>
-        <td class="td-museum">Colección privada</td>
+        <td class="td-museum">Private collection</td>
       </tr>
       <tr>
         <td class="td-pos">14</td>
-        <td class="td-title">Atalanta Fugiens — Frontispicio (portada)</td>
-        <td class="td-artist">Michael Maier (grab.)</td>
+        <td class="td-title">Atalanta Fugiens — Frontispiece</td>
+        <td class="td-artist">Michael Maier (engr.)</td>
         <td class="td-year">1618</td>
         <td class="td-museum">Public domain · Ed. Oppenheim, Hieronymi Galleri</td>
       </tr>
       <tr>
         <td class="td-pos">15</td>
-        <td class="td-title">Prometeo encadenado</td>
+        <td class="td-title">Prometheus Bound</td>
         <td class="td-artist">Peter Paul Rubens</td>
         <td class="td-year">c. 1612</td>
-        <td class="td-museum">Philadelphia Museum of Art · Filadelfia, EE.UU.</td>
+        <td class="td-museum">Philadelphia Museum of Art · Philadelphia, USA</td>
       </tr>
       <tr>
         <td class="td-pos">16</td>
-        <td class="td-title">Hesíodo y la Musa</td>
+        <td class="td-title">Hesiod and the Muse</td>
         <td class="td-artist">Gustave Moreau</td>
         <td class="td-year">1891</td>
         <td class="td-museum">Musée d'Orsay · París</td>
@@ -917,7 +927,7 @@ blockquote cite {
   </table>
 
   <div class="source-note" style="margin-top:32px; padding:16px 20px; background:var(--bg3); border:1px solid var(--sep); border-radius:2px;">
-    <strong>Licencias:</strong> Todas las obras son de public domain (creadas antes de 1928 o en el caso de Magritte, reproducidas bajo uso editorial documentado en archivo de producción). Imágenes obtenidas de Wikimedia Commons, WikiArt y archivos de museos.
+    <strong>Licences:</strong> All works are in the public domain (created before 1928 or, in the case of Magritte, reproduced under documented editorial use in the production archive). Images sourced from Wikimedia Commons, WikiArt, and museum archives.
   </div>
 
 </div>
@@ -1011,6 +1021,7 @@ function turnPage(url, dir) {
        style="height:56px;width:auto;opacity:.65;transition:opacity .3s;"
        onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.65'">
   <p style="font-family:Cinzel,serif;font-size:9px;letter-spacing:3px;color:#3a2a10;margin:14px 0 0;text-transform:uppercase;">Crónicas Eternas · MMXXVI</p>
+  <p style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:1.5px;color:#4a3820;margin:8px 0 0;"><a href="mailto:productoracronicas@proton.me" style="color:#6a5030;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#6a5030'">productoracronicas@proton.me</a></p>
 </div>
 
 </body>
