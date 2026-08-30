@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-(function(){localStorage.setItem('ce_lang','en');})()
+(function(){var l=localStorage.getItem('ce_lang');if(l==='es'){location.replace(location.href.replace('_en.html','.html'));}})()
 </script>
 
 <meta charset="UTF-8">
@@ -443,6 +443,10 @@ blockquote p { font-size: 19px !important; line-height: 1.6; }
 .pull-quote p { font-size: 28px !important; }
 .source-header:hover { background: rgba(201,168,76,0.04); }
 
+
+/* ── LANG BUTTON BIGGER ── */
+.btn-lang{font-size:12px !important;padding:8px 20px !important;letter-spacing:2.5px !important;border-radius:22px !important;border-width:1.5px !important;}
+.lang-active{font-weight:700 !important;letter-spacing:3px !important;}
 </style>
 </head>
 <body>

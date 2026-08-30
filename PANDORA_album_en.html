@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <script>
-(function(){localStorage.setItem('ce_lang','en');})()
+(function(){var l=localStorage.getItem('ce_lang');if(l==='es'){location.replace(location.href.replace('_en.html','.html'));}})()
 </script>
 
 <meta charset="utf-8"/>
@@ -149,6 +149,10 @@ body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-h
 .footer-scarab{display:block;margin:0 auto;height:60px;width:auto;opacity:.7;transition:opacity .3s;}
 .footer-scarab:hover{opacity:1;}
 .album-footer{flex-direction:column;gap:10px;}
+
+/* ── LANG BUTTON BIGGER ── */
+.btn-lang{font-size:12px !important;padding:8px 20px !important;letter-spacing:2.5px !important;border-radius:22px !important;border-width:1.5px !important;}
+.lang-active{font-weight:700 !important;letter-spacing:3px !important;}
 </style>
 </head>
 <body>
