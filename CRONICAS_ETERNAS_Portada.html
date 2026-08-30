@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crónicas Eternas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:#080503;
+  font-family:'Inter',sans-serif;
+  display:flex;
+  align-items:stretch;
+  min-height:100vh;
+  position:relative;
+}
+
+/* ── PESTAÑA IZQUIERDA ── */
+.tab{
+  position:fixed;
+  left:0;top:50%;
+  transform:translateY(-50%);
+  z-index:100;
+  width:32px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.tab-inner{
+  background:linear-gradient(180deg,#1a1208 0%,#2a1e0a 100%);
+  border:1px solid #5a4020;
+  border-left:none;
+  border-radius:0 8px 8px 0;
+  padding:28px 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+  min-width:32px;
+}
+.tab-inner:hover{background:linear-gradient(180deg,#2a1e08 0%,#3a2a0e 100%);border-color:#C9A84C}
+.tab-line{width:1px;height:30px;background:linear-gradient(180deg,transparent,#9a7030,transparent)}
+.tab-text{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  transform:rotate(180deg);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;
+  letter-spacing:3px;
+  color:#b08040;
+  text-transform:uppercase;
+}
+.tab-inner:hover .tab-text{color:#C9A84C}
+
+/* ── LAYOUT PRINCIPAL ── */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:36px 60px 32px;
+  min-height:100vh;
+  margin-left:32px;
+  position:relative;
+}
+
+/* ── HEADER ── */
+.header{text-align:center;position:relative}
+.header-top{
+  font-size:10px;letter-spacing:6px;color:#8a6a30;
+  text-transform:uppercase;margin-bottom:12px;
+}
+.title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,7vw,90px);
+  color:#C9A84C;
+  letter-spacing:.08em;
+  line-height:.9;
+  text-shadow:0 0 80px rgba(201,168,76,.2);
+}
+.subtitle{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(13px,1.5vw,18px);
+  color:#b09050;
+  font-style:italic;
+  margin-top:10px;
+  letter-spacing:.5px;
+}
+.header-rule{
+  width:180px;height:1px;
+  background:linear-gradient(90deg,transparent,#7a5a28,transparent);
+  margin:14px auto 0;
+}
+
+/* ── EPISODIOS ── */
+.episodes{
+  display:flex;
+  gap:clamp(20px,3vw,48px);
+  align-items:flex-end;
+  justify-content:center;
+  flex:1;
+  padding:20px 0;
+}
+.ep{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  cursor:pointer;
+  text-decoration:none;
+  position:relative;
+}
+.ep-frame{
+  position:relative;
+  border:2px solid #4a3518;
+  border-radius:4px;
+  overflow:hidden;
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+  background:#0a0700;
+}
+.ep:hover .ep-frame{
+  border-color:#C9A84C;
+  box-shadow:0 0 40px rgba(201,168,76,.18),0 12px 40px rgba(0,0,0,.7);
+  transform:translateY(-6px);
+}
+.ep-frame::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(255,255,255,.07) 0%,transparent 50%);
+  z-index:2;pointer-events:none;border-radius:3px;
+}
+.ep-frame img{
+  display:block;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center top;
+  filter:sepia(.15) brightness(.88);
+  transition:filter .3s;
+}
+.ep:hover .ep-frame img{filter:sepia(.05) brightness(.95)}
+
+/* Número romano encima del marco */
+.ep-num{
+  position:absolute;
+  top:-14px;left:50%;transform:translateX(-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;letter-spacing:4px;
+  color:#8a6a30;z-index:5;
+  background:#080503;
+  padding:0 10px;
+}
+
+/* Etiqueta debajo */
+.ep-label{
+  margin-top:12px;
+  text-align:center;
+}
+.ep-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(18px,2.5vw,26px);
+  letter-spacing:.12em;
+  color:#c09048;
+  transition:color .3s;
+  display:block;
+}
+.ep:hover .ep-name{color:#C9A84C}
+.ep-tag{
+  font-size:9px;letter-spacing:3px;color:#7a5a2a;
+  text-transform:uppercase;margin-top:3px;display:block;
+  font-family:'Inter',sans-serif;
+}
+
+/* Episodio central (EVA) más alto */
+.ep-main .ep-frame{width:clamp(150px,16vw,220px);height:clamp(230px,24vw,340px)}
+.ep-side .ep-frame{width:clamp(120px,12vw,170px);height:clamp(180px,19vw,270px)}
+
+/* Próximamente overlay */
+.coming{
+  position:absolute;
+  inset:0;
+  background:rgba(8,5,3,.55);
+  display:flex;align-items:center;justify-content:center;
+  z-index:3;opacity:0;transition:opacity .3s;
+}
+.ep:hover .coming{opacity:1}
+.coming span{
+  font-size:9px;letter-spacing:3px;color:#C9A84C;
+  text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(201,168,76,.4);padding:5px 12px;
+  border-radius:2px;
+}
+/* Pandora sí tiene álbum — sin "próximamente" */
+.ep-active .coming{display:none}
+.ep-active:hover .ep-frame{
+  box-shadow:0 0 50px rgba(201,168,76,.28),0 12px 40px rgba(0,0,0,.7);
+}
+
+/* ── FOOTER ── */
+.footer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+.scarab-wrap{opacity:.7;transition:opacity .3s}
+.scarab-wrap:hover{opacity:1}
+.footer-brand{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11px;letter-spacing:5px;color:#7a5a2a;
+  text-transform:uppercase;
+}
+
+/* ── PAGE TURN ── */
+#ptov{position:fixed;inset:0;z-index:9000;pointer-events:none;
+  background:linear-gradient(105deg,#120a02 0%,#1e1005 50%,#0d0800 100%);
+  transform:translateX(100%)}
+.nav-r{position:fixed;top:0;bottom:0;right:0;width:72px;z-index:8000;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:.45;transition:opacity .25s;
+  background:linear-gradient(to left,rgba(201,168,76,.08),transparent)}
+.nav-r:hover{opacity:1}
+.nav-ch{font-size:48px;color:#C9A84C;font-family:serif;line-height:1;
+  text-shadow:0 0 20px rgba(201,168,76,.4)}
+</style>
+</head>
+<body>
+
+<!-- PAGE TURN OVERLAY -->
+<div id="ptov"></div>
+
+<!-- NAV DERECHA → PANDORA -->
+<div class="nav-r" onclick="turnPage('PANDORA_Album_Panini.html','right')">
+  <span class="nav-ch">❯</span>
+</div>
+
+<!-- PESTAÑA IZQUIERDA -->
+<div class="tab" onclick="window.location.href='#index'">
+  <div class="tab-inner">
+    <div class="tab-line"></div>
+    <div class="tab-text">Índice</div>
+    <div class="tab-line"></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">Primera temporada · 2026</div>
+    <div class="title">Crónicas Eternas</div>
+    <div class="subtitle">El arte como memoria de los primeros</div>
+    <div class="header-rule"></div>
+  </div>
+
+  <!-- EPISODIOS -->
+  <div class="episodes">
+
+    <!-- PANDORA -->
+    <a class="ep ep-side ep-active" href="PANDORA_Album_Panini.html">
+      <div class="ep-num">I</div>
+      <div class="ep-frame">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alaux%2C_Jean_-_Pandora_carried_off_by_Mercury.jpg?width=400"
+             alt="Pandora — Jean Alaux"
+             onerror="this.src='album_assets/vasija13056.jpg'">
+        <div class="coming"><span>Ver álbum</span></div>
+      </div>
+      <div class="ep-label">
+        <span class="ep-name">Pandora</span>
+        <span class="ep-tag">Mitología Griega · 460 a.C. – 1951</span>
+      </div>
+    </a>
+
+    <!-- EVA (centro, más grande) -->
+    <a class="ep ep-main" href="#" onclick="turnPage('EVA_Album_Panini.html','right'); return false;">
+      <div class="ep-num">II</div>
+      <div class="ep-frame">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hans_Baldung_Grien_-_Eve,_Serpent_and_Death.JPG?width=400"
+             alt="Eva — Hans Baldung Grien">
+      </div>
+      <div class="ep-label">
+        <span class="ep-name">Eva</span>
+        <span class="ep-tag">Tradición Judeocristiana · c. 3000 a.C. – 2025</span>
+      </div>
+    </a>
+
+    <!-- ENKIDU -->
+    <a class="ep ep-side" href="#" onclick="return false">
+      <div class="ep-num">III</div>
+      <div class="ep-frame">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg?width=400"
+             alt="Enkidu — Caspar David Friedrich">
+        <div class="coming"><span>Próximamente</span></div>
+      </div>
+      <div class="ep-label">
+        <span class="ep-name">Enkidu</span>
+        <span class="ep-tag">Mesopotamia · 2100 a.C. – 1872 d.C.</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- FOOTER — ESCARABAJO -->
+  <div class="footer">
+    <div class="scarab-wrap">
+      <svg width="72" height="52" viewBox="0 0 72 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Escarabajo egipcio, símbolo editorial de Crónicas Eternas">
+        <!-- Disco solar -->
+        <circle cx="36" cy="6" r="5" fill="none" stroke="#9a7030" stroke-width="1.2"/>
+        <line x1="36" y1="1" x2="36" y2="0" stroke="#9a7030" stroke-width="1"/>
+        <!-- Cuerpo central (protórax + élitros) -->
+        <ellipse cx="36" cy="28" rx="10" ry="13" fill="#2a1c08" stroke="#8a6028" stroke-width="1.2"/>
+        <!-- Línea central élitros -->
+        <line x1="36" y1="17" x2="36" y2="40" stroke="#6a4a20" stroke-width=".8"/>
+        <!-- Alas desplegadas izquierda -->
+        <path d="M26 24 C18 20 10 22 6 28 C10 32 18 34 26 30 Z" fill="#221508" stroke="#8a6028" stroke-width="1"/>
+        <path d="M26 24 C20 26 14 26 8 24" stroke="#6a4a20" stroke-width=".6" fill="none"/>
+        <path d="M26 27 C20 29 14 30 8 30" stroke="#6a4a20" stroke-width=".5" fill="none"/>
+        <!-- Alas desplegadas derecha -->
+        <path d="M46 24 C54 20 62 22 66 28 C62 32 54 34 46 30 Z" fill="#221508" stroke="#8a6028" stroke-width="1"/>
+        <path d="M46 24 C52 26 58 26 64 24" stroke="#6a4a20" stroke-width=".6" fill="none"/>
+        <path d="M46 27 C52 29 58 30 64 30" stroke="#6a4a20" stroke-width=".5" fill="none"/>
+        <!-- Patas izquierda (3) -->
+        <line x1="27" y1="22" x2="18" y2="17" stroke="#8a6028" stroke-width=".9"/>
+        <line x1="26" y1="27" x2="15" y2="26" stroke="#8a6028" stroke-width=".9"/>
+        <line x1="27" y1="32" x2="17" y2="37" stroke="#8a6028" stroke-width=".9"/>
+        <!-- Patas derecha (3) -->
+        <line x1="45" y1="22" x2="54" y2="17" stroke="#8a6028" stroke-width=".9"/>
+        <line x1="46" y1="27" x2="57" y2="26" stroke="#8a6028" stroke-width=".9"/>
+        <line x1="45" y1="32" x2="55" y2="37" stroke="#8a6028" stroke-width=".9"/>
+        <!-- Cabeza / clípeo -->
+        <ellipse cx="36" cy="17" rx="6" ry="4" fill="#2a1c08" stroke="#8a6028" stroke-width="1"/>
+        <!-- Línea jeroglífica base -->
+        <line x1="22" y1="46" x2="50" y2="46" stroke="#6a4a20" stroke-width=".7"/>
+        <!-- Detalle interior élitros -->
+        <ellipse cx="33" cy="28" rx="3" ry="5" fill="none" stroke="#6a4a20" stroke-width=".5"/>
+        <ellipse cx="39" cy="28" rx="3" ry="5" fill="none" stroke="#6a4a20" stroke-width=".5"/>
+      </svg>
+    </div>
+    <div class="footer-brand">Crónicas Eternas · MMXXVI</div>
+  </div>
+
+</div>
+
+<script>
+function turnPage(url,dir){
+  var ov=document.getElementById('ptov');
+  sessionStorage.setItem('ptFrom',dir);
+  ov.style.transition='none';
+  ov.style.transform=dir==='right'?'translateX(100%)':'translateX(-100%)';
+  ov.style.pointerEvents='all';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    ov.style.transition='transform .48s cubic-bezier(.4,0,.8,0)';
+    ov.style.transform='translateX(0)';
+  })});
+  setTimeout(function(){window.location.href=url;},500);
+}
+window.addEventListener('DOMContentLoaded',function(){
+  var dir=sessionStorage.getItem('ptFrom');
+  if(!dir)return;
+  sessionStorage.removeItem('ptFrom');
+  var ov=document.getElementById('ptov');
+  ov.style.transition='none';
+  ov.style.transform='translateX(0)';
+  ov.style.pointerEvents='all';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    ov.style.transition='transform .48s cubic-bezier(.2,0,.4,1)';
+    ov.style.transform=dir==='right'?'translateX(-100%)':'translateX(100%)';
+    setTimeout(function(){ov.style.pointerEvents='none';},520);
+  })});
+});
+// Pandora card → page turn (siempre activo)
+document.addEventListener('DOMContentLoaded',function(){
+  var pandoraCard=document.querySelector('.ep-active');
+  if(pandoraCard){
+    pandoraCard.addEventListener('click',function(e){
+      e.preventDefault();
+      turnPage('PANDORA_Album_Panini.html','right');
+    });
+  }
+});
+</script>
+</body>
+</html>

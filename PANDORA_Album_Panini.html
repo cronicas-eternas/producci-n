@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PANDORA · Álbum de Arte — Crónicas Eternas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+:root{
+  --accent:#C9A84C;--accent-dim:#8a6028;
+  --bg:#06040a;--bg2:#0c0910;--bg3:#110e18;
+  --text:#c8b888;--text-dim:#7a6840;--text-bright:#e8d8a0;
+  --sep:rgba(201,168,76,0.16);--card-grad:linear-gradient(135deg,#1a1005,#0d0800);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;overflow-x:hidden;}
+#ptov{position:fixed;inset:0;z-index:9000;pointer-events:none;background:#06040a;transform:translateX(100%);}
+.nav-l,.nav-r{position:fixed;top:50%;z-index:500;transform:translateY(-50%);width:52px;height:80px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.45;transition:opacity .25s;}
+.nav-l{left:0;}.nav-r{right:0;}
+.nav-l:hover,.nav-r:hover{opacity:1;}
+.btn-home{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:600;background:rgba(6,4,10,0.88);border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:6px 18px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.7);text-decoration:none;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
+.btn-home:hover{color:#C9A84C;border-color:rgba(201,168,76,0.7);background:rgba(6,4,10,0.96);}
+.nav-arrow{width:28px;height:28px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);}
+.nav-l .nav-arrow{transform:rotate(-135deg) translateX(4px);}
+.nav-r .nav-arrow{transform:rotate(45deg) translateX(-4px);}
+.album-header{padding:48px 80px 36px;border-bottom:1px solid var(--sep);background:linear-gradient(180deg,#0e0b16,transparent);display:flex;align-items:flex-end;justify-content:space-between;}
+.series-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:8px;}
+.album-title{font-family:"Cinzel",serif;font-size:52px;font-weight:700;color:var(--accent);letter-spacing:4px;text-shadow:0 0 80px rgba(201,168,76,0.12);line-height:1;}
+.album-subtitle{font-family:"EB Garamond",serif;font-style:italic;font-size:18px;color:var(--text-dim);margin-top:10px;}
+.card-count{font-family:"Bebas Neue",sans-serif;font-size:64px;color:rgba(201,168,76,0.12);line-height:1;text-align:right;}
+.card-count-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-align:right;}
+.instructions{padding:14px 80px;background:var(--bg2);border-bottom:1px solid var(--sep);display:flex;gap:32px;}
+.instr-item{font-size:12px;color:var(--text-dim);}.instr-item span{color:var(--accent);}
+.chapter-banner{padding:18px 80px;margin:40px 0 0;display:flex;align-items:center;gap:24px;}
+.chapter-number{font-family:"Bebas Neue",sans-serif;font-size:48px;line-height:1;color:rgba(201,168,76,0.12);}
+.chapter-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:2px;}
+.chapter-title{font-family:"Cinzel",serif;font-size:18px;font-weight:700;color:var(--text-bright);letter-spacing:1px;}
+.chapter-line{flex:1;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);opacity:.3;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;padding:24px 80px 48px;}
+.card-grid.apertura-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto;padding:24px 0 48px;}
+.flip-card{perspective:1200px;cursor:pointer;height:360px;}
+.flip-card.apertura{height:480px;}
+.flip-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+.flip-card:hover .flip-card-inner{transform:rotateY(180deg);}
+.card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:3px;overflow:hidden;}
+.card-front{background:var(--bg3);border:1px solid var(--sep);display:flex;flex-direction:column;}
+.card-img-wrap{flex:1;overflow:hidden;position:relative;background:#030608;min-height:0;}
+.card-img-wrap img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .4s ease;}
+.flip-card:hover .card-img-wrap img{transform:scale(1.03);}
+.card-badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.85);color:var(--accent);font-family:"Cinzel",serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1.5px;z-index:2;}
+.card-foil{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0),rgba(255,255,255,.025) 40%,rgba(201,168,76,0.05) 50%,rgba(255,255,255,.015) 60%,rgba(255,255,255,0));pointer-events:none;z-index:3;}
+.card-label{padding:12px 14px;border-top:1px solid var(--sep);background:var(--bg3);flex-shrink:0;}
+.card-label-title{font-family:"EB Garamond",serif;font-style:italic;font-size:14px;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-label-artist{font-size:11px;color:var(--text-dim);margin-top:2px;}
+.card-label-year{font-family:"Cinzel",serif;font-size:13px;color:var(--accent);float:right;margin-top:-14px;font-weight:700;}
+.card-border{position:absolute;inset:0;border:2px solid var(--accent);border-radius:3px;opacity:.22;pointer-events:none;z-index:4;transition:opacity .3s;}
+.flip-card:hover .card-border{opacity:.55;}
+.card-back{background:var(--card-grad);border:1px solid rgba(201,168,76,0.2);transform:rotateY(180deg);display:flex;flex-direction:column;padding:20px;}
+.back-number{font-family:"Bebas Neue",sans-serif;font-size:52px;line-height:1;color:rgba(201,168,76,0.12);margin-bottom:4px;flex-shrink:0;}
+.back-title{font-family:"EB Garamond",serif;font-style:italic;font-size:17px;color:var(--text-bright);line-height:1.3;margin-bottom:4px;flex-shrink:0;}
+.back-artist{font-size:12px;color:var(--accent);letter-spacing:.5px;margin-bottom:14px;flex-shrink:0;}
+.back-divider{height:1px;background:var(--sep);margin-bottom:14px;flex-shrink:0;}
+.back-desc{font-family:"EB Garamond",serif;font-size:14.5px;color:var(--text);line-height:1.65;flex:1;overflow-y:auto;min-height:0;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--accent-dim) transparent;}
+.back-desc::-webkit-scrollbar{width:3px;}.back-desc::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:2px;}
+.back-museum{margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:.5px;padding-top:10px;border-top:1px solid var(--sep);flex-shrink:0;}
+#lightbox{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.94);align-items:center;justify-content:center;flex-direction:column;}
+#lb-img{max-width:90vw;max-height:82vh;object-fit:contain;border:1px solid var(--sep);}
+#lb-caption{margin-top:16px;font-family:"EB Garamond",serif;font-style:italic;font-size:15px;color:var(--text-dim);text-align:center;max-width:80vw;}
+#lb-counter{font-family:"Cinzel",serif;font-size:11px;color:var(--accent-dim);letter-spacing:2px;margin-top:8px;}
+#lb-close{position:absolute;top:24px;right:32px;color:var(--accent);font-size:28px;cursor:pointer;opacity:.6;transition:opacity .2s;background:none;border:none;padding:4px;}
+#lb-close:hover{opacity:1;}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);color:var(--accent);font-size:32px;cursor:pointer;opacity:.5;transition:opacity .2s;padding:20px;background:none;border:none;}
+#lb-prev:hover,#lb-next:hover{opacity:1;}
+#lb-prev{left:8px;}#lb-next{right:8px;}
+.img-err-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--accent-dim);font-size:10px;letter-spacing:1px;text-transform:uppercase;pointer-events:none;}
+.album-footer{padding:40px 80px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;align-items:center;}
+.footer-series{font-family:"Cinzel",serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+.footer-ep{font-size:11px;color:var(--text-dim);letter-spacing:1px;}
+/* ─── MOBILE ─── */
+@media (hover:none){
+  .flip-card:hover .flip-card-inner{transform:none;}
+  .flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+  .flip-card:hover .card-img-wrap img{transform:none;}
+  .flip-card:hover .card-border{opacity:.22;}
+}
+@media (max-width:700px){
+  .album-header{padding:28px 16px 20px;flex-direction:column;gap:8px;align-items:flex-start;}
+  .album-title{font-size:36px;}
+  .album-subtitle{font-size:15px;}
+  .card-count{font-size:40px;}
+  .instructions{padding:10px 16px;gap:12px;flex-wrap:wrap;}
+  .chapter-banner{padding:12px 16px;margin:20px 0 0;}
+  .chapter-number{font-size:36px;}
+  .chapter-title{font-size:14px;}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:14px 12px 32px;}
+  .card-grid.apertura-grid{padding:14px 12px 32px;max-width:100%;}
+  .flip-card{height:280px;}
+  .flip-card.apertura{height:360px;}
+  .card-label-year{font-size:12px;}
+  .nav-l,.nav-r{width:32px;height:56px;}
+  .nav-arrow{width:18px;height:18px;}
+  .album-footer{padding:20px 16px;flex-direction:column;gap:6px;text-align:center;}
+}
+@media (max-width:400px){
+  .card-grid{grid-template-columns:1fr 1fr;}
+  .flip-card{height:260px;}
+}
+</style>
+</head>
+<body>
+<div id="ptov"></div>
+<div class="nav-l" onclick="turnPage('CRONICAS_ETERNAS_Portada.html','left')" title="← Atrás"><div class="nav-arrow"></div></div>
+<div class="nav-r" onclick="turnPage('PANDORA_Material.html','right')" title="Fuentes →"><div class="nav-arrow"></div></div>
+<a class="btn-home" href="CRONICAS_ETERNAS_Portada.html">⌂ &nbsp;Portada</a>
+<header class="album-header">
+  <div>
+    <div class="series-tag">T1 · E01 · Mitología Griega · Crónicas Eternas</div>
+    <h1 class="album-title">PANDORA</h1>
+    <p class="album-subtitle">Arte occidental · c. 700 a.C. — 1914</p>
+  </div>
+  <div><div class="card-count">16</div><div class="card-count-label">obras</div></div>
+</header>
+<div class="instructions">
+  <div class="instr-item"><span>Hover</span> · tap para descripción</div>
+  <div class="instr-item"><span>Click</span> para ampliar</div>
+  <div class="instr-item"><span>← →</span> navegar páginas</div>
+</div>
+
+<div class="chapter-banner">
+  <div class="chapter-number">APERTURA</div>
+  <div><div class="chapter-tag">APERTURA</div><div class="chapter-title">La obra que abre el episodio</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid apertura-grid">
+
+  <div class="flip-card apertura" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Alaux%2C_Jean_-_Pandora_carried_off_by_Mercury.jpg?width=800" data-caption="Jean Alaux — Mercurio transportando a Pandora, 1826 · Musée des Beaux-Arts, Burdeos" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alaux%2C_Jean_-_Pandora_carried_off_by_Mercury.jpg?width=800" alt="Mercurio transportando a Pandora" loading="lazy">
+          <div class="card-badge">APERTURA</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1826</div>
+          <div class="card-label-title">Mercurio transportando a Pandora</div>
+          <div class="card-label-artist">Jean Alaux</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">00</div>
+        <div class="back-title">Mercurio transportando a Pandora</div>
+        <div class="back-artist">Jean Alaux · 1826</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Hermes (Mercurio en la tradición romana) eleva a Pandora. Según las Obras y días de Hesíodo (c. 700 a.C.) y la Teogonía, Zeus encargó a Hermes que llevara a Pandora hasta Epimeteo. Óleo sobre lienzo.</div>
+        <div class="back-museum">Musée des Beaux-Arts, Burdeos</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE I</div>
+  <div><div class="chapter-tag">PARTE I</div><div class="chapter-title">El mundo antes</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Lucas_Cranach_d.%C3%84._-_Das_Goldene_Zeitalter_%28Alte_Pinakothek%29.jpg?width=800" data-caption="Lucas Cranach el Viejo — La Edad de Oro, 1530 · Alte Pinakothek, Múnich" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lucas_Cranach_d.%C3%84._-_Das_Goldene_Zeitalter_%28Alte_Pinakothek%29.jpg?width=800" alt="La Edad de Oro - Cranach" loading="lazy">
+          <div class="card-badge">01</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1530</div>
+          <div class="card-label-title">La Edad de Oro</div>
+          <div class="card-label-artist">Lucas Cranach el Viejo</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">01</div>
+        <div class="back-title">La Edad de Oro · Das Goldene Zeitalter</div>
+        <div class="back-artist">Lucas Cranach el Viejo · 1530</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figuras humanas desnudas en un paisaje de abundancia con árboles frutales. Hesíodo describe en las Obras y días (c. 700 a.C.) una primera raza humana que vivía sin trabajo, sin dolor y sin envejecer. Óleo sobre tabla.</div>
+        <div class="back-museum">Alte Pinakothek, Múnich</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Cossiers_-_Prometeo_trayendo_el_fuego%2C_1637.jpg?width=800" data-caption="Jan Cossiers — Prometeo trayendo el fuego, 1637 · Museo del Prado, Madrid" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Cossiers_-_Prometeo_trayendo_el_fuego%2C_1637.jpg?width=800" alt="Prometeo trayendo el fuego" loading="lazy">
+          <div class="card-badge">02</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1637</div>
+          <div class="card-label-title">Prometeo trayendo el fuego</div>
+          <div class="card-label-artist">Jan Cossiers</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">02</div>
+        <div class="back-title">Prometeo trayendo el fuego</div>
+        <div class="back-artist">Jan Cossiers · 1637</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura masculina en movimiento sosteniendo el fuego. Según Hesíodo, Prometeo robó el fuego del Olimpo y lo entregó a los mortales. Jan Cossiers (1600-1671) fue pintor flamenco del Barroco. Óleo sobre lienzo.</div>
+        <div class="back-museum">Museo del Prado, Madrid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Jean_Auguste_Dominique_Ingres_-_Jupiter_et_Th%C3%A9tis.jpg?width=800" data-caption="Jean-Auguste-Dominique Ingres — Júpiter y Tetis, 1811 · Musée Granet, Aix-en-Provence" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jean_Auguste_Dominique_Ingres_-_Jupiter_et_Th%C3%A9tis.jpg?width=800" alt="Júpiter y Tetis" loading="lazy">
+          <div class="card-badge">03</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1811</div>
+          <div class="card-label-title">Júpiter y Tetis</div>
+          <div class="card-label-artist">J.-A.-D. Ingres</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">03</div>
+        <div class="back-title">Júpiter y Tetis</div>
+        <div class="back-artist">Jean-Auguste-Dominique Ingres · 1811</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Zeus (Júpiter) en trono con Tetis postrada a sus pies. La escena proviene de la Ilíada de Homero (Canto I). Ingres la presentó en el Salon de París en 1811. Óleo sobre lienzo, 327 × 260 cm.</div>
+        <div class="back-museum">Musée Granet, Aix-en-Provence, Francia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Giulio-romano-fall-of-the-giants-fresco-in-the-sala-dei-giganti-palazzo-del-te-1530-1532.jpg?width=800" data-caption="Giulio Romano — Caída de los Gigantes (Sala dei Giganti), 1532-1534 · Palazzo Te, Mantua" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Giulio-romano-fall-of-the-giants-fresco-in-the-sala-dei-giganti-palazzo-del-te-1530-1532.jpg?width=800" alt="Caída de los Gigantes" loading="lazy">
+          <div class="card-badge">04</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1532–34</div>
+          <div class="card-label-title">Caída de los Gigantes</div>
+          <div class="card-label-artist">Giulio Romano</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">04</div>
+        <div class="back-title">Caída de los Gigantes · Sala dei Giganti</div>
+        <div class="back-artist">Giulio Romano · 1532-1534</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Fresco que cubre paredes y techo de la Sala dei Giganti, Palazzo Te, Mantua. La sala fue decorada por encargo de Federico II Gonzaga. Los gigantes caen aplastados bajo columnas y rocas mientras Zeus lanza rayos desde el centro de la bóveda.</div>
+        <div class="back-museum">Palazzo Te, Mantua, Italia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Velazquez_La_fragua_de_Vulcano.jpg?width=800" data-caption="Diego Velázquez — La Fragua de Vulcano, 1630 · Museo del Prado, Madrid" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Velazquez_La_fragua_de_Vulcano.jpg?width=800" alt="La Fragua de Vulcano" loading="lazy">
+          <div class="card-badge">05</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1630</div>
+          <div class="card-label-title">La Fragua de Vulcano</div>
+          <div class="card-label-artist">Diego Velázquez</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">05</div>
+        <div class="back-title">La Fragua de Vulcano</div>
+        <div class="back-artist">Diego Velázquez · 1630</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Apolo anuncia a Hefesto (Vulcano) la infidelidad de su esposa Venus. Los herreros presentes giran hacia el mensajero. Pintado durante el primer viaje de Velázquez a Italia (1629-1631). Óleo sobre lienzo, 223 × 290 cm.</div>
+        <div class="back-museum">Museo del Prado, Madrid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Niobid_Painter_ARV_601_23_creation_of_Pandora_-_chorus_of_women_-_Pans_-_satyrs_and_maenad_%2801%29.jpg?width=800" data-caption="Pintor de Nióbides — Crátera ática: Creación de Pandora · 460-450 a.C. · British Museum, Londres" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Niobid_Painter_ARV_601_23_creation_of_Pandora_-_chorus_of_women_-_Pans_-_satyrs_and_maenad_%2801%29.jpg?width=800" alt="Crátera — Creación de Pandora" loading="lazy">
+          <div class="card-badge">06</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">460–450 a.C.</div>
+          <div class="card-label-title">Crátera — Creación de Pandora</div>
+          <div class="card-label-artist">Pintor de Nióbides (anónimo)</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">06</div>
+        <div class="back-title">Crátera de cáliz — Creación de Pandora</div>
+        <div class="back-artist">Pintor de Nióbides · 460–450 a.C.</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Crátera de cáliz ática de figuras rojas. Muestra la creación de Pandora rodeada de un coro de mujeres, Panes, sátiros y una ménade. El Pintor de Nióbides fue un ceramista ateniense del período clásico temprano. Uno de los testimonios visuales más antiguos del mito de Pandora.</div>
+        <div class="back-museum">British Museum, Londres · Nº 1856,1213.1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE II</div>
+  <div><div class="chapter-tag">PARTE II</div><div class="chapter-title">Pandora</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Jean_Cousin_the_Elder%2C_Eva_Prima_Pandora.jpg?width=800" data-caption="Jean Cousin el Viejo — Eva Prima Pandora, c. 1550 · Musée du Louvre, París" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jean_Cousin_the_Elder%2C_Eva_Prima_Pandora.jpg?width=800" alt="Eva Prima Pandora" loading="lazy">
+          <div class="card-badge">07</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">c. 1550</div>
+          <div class="card-label-title">Eva Prima Pandora</div>
+          <div class="card-label-artist">Jean Cousin el Viejo</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">07</div>
+        <div class="back-title">Eva Prima Pandora</div>
+        <div class="back-artist">Jean Cousin el Viejo · c. 1550</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina recostada con un cráneo a un lado y una jarra al otro. El título, Eva Prima Pandora, equipara explícitamente a Eva con Pandora. Junto a la figura, ramas de árbol y un recipiente como atributos de ambas. Óleo sobre tabla. Musée du Louvre, París. RF 2373.</div>
+        <div class="back-museum">Musée du Louvre, París · RF 2373</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Barend_Graat_-_Pandora_SK-A-5027.jpg?width=800" data-caption="Barend Graat — Pandora, 1676 · Rijksmuseum, Ámsterdam" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Barend_Graat_-_Pandora_SK-A-5027.jpg?width=800" alt="Pandora" loading="lazy">
+          <div class="card-badge">08</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1676</div>
+          <div class="card-label-title">Pandora</div>
+          <div class="card-label-artist">Barend Graat</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">08</div>
+        <div class="back-title">Pandora</div>
+        <div class="back-artist">Barend Graat · 1676</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Pandora con un recipiente. En el texto de Hesíodo el recipiente es una pithos (jarra de almacenamiento de gran tamaño). La versión 'caja de Pandora' se atribuye a Erasmo de Rotterdam, que en su Adagiorum Chiliades (1500) empleó pyxis (caja) en lugar de pithos. Óleo sobre lienzo. Rijksmuseum, Ámsterdam. SK-A-5027.</div>
+        <div class="back-museum">Rijksmuseum, Ámsterdam · SK-A-5027</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/John_William_Waterhouse_-_Pandora%2C_1896.jpg?width=800" data-caption="John William Waterhouse — Pandora, 1896 · Colección privada" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/John_William_Waterhouse_-_Pandora%2C_1896.jpg?width=800" alt="Pandora" loading="lazy">
+          <div class="card-badge">09</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1896</div>
+          <div class="card-label-title">Pandora</div>
+          <div class="card-label-artist">John William Waterhouse</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">09</div>
+        <div class="back-title">Pandora</div>
+        <div class="back-artist">John William Waterhouse · 1896</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina que sostiene un recipiente con la tapa entreabierta. Waterhouse pintó varias versiones del tema de Pandora a lo largo de su carrera. Fue uno de los pintores más productivos del movimiento prerrafaelita tardío. Óleo sobre lienzo.</div>
+        <div class="back-museum">Colección privada</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Dante_Gabriel_Rossetti_-_Pandora.jpg?width=800" data-caption="Dante Gabriel Rossetti — Pandora, 1871 · Lady Lever Art Gallery, Port Sunlight" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dante_Gabriel_Rossetti_-_Pandora.jpg?width=800" alt="Pandora" loading="lazy">
+          <div class="card-badge">10</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1871</div>
+          <div class="card-label-title">Pandora</div>
+          <div class="card-label-artist">Dante Gabriel Rossetti</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">10</div>
+        <div class="back-title">Pandora</div>
+        <div class="back-artist">Dante Gabriel Rossetti · 1871</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina de primer plano con un cofre del que emerge humo dorado. Rossetti utilizó a Jane Morris como modelo. Rossetti fue cofundador de la Hermandad Prerrafaelita en 1848. Sanguina y tiza sobre papel.</div>
+        <div class="back-museum">Lady Lever Art Gallery, Port Sunlight</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE III</div>
+  <div><div class="chapter-tag">PARTE III</div><div class="chapter-title">La esperanza y el legado</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Pandora%2C_1914_-_Odilon_Redon.jpg?width=800" data-caption="Odilon Redon — Pandora, c. 1914 · Metropolitan Museum of Art, Nueva York" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pandora%2C_1914_-_Odilon_Redon.jpg?width=800" alt="Pandora" loading="lazy">
+          <div class="card-badge">11</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">c. 1914</div>
+          <div class="card-label-title">Pandora</div>
+          <div class="card-label-artist">Odilon Redon</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">11</div>
+        <div class="back-title">Pandora</div>
+        <div class="back-artist">Odilon Redon · c. 1914</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina rodeada de flores y vegetación luminosa. Óleo sobre lienzo. Metropolitan Museum of Art, Nueva York. Redon (1840-1916) fue figura central del Simbolismo francés; en sus últimos años privilegió el color y la luz en composiciones con figuras mitológicas.</div>
+        <div class="back-museum">Metropolitan Museum of Art, Nueva York</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/George_Frederic_Watts%2C_1885%2C_Hope.jpg?width=800" data-caption="George Frederic Watts — Hope (Esperanza), 1886 · Tate Britain, Londres" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/George_Frederic_Watts%2C_1885%2C_Hope.jpg?width=800" alt="Hope · Esperanza" loading="lazy">
+          <div class="card-badge">12</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1886</div>
+          <div class="card-label-title">Hope · Esperanza</div>
+          <div class="card-label-artist">George Frederic Watts</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">12</div>
+        <div class="back-title">Hope · Esperanza</div>
+        <div class="back-artist">George Frederic Watts · 1886</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina con los ojos vendados sobre una esfera, tocando una lira con una sola cuerda. En una carta del 8 de diciembre de 1885 a Madeline Wyndham, Watts describió la figura: 'la esperanza sentada sobre un globo, con los ojos vendados, tocando una lira con una sola cuerda'. Óleo sobre lienzo.</div>
+        <div class="back-museum">Tate Britain, Londres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Prometheus_Bound_-_WGA20279.jpg?width=800" data-caption="Peter Paul Rubens — Prometeo encadenado, c. 1612 · Philadelphia Museum of Art" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Prometheus_Bound_-_WGA20279.jpg?width=800" alt="Prometeo encadenado — Rubens" loading="lazy">
+          <div class="card-badge">13</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">c. 1612</div>
+          <div class="card-label-title">Prometeo encadenado</div>
+          <div class="card-label-artist">Peter Paul Rubens</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">13</div>
+        <div class="back-title">Prometeo encadenado</div>
+        <div class="back-artist">Peter Paul Rubens · c. 1612</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Prometeo encadenado a una roca mientras un águila le devora el hígado. Rubens colaboró con Frans Snyders, quien pintó el águila. Óleo sobre lienzo, 242,5 × 209,5 cm. Una de las representaciones más violentas y expresivas del mito de Prometeo en la historia del arte.</div>
+        <div class="back-museum">Philadelphia Museum of Art, Filadelfia, EE.UU.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE IV</div>
+  <div><div class="chapter-tag">PARTE IV</div><div class="chapter-title">Legado</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Michael_Maier_Atalanta_Fugiens.jpeg?width=800" data-caption="Michael Maier — Atalanta Fugiens, frontispicio, 1618 · Dominio público" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michael_Maier_Atalanta_Fugiens.jpeg?width=800" alt="Atalanta Fugiens · Frontispicio" loading="lazy">
+          <div class="card-badge">14</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1618</div>
+          <div class="card-label-title">Atalanta Fugiens · Frontispicio</div>
+          <div class="card-label-artist">Michael Maier</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">14</div>
+        <div class="back-title">Atalanta Fugiens · Frontispicio</div>
+        <div class="back-artist">Michael Maier · 1618</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Frontispicio del tratado alquímico Atalanta Fugiens de Michael Maier (1568-1622), médico alemán al servicio del Emperador Rodolfo II. La obra contiene 50 emblemas, cada uno con grabado, epigrama latino y fuga musical a tres voces. Publicado por Johann Theodor de Bry, Oppenheim, 1617.</div>
+        <div class="back-museum">Dominio público · Ed. Johann Theodor de Bry, Oppenheim</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Prometheus_Bound.jpg?width=800" data-caption="Peter Paul Rubens — Prometeo encadenado, c. 1612 · Philadelphia Museum of Art" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Prometheus_Bound.jpg?width=800" alt="Prometeo encadenado" loading="lazy">
+          <div class="card-badge">15</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">c. 1612</div>
+          <div class="card-label-title">Prometeo encadenado</div>
+          <div class="card-label-artist">Peter Paul Rubens</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">15</div>
+        <div class="back-title">Prometeo Bound · Prometeo encadenado</div>
+        <div class="back-artist">Peter Paul Rubens · c. 1612</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Prometeo encadenado a una roca con un águila sobre él. Según la Teogonía de Hesíodo y el Prometeo encadenado de Esquilo, Zeus condenó a Prometeo a este tormento eterno. El águila fue pintada por Frans Snyders, colaborador habitual de Rubens. Óleo sobre lienzo.</div>
+        <div class="back-museum">Philadelphia Museum of Art, Filadelfia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Moreau%2C_Gustave_-_H%C3%A9siode_et_la_Muse_-_1891.jpg?width=800" data-caption="Gustave Moreau — Hesíodo y la Musa, 1891 · Musée d'Orsay, París" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Moreau%2C_Gustave_-_H%C3%A9siode_et_la_Muse_-_1891.jpg?width=800" alt="Hesíodo y la Musa" loading="lazy">
+          <div class="card-badge">16</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1891</div>
+          <div class="card-label-title">Hesíodo y la Musa</div>
+          <div class="card-label-artist">Gustave Moreau</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">16</div>
+        <div class="back-title">Hesíodo y la Musa</div>
+        <div class="back-artist">Gustave Moreau · 1891</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura masculina (Hesíodo) recibiendo una corona de laurel de una figura alada (la Musa). Hesíodo (c. 750-650 a.C.) relató el mito de Pandora en las Obras y días y en la Teogonía. Moreau (1826-1898) fue figura central del Simbolismo francés. Óleo sobre lienzo.</div>
+        <div class="back-museum">Musée d'Orsay, París</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
+  <button id="lb-next" onclick="lbNav(1)">&#8250;</button>
+</div>
+<footer class="album-footer">
+  <div class="footer-series">Crónicas Eternas · Mitología Griega</div>
+  <div class="footer-ep">T1 · E01 · PANDORA · 16 obras · Dominio público</div>
+</footer>
+<script>
+
+var lbCards=[],lbIdx=0;
+function buildList(){{lbCards=Array.from(document.querySelectorAll('.flip-card[data-url]'));}}
+function openLightbox(el){{if(el.classList.contains('flipped'))return;buildList();lbIdx=lbCards.indexOf(el);showLb(lbIdx);document.getElementById('lightbox').style.display='flex';}}
+function showLb(i){{var c=lbCards[i];document.getElementById('lb-img').src=c.getAttribute('data-url');document.getElementById('lb-caption').textContent=c.getAttribute('data-caption')||'';document.getElementById('lb-counter').textContent=(i+1)+' / '+lbCards.length;}}
+function closeLightbox(){{document.getElementById('lightbox').style.display='none';}}
+function lbNav(dir){{lbIdx=(lbIdx+dir+lbCards.length)%lbCards.length;showLb(lbIdx);}}
+document.addEventListener('keydown',function(e){{var lb=document.getElementById('lightbox');if(lb.style.display==='flex'){{if(e.key==='ArrowLeft')lbNav(-1);else if(e.key==='ArrowRight')lbNav(1);else if(e.key==='Escape')closeLightbox();}}}});
+document.getElementById('lightbox').addEventListener('click',function(e){{if(e.target===this)closeLightbox();}});
+if(window.matchMedia('(hover:none)').matches){{
+  document.querySelectorAll('.flip-card').forEach(function(card){{
+    card.addEventListener('click',function(e){{
+      e.stopPropagation();
+      if(this.classList.contains('flipped')){{this.classList.remove('flipped');}}
+      else{{document.querySelectorAll('.flip-card.flipped').forEach(function(c){{c.classList.remove('flipped');}});this.classList.add('flipped');}}
+    }});
+  }});
+}}
+document.querySelectorAll('.card-img-wrap img').forEach(function(img){{
+  img.addEventListener('error',function(){{
+    if(this.dataset.errored)return;this.dataset.errored='1';this.style.opacity='0.08';
+    var l=document.createElement('div');l.className='img-err-label';l.textContent='no disponible';this.parentNode.appendChild(l);
+  }});
+}});
+function turnPage(url,dir){{var ov=document.getElementById('ptov');sessionStorage.setItem('ptFrom',dir);ov.style.transition='none';ov.style.transform=dir==='right'?'translateX(100%)':'translateX(-100%)';ov.style.pointerEvents='all';requestAnimationFrame(function(){{requestAnimationFrame(function(){{ov.style.transition='transform .48s cubic-bezier(.4,0,.8,0)';ov.style.transform='translateX(0)';}});}});setTimeout(function(){{window.location.href=url;}},500);}}
+window.addEventListener('DOMContentLoaded',function(){{var dir=sessionStorage.getItem('ptFrom');if(!dir)return;sessionStorage.removeItem('ptFrom');var ov=document.getElementById('ptov');ov.style.transition='none';ov.style.transform='translateX(0)';ov.style.pointerEvents='all';requestAnimationFrame(function(){{requestAnimationFrame(function(){{ov.style.transition='transform .48s cubic-bezier(.2,0,.4,1)';ov.style.transform=dir==='right'?'translateX(-100%)':'translateX(100%)';setTimeout(function(){{ov.style.pointerEvents='none';}},520);}});}});}});
+
+</script>
+</body>
+</html>

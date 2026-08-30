@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pandora · Fuentes y Material — Crónicas Eternas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --gold: #C9A84C;
+  --gold-dim: #8a6a28;
+  --gold-faint: rgba(201,168,76,0.12);
+  --bg: #06040a;
+  --bg2: #0c0910;
+  --bg3: #110e18;
+  --text: #c8b888;
+  --text-dim: #7a6840;
+  --text-bright: #e8d8a0;
+  --accent-r: #8b2020;
+  --sep: rgba(201,168,76,0.18);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── PAGE TURN OVERLAY ─────────────────── */
+#ptov {
+  position: fixed; inset: 0; z-index: 9000; pointer-events: none;
+  background: linear-gradient(105deg, #100800 0%, #1a1000 50%, #080400 100%);
+  transform: translateX(100%);
+}
+
+/* ── NAV ARROWS ────────────────────────── */
+.nav-l, .nav-r {
+  position: fixed; top: 50%; z-index: 500;
+  transform: translateY(-50%);
+  width: 52px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: .45;
+  transition: opacity .25s;
+  text-decoration: none;
+}
+.nav-l { left: 0; }
+.nav-r { right: 0; }
+.nav-l:hover, .nav-r:hover { opacity: 1; }
+.nav-arrow {
+  width: 28px; height: 28px;
+  border-top: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+.nav-l .nav-arrow { transform: rotate(-135deg) translateX(4px); }
+.nav-r .nav-arrow { transform: rotate(45deg) translateX(-4px); opacity: .35; }
+
+/* ── HEADER ────────────────────────────── */
+.site-header {
+  padding: 56px 80px 40px;
+  border-bottom: 1px solid var(--sep);
+  position: relative;
+  background: linear-gradient(180deg, #0e0b16 0%, transparent 100%);
+}
+.breadcrumb {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+.breadcrumb span { color: var(--gold); }
+.ep-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 8px;
+}
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  line-height: 1.1;
+  text-shadow: 0 0 60px rgba(201,168,76,0.2);
+}
+.page-subtitle {
+  margin-top: 12px;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text-dim);
+}
+.gold-line {
+  width: 80px; height: 1px;
+  background: var(--gold);
+  margin: 24px 0 0;
+  opacity: 0.5;
+}
+
+/* ── TAB NAV ───────────────────────────── */
+.tab-bar {
+  display: flex; gap: 0;
+  padding: 0 80px;
+  border-bottom: 1px solid var(--sep);
+  background: var(--bg2);
+  position: sticky; top: 0; z-index: 100;
+}
+.tab-btn {
+  padding: 18px 28px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  border: none; background: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ── MAIN CONTENT ──────────────────────── */
+.tab-panel { display: none; padding: 60px 80px 120px; max-width: 1100px; }
+.tab-panel.active { display: block; }
+
+/* ── SECTION LABELS ────────────────────── */
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 32px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--sep);
+}
+
+/* ── SOURCE CARDS (accordion) ──────────── */
+.source-card {
+  background: var(--bg3);
+  border: 1px solid var(--sep);
+  border-left: 3px solid var(--gold-dim);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  transition: border-left-color .2s;
+  overflow: hidden;
+}
+.source-card:hover { border-left-color: var(--gold); }
+.source-card.open { border-left-color: var(--gold); }
+
+.source-header {
+  display: flex; align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  gap: 20px;
+}
+.source-year {
+  min-width: 80px;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--gold);
+  text-align: right;
+  flex-shrink: 0;
+}
+.source-meta { flex: 1; }
+.source-author {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-bright);
+  line-height: 1.2;
+}
+.source-work {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+.source-toggle {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold-dim);
+  font-size: 20px;
+  transition: transform .25s;
+  user-select: none;
+}
+.source-card.open .source-toggle { transform: rotate(45deg); }
+
+.source-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s cubic-bezier(0,0,.2,1);
+}
+.source-body-inner {
+  padding: 0 24px 28px 124px;
+}
+
+/* ── BLOCKQUOTES ───────────────────────── */
+blockquote {
+  margin: 16px 0;
+  padding: 16px 20px;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,168,76,0.05);
+  border-radius: 0 2px 2px 0;
+}
+blockquote p {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-bright);
+  line-height: 1.65;
+}
+blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gold-dim);
+  font-style: normal;
+}
+
+.source-note {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.source-note strong { color: var(--text); }
+.source-note a { color: var(--gold-dim); text-decoration: none; }
+.source-note a:hover { color: var(--gold); }
+
+/* ── TIMELINE ──────────────────────────── */
+.timeline {
+  position: relative;
+  padding: 20px 0 20px 48px;
+  margin-bottom: 48px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 16px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--gold-dim) 10%, var(--gold-dim) 90%, transparent);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 2px;
+  transition: background .2s;
+}
+.tl-item:hover { background: var(--gold-faint); }
+.tl-dot {
+  position: absolute;
+  left: -40px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-dim);
+  background: var(--bg);
+  transition: background .2s, border-color .2s;
+}
+.tl-item:hover .tl-dot { background: var(--gold); border-color: var(--gold); }
+.tl-year {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--gold-dim);
+  min-width: 90px;
+}
+.tl-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  color: var(--text);
+}
+.tl-tag {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: 1px solid var(--sep);
+  color: var(--text-dim);
+  border-radius: 20px;
+  margin-left: auto;
+}
+
+
+/* ── CREDITS TABLE ─────────────────────── */
+.credits-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.credits-table th {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--sep);
+}
+.credits-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(201,168,76,0.07);
+  vertical-align: top;
+}
+.credits-table tr:hover td { background: var(--gold-faint); }
+.td-pos {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--gold-dim);
+  width: 60px;
+}
+.td-title {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-bright);
+}
+.td-artist { color: var(--text); }
+.td-year { color: var(--text-dim); font-size: 13px; }
+.td-museum { color: var(--text-dim); font-size: 13px; line-height: 1.4; }
+
+/* ── PULL QUOTE ────────────────────────── */
+.pull-quote {
+  margin: 40px 0;
+  padding: 36px 40px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 100%);
+}
+.pull-quote p {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 26px;
+  color: var(--text-bright);
+  line-height: 1.55;
+}
+.pull-quote cite {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+/* ── REVEAL ANIMATION ──────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── SCROLLBAR ─────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div id="ptov"></div>
+
+<!-- NAV LEFT → album -->
+<div class="nav-l" onclick="turnPage('PANDORA_Album_Panini.html','left')" title="← Álbum">
+  <div class="nav-arrow"></div>
+</div>
+<!-- NAV RIGHT → (futuro) -->
+<div class="nav-r" onclick="turnPage('EVA_Album_Panini.html','right')" title="Álbum EVA →">
+  <div class="nav-arrow"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="breadcrumb">Crónicas Eternas · <span>Pandora</span></div>
+  <div class="ep-title">T1 · E01 · Mitología Griega</div>
+  <h1 class="page-title">Archivo de Fuentes</h1>
+  <p class="page-subtitle">Los textos que construyeron el mito · Referencias y material de producción</p>
+  <div class="gold-line"></div>
+</header>
+
+<!-- TABS -->
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Fuentes Primarias</button>
+  <button class="tab-btn" onclick="switchTab('arte',this)">Créditos de Arte</button>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     TAB 1: FUENTES PRIMARIAS
+═══════════════════════════════════════ -->
+<div id="tab-fuentes" class="tab-panel active">
+
+  <!-- Timeline -->
+  <div class="section-label">Cronología del mito · 700 a.C. — 1878 d.C.</div>
+
+  <div class="timeline reveal">
+    <div class="tl-item" onclick="openCard('c-hesiodo-td')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 700 a.C.</div>
+      <div class="tl-desc">Hesíodo — <em>Trabajos y días</em> · La pithos y Elpis</div>
+      <div class="tl-tag">Fuente principal</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-hesiodo-teo')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 700 a.C.</div>
+      <div class="tl-desc">Hesíodo — <em>Teogonía</em> · Primera mención escrita</div>
+      <div class="tl-tag">Fuente primaria</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-esquilo')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 470 a.C.</div>
+      <div class="tl-desc">Esquilo — <em>Prometeo encadenado</em> · El castigo del titán</div>
+      <div class="tl-tag">Teatro griego</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-platon')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 380 a.C.</div>
+      <div class="tl-desc">Platón — <em>Protágoras</em> · Versión alternativa</div>
+      <div class="tl-tag">Filosofía</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-erasmo')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1508 d.C.</div>
+      <div class="tl-desc">Erasmo de Rotterdam — <em>Adagia</em> · La jarra se convierte en caja</div>
+      <div class="tl-tag">Error histórico</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-maier')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1618 d.C.</div>
+      <div class="tl-desc">Michael Maier — <em>Atalanta Fugiens</em> · Frontispicio de la edición de 1618</div>
+      <div class="tl-tag">Alquimia</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-watts')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1885–86 d.C.</div>
+      <div class="tl-desc">G.F. Watts — carta sobre <em>Hope</em> · La cuerda que queda</div>
+      <div class="tl-tag">Arte victoriano</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-nietzsche')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1878 d.C.</div>
+      <div class="tl-desc">Nietzsche — <em>Humano, demasiado humano</em> · La esperanza como mal</div>
+      <div class="tl-tag">Filosofía moderna</div>
+    </div>
+  </div>
+
+  <!-- Source Cards -->
+
+  <div class="source-card reveal" id="c-hesiodo-td">
+    <div class="source-header" onclick="toggleCard('c-hesiodo-td')">
+      <div class="source-year">c. 700 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Hesíodo</div>
+        <div class="source-work">Trabajos y días · Erga kai Hēmerai</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Poema didáctico dirigido a su hermano Perses. Contiene el relato más extenso y detallado del mito de Pandora, la Edad de Oro y el episodio de la pithos. Es la fuente canónica del mito.</div>
+
+        <blockquote>
+          <p>«Primero, una raza de oro de hombres mortales crearon los inmortales que tienen sus moradas en el Olimpo. Éstos vivían como dioses, con el corazón libre de cuidados, sin fatiga ni miseria.»</p>
+          <cite>— Trabajos y días, vv. 109–116 · Fuente del cuadro de Lucas Cranach el Viejo</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Zeus padre ordenó al ilustre Hefesto que cuanto antes mezclara tierra con agua y le infundiera voz y vida humanas, e hiciera una hermosa y adorable figura de doncella, semejante en el rostro a las inmortales diosas.»</p>
+          <cite>— Trabajos y días, vv. 59–63</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Y ordenó a Hermes, guía de los hombres, poner en ella una mente desvergonzada y un carácter engañoso. Y el argicida obedeció al soberano Zeus Cronida e implantó en ella mentiras, palabras engañosas y el carácter de una ladrona.»</p>
+          <cite>— Trabajos y días, vv. 67–68</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Pero la mujer, levantando con sus manos la enorme tapa del pithos, los dejó escapar, y buscó para los hombres amargas preocupaciones. Sólo quedó allí dentro, debajo de los inquebrantables bordes del pithos, la Esperanza, sin poder volar más afuera; pues antes de ello se colocó de nuevo la tapa encima del pithos, por voluntad de Zeus portador de la égida.»</p>
+          <cite>— Trabajos y días, vv. 94–98</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Nota filológica:</strong> El término original es <em>pithos</em> (πίθος) — una jarra grande de almacenamiento, enterrada en el suelo, usada para guardar aceite, vino y grano. No es una caja. La confusión con <em>pyxis</em> (κυψέλη, «caja pequeña») se introduce cinco siglos después por Erasmo de Rotterdam.
+        </div>
+        <div class="source-note" style="margin-top:10px;">
+          <strong>Edición:</strong> Hesíodo, <em>Trabajos y días</em>, trad. Aurelio Pérez Jiménez (Madrid: Gredos, 1978).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-hesiodo-teo">
+    <div class="source-header" onclick="toggleCard('c-hesiodo-teo')">
+      <div class="source-year">c. 700 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Hesíodo</div>
+        <div class="source-work">Teogonía · Theogonia</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Primera mención escrita del nombre Pandora. La versión de la Teogonía es más breve y no menciona la pithos — Pandora aparece como castigo directo, no como portadora de dones.</div>
+
+        <blockquote>
+          <p>«Y ordenó al ilustre Hefesto mezclar cuanto antes tierra con agua, e infundirle voz y vida humanas y hacer una hermosa y encantadora figura de virgen, semejante en rostro a las inmortales diosas.»</p>
+          <cite>— Teogonía, vv. 571–575</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Y la llamó Pandora, porque todos los que habitaban el Olimpo le habían dado un don, una calamidad para los hombres que comen pan.»</p>
+          <cite>— Teogonía, v. 81</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Nota:</strong> «Pandora» (Πανδώρα) en griego significa literalmente «la que tiene todos los dones» o «la que da todos los dones». Hesíodo lo usa en sentido irónico: la que recibió todos los dones de los dioses — como arma contra los hombres. Investigadores modernos discuten si el nombre original significaba «la que da todo» (los dioses la crean como regalo) o «la que tiene todo» (la que recibe los dones).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-esquilo">
+    <div class="source-header" onclick="toggleCard('c-esquilo')">
+      <div class="source-year">c. 470 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Esquilo</div>
+        <div class="source-work">Prometeo encadenado · Prometheus Desmotes</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Tragedia griega que narra el castigo de Prometeo desde su perspectiva. Base dramática del cuadro de Peter Paul Rubens y del arquetipo del rebelado que sufre por su audacia.</div>
+
+        <blockquote>
+          <p>«Di a los mortales los ciegos anhelos. Puse ciega esperanza en el fondo de su pecho... Y además de esto, les di el fuego... con él habrán de aprender numerosas artes.»</p>
+          <cite>— Prometeo encadenado, vv. 250–254</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Zeus me clavó aquí con sus cadenas irrompibles. El águila que Zeus envió... viene a desgarrar mi hígado inmortal con sus garras. Cada noche crece de nuevo, y cada día el maldito pájaro regresa a su festín.»</p>
+          <cite>— Prometeo encadenado, vv. 1017–1025</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Conexión:</strong> El «Prometeo encadenado» de Rubens (c. 1612, Philadelphia Museum of Art) es el último cuadro del episodio — el cierre del ciclo. Prometeo sufre las consecuencias del acto que Pandora encarna.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-platon">
+    <div class="source-header" onclick="toggleCard('c-platon')">
+      <div class="source-year">c. 380 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Platón</div>
+        <div class="source-work">Protágoras · 321c–322a</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> En este diálogo, el sofista Protágoras narra una versión diferente del mito de Prometeo donde no hay mención directa de Pandora. Muestra que el mito tenía múltiples versiones en la Grecia clásica y que no era un relato fijo.</div>
+
+        <blockquote>
+          <p>«Prometeo, sin saber cómo salvar al hombre, roba a Hefesto y a Atenea la habilidad artística junto con el fuego —ya que sin el fuego la habilidad artística no se podía adquirir ni ser de ninguna utilidad— y se la ofrece al hombre.»</p>
+          <cite>— Platón, Protágoras, 321c–322a</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Significado:</strong> En la versión de Platón, el fuego es metáfora de la <em>techné</em> (habilidad técnica y artesanal). El énfasis está en lo que hace civilizado al hombre — no en el castigo a través de la mujer, como en Hesíodo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="pull-quote reveal">
+    <p>«Sólo quedó allí dentro la Esperanza,<br>sin poder volar más afuera.»</p>
+    <cite>Hesíodo · Trabajos y días · c. 700 a.C.</cite>
+  </div>
+
+  <div class="source-card reveal" id="c-erasmo">
+    <div class="source-header" onclick="toggleCard('c-erasmo')">
+      <div class="source-year">1508 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Erasmo de Rotterdam</div>
+        <div class="source-work">Adagia · «Ex Pyxide Pandorae»</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> El humanista holandés publica su colección de proverbios griegos y latinos. Al traducir el pasaje de la <em>pithos</em> de Hesíodo, usa el término latino <em>pyxis</em> — una caja pequeña, joyero, pastillero. El error se vuelve canónico durante quinientos años.</div>
+
+        <div class="source-note" style="background:rgba(139,32,32,0.1); border-left:2px solid #8b2020; padding:14px 16px; margin:16px 0;">
+          <strong style="color:#c87070;">El error:</strong> <em>Pithos</em> (πίθος) es una vasija enorme, de hasta metro y medio de altura, enterrada en el suelo para almacenar aceite, vino y grano. <em>Pyxis</em> (πυξίς) es una caja pequeña. Erasmo confunde dos términos griegos completamente distintos — o quizás los elige deliberadamente para hacer el relato más visual e íntimo en la tradición cristiana (como el cofre de los pecados).
+        </div>
+
+        <blockquote>
+          <p>«Ex Pyxide Pandorae» · «De la caja de Pandora» — como si dijéramos: de un origen misterioso e inagotable de males.</p>
+          <cite>— Erasmo, Adagia, II.4.17 (1508)</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Fuente académica:</strong> Dora Panofsky &amp; Erwin Panofsky, <em>Pandora's Box: The Changing Aspects of a Mythical Symbol</em> (Princeton University Press, 1956). Estudio definitivo sobre la transformación del mito.
+        </div>
+        <div class="source-note" style="margin-top:10px;">
+          <strong>Consecuencia:</strong> Toda la iconografía occidental desde el Renacimiento hasta hoy muestra a Pandora con una caja o cofre. La vasija original desaparece del imaginario colectivo. Magritte pinta en 1951 una caja. Los libros infantiles muestran una caja. La frase «abrir la caja de Pandora» lleva el error de Erasmo en cada pronunciación.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-maier">
+    <div class="source-header" onclick="toggleCard('c-maier')">
+      <div class="source-year">1618 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Michael Maier</div>
+        <div class="source-work">Atalanta Fugiens · Frontispicio (portada)</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Obra cumbre de la alquimia renacentista. El médico alemán Michael Maier codifica el conocimiento alquímico en 50 emblemas grabados, con fuga musical a tres voces para cada uno. La imagen utilizada en el episodio es el <strong>frontispicio</strong> (portada grabada) de la edición de 1618 — que muestra a Atalanta, Hipómenes, Hércules, Venus y los personajes alegóricos de la carrera, rodeando el título de la obra.</div>
+
+        <blockquote>
+          <p>«En la tradición alquímica renacentista, Pandora representaba la <em>prima materia</em>: el recipiente original que contiene todos los elementos antes de la Gran Obra. La vasija no es castigo — es origen.»</p>
+          <cite>— Contexto de producción · Crónicas Eternas, 2026</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Nota de producción:</strong> La imagen es el frontispicio completo de <em>Atalanta Fugiens</em>, publicado en Oppenheim por Hieronymi Galleri (1618). Incluye los personajes de la mitología clásica y el título completo: <em>«Emblemata Nova de Secretis Naturæ Chymica»</em>. Dominio público.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-watts">
+    <div class="source-header" onclick="toggleCard('c-watts')">
+      <div class="source-year">1885–86 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">George Frederic Watts</div>
+        <div class="source-work">Carta a Madeline Wyndham · 8 dic. 1885</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Watts describe su cuadro <em>Hope</em> en una carta personal antes de su finalización. Es el único documento donde el pintor explica directamente su intención. La pintura (1886) se expone en Tate Britain, Londres.</div>
+
+        <blockquote>
+          <p>«Estoy pintando un cuadro de la Esperanza sentada sobre un globo, con los ojos vendados, tocando una lira que sólo tiene una cuerda que queda.»</p>
+          <cite>— G.F. Watts, carta a Madeline Wyndham, 8 de diciembre de 1885</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Relevancia:</strong> La carta confirma la intención del autor: los ojos vendados son deliberados (la esperanza es ciega), la lira rota es deliberada (solo queda una cuerda), la postura encorvada es deliberada. No es un cuadro sobre fe — es sobre la fragilidad de seguir adelante con lo que queda.
+        </div>
+        <div class="source-note" style="margin-top:10px;">
+          <strong>Nota:</strong> Un crítico contemporáneo sugirió que el cuadro casi se llamó «Desesperación». Watts no lo escribió — pero la observación refleja la ambigüedad que el pintor buscó conscientemente.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-nietzsche">
+    <div class="source-header" onclick="toggleCard('c-nietzsche')">
+      <div class="source-year">1878 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Friedrich Nietzsche</div>
+        <div class="source-work">Humano, demasiado humano · §71</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> En su primer libro de aforismos, Nietzsche reinterpreta el mito de Pandora desde una perspectiva radicalmente anti-optimista. Elpis (Esperanza) no es el consuelo que salva a la humanidad — es el último y más peligroso mal.</div>
+
+        <blockquote>
+          <p>«Zeus quería que el hombre, por muy torturado que estuviese por los otros males, no arrojase la vida, sino que continuase dejándose atormentar una y otra vez. Para ello le da la esperanza: en realidad, es el más maligno de todos los males, porque prolonga el tormento del hombre.»</p>
+          <cite>— Nietzsche, Humano, demasiado humano, §71 (1878)</cite>
+        </blockquote>
+
+        <div class="source-note">
+          <strong>Conexión con Hesíodo:</strong> Nietzsche lee algo que Hesíodo dejó ambiguo: ¿por qué la Esperanza queda atrapada en la pithos? ¿Para proteger a los hombres de ella, o para que no puedan escapar de su efecto? Si la esperanza es un bien, debería haberse liberado. Si quedó encerrada, quizás es un mal más.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- ═══════════════════════════════════════
+     TAB 3: CRÉDITOS DE ARTE
+═══════════════════════════════════════ -->
+<div id="tab-arte" class="tab-panel">
+
+  <div class="section-label">17 obras · Dominio público · En orden de aparición en el video</div>
+
+  <table class="credits-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Obra</th>
+        <th>Artista</th>
+        <th>Año</th>
+        <th>Colección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-pos">Apertura</td>
+        <td class="td-title">Mercurio transportando a Pandora al hombre</td>
+        <td class="td-artist">Jean Alaux</td>
+        <td class="td-year">1826</td>
+        <td class="td-museum">Musée des Beaux-Arts de Bordeaux · Burdeos, Francia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">01</td>
+        <td class="td-title">La Edad de Oro</td>
+        <td class="td-artist">Lucas Cranach el Viejo</td>
+        <td class="td-year">c. 1530</td>
+        <td class="td-museum">Alte Pinakothek · Múnich, Alemania</td>
+      </tr>
+      <tr>
+        <td class="td-pos">02</td>
+        <td class="td-title">Prometeo trayendo el fuego</td>
+        <td class="td-artist">Jan Cossiers</td>
+        <td class="td-year">1637</td>
+        <td class="td-museum">Museo del Prado · Madrid, España</td>
+      </tr>
+      <tr>
+        <td class="td-pos">03</td>
+        <td class="td-title">Júpiter y Tetis</td>
+        <td class="td-artist">Jean-Auguste-Dominique Ingres</td>
+        <td class="td-year">1811</td>
+        <td class="td-museum">Musée Granet · Aix-en-Provence, Francia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">04</td>
+        <td class="td-title">Caída de los Gigantes</td>
+        <td class="td-artist">Giulio Romano</td>
+        <td class="td-year">1532–1534</td>
+        <td class="td-museum">Palazzo Te · Mantua, Italia (fresco in situ)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">05</td>
+        <td class="td-title">La Fragua de Vulcano</td>
+        <td class="td-artist">Diego Velázquez</td>
+        <td class="td-year">1630</td>
+        <td class="td-museum">Museo del Prado · Madrid, España</td>
+      </tr>
+      <tr>
+        <td class="td-pos">06</td>
+        <td class="td-title">Crátera ática — Creación de Pandora</td>
+        <td class="td-artist">Pintor de Nióbides (anónimo)</td>
+        <td class="td-year">460–450 a.C.</td>
+        <td class="td-museum">British Museum · Londres (inv. 1856,1213.1)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">07</td>
+        <td class="td-title">Eva Prima Pandora</td>
+        <td class="td-artist">Jean Cousin el Viejo</td>
+        <td class="td-year">c. 1550</td>
+        <td class="td-museum">Musée du Louvre · París (RF 2373)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">08</td>
+        <td class="td-title">Pandora</td>
+        <td class="td-artist">Barend Graat</td>
+        <td class="td-year">1676</td>
+        <td class="td-museum">Rijksmuseum · Ámsterdam (SK-A-5027)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">09</td>
+        <td class="td-title">Pandora</td>
+        <td class="td-artist">John William Waterhouse</td>
+        <td class="td-year">1896</td>
+        <td class="td-museum">Colección privada</td>
+      </tr>
+      <tr>
+        <td class="td-pos">10</td>
+        <td class="td-title">Pandora</td>
+        <td class="td-artist">Dante Gabriel Rossetti</td>
+        <td class="td-year">1871</td>
+        <td class="td-museum">Lady Lever Art Gallery · Port Sunlight, Reino Unido</td>
+      </tr>
+      <tr>
+        <td class="td-pos">11</td>
+        <td class="td-title">Pandora</td>
+        <td class="td-artist">Odilon Redon</td>
+        <td class="td-year">c. 1914</td>
+        <td class="td-museum">Metropolitan Museum of Art · Nueva York</td>
+      </tr>
+      <tr>
+        <td class="td-pos">12</td>
+        <td class="td-title">Hope (Esperanza)</td>
+        <td class="td-artist">George Frederic Watts</td>
+        <td class="td-year">1886</td>
+        <td class="td-museum">Tate Britain · Londres</td>
+      </tr>
+      <tr>
+        <td class="td-pos">13</td>
+        <td class="td-title">La Caja de Pandora</td>
+        <td class="td-artist">René Magritte</td>
+        <td class="td-year">1951</td>
+        <td class="td-museum">Colección privada</td>
+      </tr>
+      <tr>
+        <td class="td-pos">14</td>
+        <td class="td-title">Atalanta Fugiens — Frontispicio (portada)</td>
+        <td class="td-artist">Michael Maier (grab.)</td>
+        <td class="td-year">1618</td>
+        <td class="td-museum">Dominio público · Ed. Oppenheim, Hieronymi Galleri</td>
+      </tr>
+      <tr>
+        <td class="td-pos">15</td>
+        <td class="td-title">Prometeo encadenado</td>
+        <td class="td-artist">Peter Paul Rubens</td>
+        <td class="td-year">c. 1612</td>
+        <td class="td-museum">Philadelphia Museum of Art · Filadelfia, EE.UU.</td>
+      </tr>
+      <tr>
+        <td class="td-pos">16</td>
+        <td class="td-title">Hesíodo y la Musa</td>
+        <td class="td-artist">Gustave Moreau</td>
+        <td class="td-year">1891</td>
+        <td class="td-museum">Musée d'Orsay · París</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="source-note" style="margin-top:32px; padding:16px 20px; background:var(--bg3); border:1px solid var(--sep); border-radius:2px;">
+    <strong>Licencias:</strong> Todas las obras son de dominio público (creadas antes de 1928 o en el caso de Magritte, reproducidas bajo uso editorial documentado en archivo de producción). Imágenes obtenidas de Wikimedia Commons, WikiArt y archivos de museos.
+  </div>
+
+</div>
+
+
+<script>
+// ── TABS ──────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  // re-trigger reveals
+  setTimeout(triggerReveals, 50);
+}
+
+// ── ACCORDION ─────────────────────────
+function toggleCard(id) {
+  var card = document.getElementById(id);
+  var body = card.querySelector('.source-body');
+  var isOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.source-card.open').forEach(function(c) {
+    c.classList.remove('open');
+    c.querySelector('.source-body').style.maxHeight = '0';
+  });
+  if (!isOpen) {
+    card.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    setTimeout(function(){
+      body.style.maxHeight = body.scrollHeight + 200 + 'px';
+    }, 50);
+  }
+}
+function openCard(id) {
+  var card = document.getElementById(id);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(function() { toggleCard(id); }, 400);
+}
+
+// ── REVEAL ON SCROLL ──────────────────
+function triggerReveals() {
+  var els = document.querySelectorAll('.reveal:not(.visible)');
+  els.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', triggerReveals, { passive: true });
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(triggerReveals, 100);
+  // Entry animation
+  var dir = sessionStorage.getItem('ptFrom');
+  if (!dir) return;
+  sessionStorage.removeItem('ptFrom');
+  var ov = document.getElementById('ptov');
+  ov.style.transition = 'none';
+  ov.style.transform = 'translateX(0)';
+  ov.style.pointerEvents = 'all';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      ov.style.transition = 'transform .48s cubic-bezier(.2,0,.4,1)';
+      ov.style.transform = dir === 'right' ? 'translateX(-100%)' : 'translateX(100%)';
+      setTimeout(function() { ov.style.pointerEvents = 'none'; }, 520);
+    });
+  });
+});
+
+// ── PAGE TURN ─────────────────────────
+function turnPage(url, dir) {
+  var ov = document.getElementById('ptov');
+  sessionStorage.setItem('ptFrom', dir);
+  ov.style.transition = 'none';
+  ov.style.transform = dir === 'right' ? 'translateX(100%)' : 'translateX(-100%)';
+  ov.style.pointerEvents = 'all';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      ov.style.transition = 'transform .48s cubic-bezier(.4,0,.8,0)';
+      ov.style.transform = 'translateX(0)';
+    });
+  });
+  setTimeout(function() { window.location.href = url; }, 500);
+}
+</script>
+</body>
+</html>

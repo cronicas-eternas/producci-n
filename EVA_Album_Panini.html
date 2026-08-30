@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>EVA · Álbum de Arte — Crónicas Eternas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+:root{
+  --accent:#5aaa7a;--accent-dim:#2e6649;
+  --bg:#040a06;--bg2:#070d08;--bg3:#0c1209;
+  --text:#b0c8b4;--text-dim:#557060;--text-bright:#d8edd8;
+  --sep:rgba(90,170,122,0.16);--card-grad:linear-gradient(135deg,#091408,#050c05);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;overflow-x:hidden;}
+#ptov{position:fixed;inset:0;z-index:9000;pointer-events:none;background:#040a06;transform:translateX(100%);}
+.nav-l,.nav-r{position:fixed;top:50%;z-index:500;transform:translateY(-50%);width:52px;height:80px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.45;transition:opacity .25s;}
+.nav-l{left:0;}.nav-r{right:0;}
+.nav-l:hover,.nav-r:hover{opacity:1;}
+.btn-home{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:600;background:rgba(4,10,6,0.88);border:1px solid rgba(90,170,122,0.3);border-radius:20px;padding:6px 18px;font-family:"Cinzel",serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(90,170,122,0.7);text-decoration:none;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
+.btn-home:hover{color:#5aaa7a;border-color:rgba(90,170,122,0.7);background:rgba(4,10,6,0.96);}
+.nav-arrow{width:28px;height:28px;border-top:2px solid var(--accent);border-right:2px solid var(--accent);}
+.nav-l .nav-arrow{transform:rotate(-135deg) translateX(4px);}
+.nav-r .nav-arrow{transform:rotate(45deg) translateX(-4px);}
+.album-header{padding:48px 80px 36px;border-bottom:1px solid var(--sep);background:linear-gradient(180deg,#080e09,transparent);display:flex;align-items:flex-end;justify-content:space-between;}
+.series-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:8px;}
+.album-title{font-family:"Cinzel",serif;font-size:52px;font-weight:700;color:var(--accent);letter-spacing:4px;text-shadow:0 0 80px rgba(90,170,122,0.13);line-height:1;}
+.album-subtitle{font-family:"EB Garamond",serif;font-style:italic;font-size:18px;color:var(--text-dim);margin-top:10px;}
+.card-count{font-family:"Bebas Neue",sans-serif;font-size:64px;color:rgba(90,170,122,0.13);line-height:1;text-align:right;}
+.card-count-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-align:right;}
+.instructions{padding:14px 80px;background:var(--bg2);border-bottom:1px solid var(--sep);display:flex;gap:32px;}
+.instr-item{font-size:12px;color:var(--text-dim);}.instr-item span{color:var(--accent);}
+.chapter-banner{padding:18px 80px;margin:40px 0 0;display:flex;align-items:center;gap:24px;}
+.chapter-number{font-family:"Bebas Neue",sans-serif;font-size:48px;line-height:1;color:rgba(90,170,122,0.13);}
+.chapter-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-dim);margin-bottom:2px;}
+.chapter-title{font-family:"Cinzel",serif;font-size:18px;font-weight:700;color:var(--text-bright);letter-spacing:1px;}
+.chapter-line{flex:1;height:1px;background:linear-gradient(90deg,var(--accent-dim),transparent);opacity:.3;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;padding:24px 80px 48px;}
+.card-grid.apertura-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto;padding:24px 0 48px;}
+.flip-card{perspective:1200px;cursor:pointer;height:360px;}
+.flip-card.apertura{height:480px;}
+.flip-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+.flip-card:hover .flip-card-inner{transform:rotateY(180deg);}
+.card-front,.card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:3px;overflow:hidden;}
+.card-front{background:var(--bg3);border:1px solid var(--sep);display:flex;flex-direction:column;}
+.card-img-wrap{flex:1;overflow:hidden;position:relative;background:#030608;min-height:0;}
+.card-img-wrap img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .4s ease;}
+.flip-card:hover .card-img-wrap img{transform:scale(1.03);}
+.card-badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.85);color:var(--accent);font-family:"Cinzel",serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1.5px;z-index:2;}
+.card-foil{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0),rgba(255,255,255,.025) 40%,rgba(90,170,122,0.04) 50%,rgba(255,255,255,.015) 60%,rgba(255,255,255,0));pointer-events:none;z-index:3;}
+.card-label{padding:12px 14px;border-top:1px solid var(--sep);background:var(--bg3);flex-shrink:0;}
+.card-label-title{font-family:"EB Garamond",serif;font-style:italic;font-size:14px;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-label-artist{font-size:11px;color:var(--text-dim);margin-top:2px;}
+.card-label-year{font-family:"Cinzel",serif;font-size:13px;color:var(--accent);float:right;margin-top:-14px;font-weight:700;}
+.card-border{position:absolute;inset:0;border:2px solid var(--accent);border-radius:3px;opacity:.22;pointer-events:none;z-index:4;transition:opacity .3s;}
+.flip-card:hover .card-border{opacity:.55;}
+.card-back{background:var(--card-grad);border:1px solid rgba(90,170,122,0.2);transform:rotateY(180deg);display:flex;flex-direction:column;padding:20px;}
+.back-number{font-family:"Bebas Neue",sans-serif;font-size:52px;line-height:1;color:rgba(90,170,122,0.13);margin-bottom:4px;flex-shrink:0;}
+.back-title{font-family:"EB Garamond",serif;font-style:italic;font-size:17px;color:var(--text-bright);line-height:1.3;margin-bottom:4px;flex-shrink:0;}
+.back-artist{font-size:12px;color:var(--accent);letter-spacing:.5px;margin-bottom:14px;flex-shrink:0;}
+.back-divider{height:1px;background:var(--sep);margin-bottom:14px;flex-shrink:0;}
+.back-desc{font-family:"EB Garamond",serif;font-size:14.5px;color:var(--text);line-height:1.65;flex:1;overflow-y:auto;min-height:0;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--accent-dim) transparent;}
+.back-desc::-webkit-scrollbar{width:3px;}.back-desc::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:2px;}
+.back-museum{margin-top:12px;font-size:11px;color:var(--text-dim);letter-spacing:.5px;padding-top:10px;border-top:1px solid var(--sep);flex-shrink:0;}
+#lightbox{display:none;position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.94);align-items:center;justify-content:center;flex-direction:column;}
+#lb-img{max-width:90vw;max-height:82vh;object-fit:contain;border:1px solid var(--sep);}
+#lb-caption{margin-top:16px;font-family:"EB Garamond",serif;font-style:italic;font-size:15px;color:var(--text-dim);text-align:center;max-width:80vw;}
+#lb-counter{font-family:"Cinzel",serif;font-size:11px;color:var(--accent-dim);letter-spacing:2px;margin-top:8px;}
+#lb-close{position:absolute;top:24px;right:32px;color:var(--accent);font-size:28px;cursor:pointer;opacity:.6;transition:opacity .2s;background:none;border:none;padding:4px;}
+#lb-close:hover{opacity:1;}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);color:var(--accent);font-size:32px;cursor:pointer;opacity:.5;transition:opacity .2s;padding:20px;background:none;border:none;}
+#lb-prev:hover,#lb-next:hover{opacity:1;}
+#lb-prev{left:8px;}#lb-next{right:8px;}
+.img-err-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--accent-dim);font-size:10px;letter-spacing:1px;text-transform:uppercase;pointer-events:none;}
+.album-footer{padding:40px 80px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;align-items:center;}
+.footer-series{font-family:"Cinzel",serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+.footer-ep{font-size:11px;color:var(--text-dim);letter-spacing:1px;}
+/* ─── MOBILE ─── */
+@media (hover:none){
+  .flip-card:hover .flip-card-inner{transform:none;}
+  .flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+  .flip-card:hover .card-img-wrap img{transform:none;}
+  .flip-card:hover .card-border{opacity:.22;}
+}
+@media (max-width:700px){
+  .album-header{padding:28px 16px 20px;flex-direction:column;gap:8px;align-items:flex-start;}
+  .album-title{font-size:36px;}
+  .album-subtitle{font-size:15px;}
+  .card-count{font-size:40px;}
+  .instructions{padding:10px 16px;gap:12px;flex-wrap:wrap;}
+  .chapter-banner{padding:12px 16px;margin:20px 0 0;}
+  .chapter-number{font-size:36px;}
+  .chapter-title{font-size:14px;}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:14px 12px 32px;}
+  .card-grid.apertura-grid{padding:14px 12px 32px;max-width:100%;}
+  .flip-card{height:280px;}
+  .flip-card.apertura{height:360px;}
+  .card-label-year{font-size:12px;}
+  .nav-l,.nav-r{width:32px;height:56px;}
+  .nav-arrow{width:18px;height:18px;}
+  .album-footer{padding:20px 16px;flex-direction:column;gap:6px;text-align:center;}
+}
+@media (max-width:400px){
+  .card-grid{grid-template-columns:1fr 1fr;}
+  .flip-card{height:260px;}
+}
+</style>
+</head>
+<body>
+<div id="ptov"></div>
+<div class="nav-l" onclick="turnPage('CRONICAS_ETERNAS_Portada.html','left')" title="← Atrás"><div class="nav-arrow"></div></div>
+<div class="nav-r" onclick="turnPage('EVA_Material.html','right')" title="Fuentes →"><div class="nav-arrow"></div></div>
+<a class="btn-home" href="CRONICAS_ETERNAS_Portada.html">⌂ &nbsp;Portada</a>
+<header class="album-header">
+  <div>
+    <div class="series-tag">T1 · E02 · Cristiana / Gnóstica · Crónicas Eternas</div>
+    <h1 class="album-title">EVA</h1>
+    <p class="album-subtitle">Génesis 2–3 · Nag Hammadi · Arte occidental · c. 1425–1907</p>
+  </div>
+  <div><div class="card-count">23</div><div class="card-count-label">obras</div></div>
+</header>
+<div class="instructions">
+  <div class="instr-item"><span>Hover</span> · tap para descripción</div>
+  <div class="instr-item"><span>Click</span> para ampliar</div>
+  <div class="instr-item"><span>← →</span> navegar páginas</div>
+</div>
+
+<div class="chapter-banner">
+  <div class="chapter-number">PRÓLOGO</div>
+  <div><div class="chapter-tag">PRÓLOGO</div><div class="chapter-title">La primera imagen</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid apertura-grid">
+
+  <div class="flip-card apertura" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Franz_von_Stuck_-_Die_S%C3%BCnde_1893.jpg?width=800" data-caption="Franz von Stuck — Die Sünde (El Pecado), 1893 · Neue Pinakothek, Múnich" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Franz_von_Stuck_-_Die_S%C3%BCnde_1893.jpg?width=800" alt="Die Sünde · El Pecado" loading="lazy">
+          <div class="card-badge">APERTURA</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1893</div>
+          <div class="card-label-title">Die Sünde · El Pecado</div>
+          <div class="card-label-artist">Franz von Stuck</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">00</div>
+        <div class="back-title">Die Sünde · El Pecado</div>
+        <div class="back-artist">Franz von Stuck · 1893</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina envuelta por una serpiente de grandes dimensiones; ambas miran al espectador. Óleo sobre lienzo. Neue Pinakothek, Múnich. Stuck pintó múltiples versiones de esta composición a partir de 1893 y fue cofundador de la Munich Secession en 1892.</div>
+        <div class="back-museum">Neue Pinakothek, Múnich</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE I</div>
+  <div><div class="chapter-tag">PARTE I</div><div class="chapter-title">El Jardín y la Caída</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Hieronymus_Bosch_-_The_Garden_of_Earthly_Delights_-_The_Earthly_Paradise_%28Garden_of_Eden%29.jpg?width=800" data-caption="El Bosco — El Jardín de las Delicias, panel izquierdo (El Edén), ~1490-1510 · Museo del Prado" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hieronymus_Bosch_-_The_Garden_of_Earthly_Delights_-_The_Earthly_Paradise_%28Garden_of_Eden%29.jpg?width=800" alt="El Jardín de las Delicias — El Edén" loading="lazy">
+          <div class="card-badge">01</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1490</div>
+          <div class="card-label-title">El Jardín de las Delicias — El Edén</div>
+          <div class="card-label-artist">El Bosco</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">01</div>
+        <div class="back-title">El Jardín de las Delicias — El Edén (panel izquierdo)</div>
+        <div class="back-artist">El Bosco (Hieronymus Bosch) · ~1490-1510</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Panel izquierdo del tríptico El jardín de las delicias. Dios presenta a Eva a Adán rodeados de animales y vegetación. Óleo sobre tabla, ~220 × 97 cm. El tríptico ingresó al Museo del Prado desde El Escorial en el siglo XVI.</div>
+        <div class="back-museum">Museo del Prado, Madrid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Brueghel_de_Oude_en_Peter_Paul_Rubens_-_Het_aards_paradijs_met_de_zondeval_van_Adam_en_Eva.jpg?width=800" data-caption="Rubens & Jan Brueghel el Viejo — El Jardín del Edén con la Caída, 1615 · Mauritshuis, La Haya" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jan_Brueghel_de_Oude_en_Peter_Paul_Rubens_-_Het_aards_paradijs_met_de_zondeval_van_Adam_en_Eva.jpg?width=800" alt="El Jardín del Edén con la Caída" loading="lazy">
+          <div class="card-badge">02</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1615</div>
+          <div class="card-label-title">El Jardín del Edén con la Caída</div>
+          <div class="card-label-artist">Rubens & Jan Brueghel el Viejo</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">02</div>
+        <div class="back-title">El Jardín del Edén con la Caída del Hombre</div>
+        <div class="back-artist">Peter Paul Rubens & Jan Brueghel el Viejo · 1615</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">El jardín y los animales fueron pintados por Jan Brueghel el Viejo; las figuras de Adán y Eva por Rubens — colaboración documentada entre los dos artistas. Óleo sobre tabla, 74,3 × 114,7 cm.</div>
+        <div class="back-museum">Mauritshuis, La Haya, Países Bajos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Titian_-_Adam_and_Eve_-_WGA22816.jpg?width=800" data-caption="Tiziano — La Caída del Hombre, ~1550 · Museo del Prado, Madrid" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Titian_-_Adam_and_Eve_-_WGA22816.jpg?width=800" alt="La Caída del Hombre" loading="lazy">
+          <div class="card-badge">03</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1550</div>
+          <div class="card-label-title">La Caída del Hombre</div>
+          <div class="card-label-artist">Tiziano Vecellio</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">03</div>
+        <div class="back-title">La Caída del Hombre</div>
+        <div class="back-artist">Tiziano Vecellio · ~1550</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Eva extiende el brazo hacia la manzana que le ofrece la serpiente; Adán extiende el suyo hacia Eva. Óleo sobre lienzo, firmado. 240 × 186 cm.</div>
+        <div class="back-museum">Museo del Prado, Madrid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%2C_Fall_and_Expulsion_from_Garden_of_Eden_00.jpg?width=800" data-caption="Miguel Ángel — Tentación y Expulsión (bóveda Capilla Sixtina), 1508-1512 · Ciudad del Vaticano" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%2C_Fall_and_Expulsion_from_Garden_of_Eden_00.jpg?width=800" alt="Tentación y Expulsión — Capilla Sixtina" loading="lazy">
+          <div class="card-badge">04</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1508–12</div>
+          <div class="card-label-title">Tentación y Expulsión — Capilla Sixtina</div>
+          <div class="card-label-artist">Miguel Ángel</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">04</div>
+        <div class="back-title">Tentación y Expulsión de Adán y Eva</div>
+        <div class="back-artist">Miguel Ángel Buonarroti · 1508-1512</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Fresco en la bóveda de la Capilla Sixtina, encargado por el Papa Julio II. La serpiente está representada con torso de figura humana femenina enroscada en el árbol. Panel izquierdo: la toma del fruto. Panel derecho: el ángel expulsa a Adán y Eva.</div>
+        <div class="back-museum">Capilla Sixtina, Ciudad del Vaticano</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Lucas_Cranach_the_Elder_-_Adam_and_Eve_-_Google_Art_Project.jpg?width=800" data-caption="Lucas Cranach el Viejo — Adán y Eva, 1526 · Courtauld Gallery, Londres" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lucas_Cranach_the_Elder_-_Adam_and_Eve_-_Google_Art_Project.jpg?width=800" alt="Adán y Eva" loading="lazy">
+          <div class="card-badge">05</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1526</div>
+          <div class="card-label-title">Adán y Eva</div>
+          <div class="card-label-artist">Lucas Cranach el Viejo</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">05</div>
+        <div class="back-title">Adán y Eva</div>
+        <div class="back-artist">Lucas Cranach el Viejo · 1526</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Adán y Eva junto al árbol del conocimiento con la serpiente enroscada en el tronco. Óleo sobre tabla, firmado y fechado 1526.</div>
+        <div class="back-museum">Courtauld Gallery, Londres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Hendrik_Goltzius_-_The_Fall_of_Man_-_Google_Art_Project.jpg?width=800" data-caption="Hendrick Goltzius — La Caída del Hombre, 1616 · National Gallery of Art, Washington D.C." onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hendrik_Goltzius_-_The_Fall_of_Man_-_Google_Art_Project.jpg?width=800" alt="La Caída del Hombre" loading="lazy">
+          <div class="card-badge">06</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1616</div>
+          <div class="card-label-title">La Caída del Hombre</div>
+          <div class="card-label-artist">Hendrick Goltzius</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">06</div>
+        <div class="back-title">The Fall of Man · La Caída del Hombre</div>
+        <div class="back-artist">Hendrick Goltzius · 1616</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Eva, Adán y la serpiente con figura humana femenina. Óleo sobre lienzo, firmado y fechado 1616. 108,8 × 142,2 cm.</div>
+        <div class="back-museum">National Gallery of Art, Washington D.C.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://fundaciongoyaenaragon.es/files/resize/800x600/files/images/1-9-2375402.jpg" data-caption="Francisco de Goya — Caída de Adán (Cuaderno Italiano), ~1771 · Museo del Prado, Madrid" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://fundaciongoyaenaragon.es/files/resize/800x600/files/images/1-9-2375402.jpg" alt="Caída de Adán — Francisco de Goya, Cuaderno Italiano" loading="lazy">
+          <div class="card-badge">07</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1771</div>
+          <div class="card-label-title">Caída de Adán · Cuaderno Italiano</div>
+          <div class="card-label-artist">Francisco de Goya</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">07</div>
+        <div class="back-title">Caída de Adán · Cuaderno Italiano</div>
+        <div class="back-artist">Francisco de Goya · ~1771</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Apuntes de viaje de Goya en Roma, a los 25 años. Eva ofrece la manzana a Adán; la serpiente en diagonal con cabeza femenina. Sanguina sobre papel. Acompaña el momento de las acusaciones: "Adán culpó a Eva. Eva culpó a la serpiente."</div>
+        <div class="back-museum">Museo del Prado, Madrid (D6068/23)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Hans_Baldung_Grien_-_Eve%2C_Serpent_and_Death.JPG?width=800" data-caption="Hans Baldung Grien — Eva, la Serpiente y la Muerte, ~1510-1525 · National Gallery of Canada, Ottawa" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hans_Baldung_Grien_-_Eve%2C_Serpent_and_Death.JPG?width=800" alt="Eva, la Serpiente y la Muerte" loading="lazy">
+          <div class="card-badge">08</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1510–25</div>
+          <div class="card-label-title">Eva, la Serpiente y la Muerte</div>
+          <div class="card-label-artist">Hans Baldung Grien</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">08</div>
+        <div class="back-title">Eva, la Serpiente y la Muerte</div>
+        <div class="back-artist">Hans Baldung Grien · ~1510-1525</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Tres figuras: Eva de pie, una serpiente con cabeza humana femenina, y una figura esquelética (la Muerte) que sujeta el brazo de Eva. Eva sostiene una manzana. Óleo sobre tabla.</div>
+        <div class="back-museum">National Gallery of Canada, Ottawa</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Cappella_brancacci%2C_Cacciata_di_Adamo_ed_Eva_%28restaurato%29%2C_Masaccio.jpg?width=800" data-caption="Masaccio — Expulsión del Paraíso, ~1425 · Capilla Brancacci, Florencia" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cappella_brancacci%2C_Cacciata_di_Adamo_ed_Eva_%28restaurato%29%2C_Masaccio.jpg?width=800" alt="Expulsión del Paraíso" loading="lazy">
+          <div class="card-badge">09</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1425</div>
+          <div class="card-label-title">Expulsión del Paraíso</div>
+          <div class="card-label-artist">Masaccio</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">09</div>
+        <div class="back-title">Expulsión del Paraíso</div>
+        <div class="back-artist">Masaccio · ~1425</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Adán cubre su rostro con ambas manos; Eva tiene la boca abierta en expresión de angustia. Un ángel desciende con espada. Fresco restaurado, ~214 × 88 cm. Capilla Brancacci, Santa Maria del Carmine, Florencia.</div>
+        <div class="back-museum">Capilla Brancacci, Florencia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Thomas_Cole_-_Expulsion_from_the_Garden_of_Eden_-_Google_Art_Project.jpg?width=800" data-caption="Thomas Cole — Expulsión del Jardín del Edén, 1827-28 · Museum of Fine Arts, Boston" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Thomas_Cole_-_Expulsion_from_the_Garden_of_Eden_-_Google_Art_Project.jpg?width=800" alt="Expulsión del Jardín del Edén" loading="lazy">
+          <div class="card-badge">10</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1827–28</div>
+          <div class="card-label-title">Expulsión del Jardín del Edén</div>
+          <div class="card-label-artist">Thomas Cole</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">10</div>
+        <div class="back-title">Expulsión del Jardín del Edén</div>
+        <div class="back-artist">Thomas Cole · 1827-1828</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Paisaje dividido: el Edén (vegetación exuberante, luz dorada) a la derecha; el mundo exterior (tormenta, oscuridad) a la izquierda. Las figuras de Adán y Eva son pequeñas en relación al paisaje. Óleo sobre lienzo, 101,3 × 138,4 cm.</div>
+        <div class="back-museum">Museum of Fine Arts, Boston</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">PARTE II</div>
+  <div><div class="chapter-tag">PARTE II</div><div class="chapter-title">Lectura Gnóstica</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Astarte_Syriaca.jpg?width=800" data-caption="Dante Gabriel Rossetti — Astarte Syriaca, 1877 · Manchester Art Gallery" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Astarte_Syriaca.jpg?width=800" alt="Astarte Syriaca" loading="lazy">
+          <div class="card-badge">11</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1877</div>
+          <div class="card-label-title">Astarte Syriaca</div>
+          <div class="card-label-artist">Dante Gabriel Rossetti</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">11</div>
+        <div class="back-title">Astarte Syriaca</div>
+        <div class="back-artist">Dante Gabriel Rossetti · 1877</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura femenina de gran formato con corona de estrellas, flanqueada por dos figuras aladas que sostienen antorchas. Astarte era la diosa semítica del amor y la guerra, venerada en Siria y Fenicia. Óleo sobre lienzo, 184,1 × 106,6 cm.</div>
+        <div class="back-museum">Manchester Art Gallery</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Dogmatic_sarcophagus.JPG?width=800" data-caption="Anónimo paleocristiano — Sarcófago Dogmático, ~320-350 d.C. · Museos Vaticanos, Roma" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dogmatic_sarcophagus.JPG?width=800" alt="Sarcófago Dogmático" loading="lazy">
+          <div class="card-badge">12</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~320–350 d.C.</div>
+          <div class="card-label-title">Sarcófago Dogmático</div>
+          <div class="card-label-artist">Arte paleocristiano romano</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">12</div>
+        <div class="back-title">Sarcófago Dogmático · Panel de la Creación de Eva</div>
+        <div class="back-artist">Arte paleocristiano romano · ~320-350 d.C.</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Sarcófago de mármol con dos registros de escenas bíblicas en relieve. En el panel de la Creación de Eva, tres figuras representadas junto al cuerpo de Adán dormido. Hallado durante las obras de la Basílica de San Pablo extramuros.</div>
+        <div class="back-museum">Museos Vaticanos (Museo Pio Cristiano), Roma</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/William_Blake_-_Elohim_Creating_Adam_-_WGA2219.jpg?width=800" data-caption="William Blake — Elohim Creating Adam, 1795 · Tate Britain, Londres" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/William_Blake_-_Elohim_Creating_Adam_-_WGA2219.jpg?width=800" alt="Elohim Creating Adam" loading="lazy">
+          <div class="card-badge">13</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1795</div>
+          <div class="card-label-title">Elohim Creating Adam</div>
+          <div class="card-label-artist">William Blake</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">13</div>
+        <div class="back-title">Elohim Creating Adam</div>
+        <div class="back-artist">William Blake · 1795</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura alada se inclina sobre el cuerpo de Adán extendiendo los brazos. Una serpiente está enroscada en la pierna de Adán. Impresión en color retocada con tinta y acuarela sobre papel, 43,1 × 53,6 cm.</div>
+        <div class="back-museum">Tate Britain, Londres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Michael_Maier_Atalanta_Fugiens_Emblem_33.jpeg?width=800" data-caption="Michael Maier — Atalanta Fugiens, Emblema 33, 1617" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Michael_Maier_Atalanta_Fugiens_Emblem_33.jpeg?width=800" alt="Atalanta Fugiens · Emblema 33" loading="lazy">
+          <div class="card-badge">14</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1617</div>
+          <div class="card-label-title">Atalanta Fugiens · Emblema 33</div>
+          <div class="card-label-artist">Michael Maier</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">14</div>
+        <div class="back-title">Atalanta Fugiens · Emblema 33</div>
+        <div class="back-artist">Michael Maier · 1617</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Grabado del tratado alquímico Atalanta Fugiens de Michael Maier. Contiene 50 emblemas, cada uno con grabado, epigrama latino y fuga musical a tres voces. Publicado por Johann Theodor de Bry, Oppenheim, 1617.</div>
+        <div class="back-museum">Dominio público · Ed. Johann Theodor de Bry, Oppenheim, 1617</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Aurora_consurgens_zurich_044_f-21v-44_dragon-pot.jpg?width=800" data-caption="Anónimo — Aurora Consurgens, Ms. Rh. 172, Siglo XV · Zentralbibliothek, Zúrich" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Aurora_consurgens_zurich_044_f-21v-44_dragon-pot.jpg?width=800" alt="Aurora Consurgens · Ms. Rh. 172" loading="lazy">
+          <div class="card-badge">15</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">Siglo XV</div>
+          <div class="card-label-title">Aurora Consurgens · Ms. Rh. 172</div>
+          <div class="card-label-artist">Anónimo, S. XV</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">15</div>
+        <div class="back-title">Aurora Consurgens · Ms. Rh. 172, f. 21v</div>
+        <div class="back-artist">Anónimo · Siglo XV · Manuscrito iluminado</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Miniatura iluminada del manuscrito Aurora Consurgens, Ms. Rh. 172, Zentralbibliothek de Zúrich. Folio 21v: figura femenina junto a un dragón y un recipiente. Pergamino iluminado, siglo XV.</div>
+        <div class="back-museum">Zentralbibliothek, Zúrich (Ms. Rh. 172)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Cappella_brancacci%2C_Tentazione_di_Adamo_ed_Eva_%28restaurato%29%2C_Masolino.jpg?width=800" data-caption="Masolino da Panicale — La Tentación de Adán y Eva, ~1425 · Capilla Brancacci, Florencia" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cappella_brancacci%2C_Tentazione_di_Adamo_ed_Eva_%28restaurato%29%2C_Masolino.jpg?width=800" alt="La Tentación de Adán y Eva" loading="lazy">
+          <div class="card-badge">16</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1425</div>
+          <div class="card-label-title">La Tentación de Adán y Eva</div>
+          <div class="card-label-artist">Masolino da Panicale</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">16</div>
+        <div class="back-title">La Tentación de Adán y Eva</div>
+        <div class="back-artist">Masolino da Panicale · ~1425</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Adán y Eva de pie frente al árbol del conocimiento. La serpiente tiene cabeza humana femenina. Fresco restaurado, ~214 × 88 cm. Capilla Brancacci. En la misma pared que la Expulsión de Masaccio.</div>
+        <div class="back-museum">Capilla Brancacci, Florencia</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau%2C_known_as_le_Douanier_-_The_Snake_Charmer_-_Google_Art_Project.jpg?width=800" data-caption="Henri Rousseau — La Charmeuse de Serpents, 1907 · Musée d'Orsay, París" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Henri_Rousseau%2C_known_as_le_Douanier_-_The_Snake_Charmer_-_Google_Art_Project.jpg?width=800" alt="La Charmeuse de Serpents" loading="lazy">
+          <div class="card-badge">17</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1907</div>
+          <div class="card-label-title">La Charmeuse de Serpents</div>
+          <div class="card-label-artist">Henri Rousseau</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">17</div>
+        <div class="back-title">La Charmeuse de Serpents · La Encantadora de Serpientes</div>
+        <div class="back-artist">Henri Rousseau · 1907</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Figura humana de pie en un paisaje de jungla nocturna tocando una flauta. Varias serpientes presentes en la escena. Óleo sobre lienzo, 169 × 189,5 cm. Encargada por la madre del pintor Robert Delaunay.</div>
+        <div class="back-museum">Musée d'Orsay, París</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Hugo_van_der_Goes_-_The_Fall_of_Man_and_The_Lamentation_-_Google_Art_Project.jpg?width=800" data-caption="Hugo van der Goes — La Caída del Hombre, ~1479-80 · Kunsthistorisches Museum, Viena" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hugo_van_der_Goes_-_The_Fall_of_Man_and_The_Lamentation_-_Google_Art_Project.jpg?width=800" alt="La Caída del Hombre" loading="lazy">
+          <div class="card-badge">18</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1479–80</div>
+          <div class="card-label-title">La Caída del Hombre</div>
+          <div class="card-label-artist">Hugo van der Goes</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">18</div>
+        <div class="back-title">The Fall of Man · La Caída del Hombre</div>
+        <div class="back-artist">Hugo van der Goes · ~1479-1480</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Eva sostiene una manzana ya mordida; la serpiente con rostro humano femenino está enroscada en el árbol. Adán extiende el brazo hacia el fruto. Óleo sobre tabla, 32,3 × 21,9 cm.</div>
+        <div class="back-museum">Kunsthistorisches Museum, Viena</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Accademia_-_The_Temptation_of_Adam_by_Jacopo_Tintoretto.jpg?width=800" data-caption="Jacopo Tintoretto — La Tentación de Adán, 1552 · Gallerie dell'Accademia, Venecia" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Accademia_-_The_Temptation_of_Adam_by_Jacopo_Tintoretto.jpg?width=800" alt="La Tentación de Adán" loading="lazy">
+          <div class="card-badge">19</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1552</div>
+          <div class="card-label-title">La Tentación de Adán</div>
+          <div class="card-label-artist">Jacopo Tintoretto</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">19</div>
+        <div class="back-title">La Tentación de Adán</div>
+        <div class="back-artist">Jacopo Tintoretto · 1552</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Eva ofrece el fruto a Adán. La serpiente está presente en la escena. Óleo sobre lienzo, 150 × 220 cm.</div>
+        <div class="back-museum">Gallerie dell'Accademia, Venecia</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="chapter-banner">
+  <div class="chapter-number">CIERRE</div>
+  <div><div class="chapter-tag">CIERRE</div><div class="chapter-title">El mundo que quedó</div></div>
+  <div class="chapter-line"></div>
+</div>
+<div class="card-grid ">
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Hieronymus_Bosch_-_The_Garden_of_Earthly_Delights_-_Hell.jpg?width=800" data-caption="El Bosco — El Jardín de las Delicias, panel derecho (El Infierno), ~1490-1510 · Museo del Prado" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hieronymus_Bosch_-_The_Garden_of_Earthly_Delights_-_Hell.jpg?width=800" alt="El Jardín de las Delicias — El Infierno" loading="lazy">
+          <div class="card-badge">20</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1490</div>
+          <div class="card-label-title">El Jardín de las Delicias — El Infierno</div>
+          <div class="card-label-artist">El Bosco</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">20</div>
+        <div class="back-title">El Jardín de las Delicias — El Infierno (panel derecho)</div>
+        <div class="back-artist">El Bosco · ~1490-1510</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Panel derecho del tríptico El jardín de las delicias. Escenas de tormento con figuras y máquinas. Óleo sobre tabla, ~220 × 97 cm.</div>
+        <div class="back-museum">Museo del Prado, Madrid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Cain_slaying_Abel%2C_1608-1609.jpg?width=800" data-caption="Peter Paul Rubens — Caín matando a Abel, ~1608-09 · Courtauld Gallery, Londres" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Peter_Paul_Rubens_-_Cain_slaying_Abel%2C_1608-1609.jpg?width=800" alt="Caín matando a Abel" loading="lazy">
+          <div class="card-badge">21</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">~1608–09</div>
+          <div class="card-label-title">Caín matando a Abel</div>
+          <div class="card-label-artist">Peter Paul Rubens</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">21</div>
+        <div class="back-title">Cain Slaying Abel · Caín matando a Abel</div>
+        <div class="back-artist">Peter Paul Rubens · ~1608-1609</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Caín sobre Abel en postura de golpe. Los dos cuerpos entrelazados en primer plano. Óleo sobre lienzo, 122,7 × 82,6 cm.</div>
+        <div class="back-museum">Courtauld Gallery, Londres</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/William_Bouguereau_-_El_primer_duelo.jpg?width=800" data-caption="William-Adolphe Bouguereau — El Primer Duelo, 1888 · Museo Nacional de Bellas Artes, Buenos Aires" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/William_Bouguereau_-_El_primer_duelo.jpg?width=800" alt="El Primer Duelo" loading="lazy">
+          <div class="card-badge">22</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">1888</div>
+          <div class="card-label-title">El Primer Duelo</div>
+          <div class="card-label-artist">W.-A. Bouguereau</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">22</div>
+        <div class="back-title">El Primer Duelo · The First Mourning</div>
+        <div class="back-artist">William-Adolphe Bouguereau · 1888</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">Eva y Adán inclinados sobre el cuerpo de Abel tendido. Eva sostiene la cabeza del hijo; Adán está sentado junto al cuerpo. Óleo sobre lienzo, firmado y fechado 1888. 203 × 252 cm.</div>
+        <div class="back-museum">Museo Nacional de Bellas Artes, Buenos Aires</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card" data-url="https://commons.wikimedia.org/wiki/Special:FilePath/Lorenzo_lotto%2C_San_Michele_arcangelo_che_scaccia_Lucifero%2C_1551-1555_circa%2C_01.jpg?width=800" data-caption="Lorenzo Lotto — San Miguel Arcángel expulsa a Lucifer, c. 1551-1555 · Basílica della Santa Casa, Loreto" onclick="openLightbox(this)">
+    <div class="flip-card-inner">
+      <div class="card-front">
+        <div class="card-img-wrap">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lorenzo_lotto%2C_San_Michele_arcangelo_che_scaccia_Lucifero%2C_1551-1555_circa%2C_01.jpg?width=800" alt="San Miguel expulsa a Lucifer" loading="lazy">
+          <div class="card-badge">23</div>
+          <div class="card-foil"></div>
+        </div>
+        <div class="card-label">
+          <div class="card-label-year">c. 1551–55</div>
+          <div class="card-label-title">San Miguel expulsa a Lucifer</div>
+          <div class="card-label-artist">Lorenzo Lotto</div>
+        </div>
+        <div class="card-border"></div>
+      </div>
+      <div class="card-back">
+        <div class="back-number">23</div>
+        <div class="back-title">San Miguel Arcángel expulsa a Lucifer</div>
+        <div class="back-artist">Lorenzo Lotto · c. 1551-1555</div>
+        <div class="back-divider"></div>
+        <div class="back-desc">San Miguel Arcángel representado en postura de victoria sobre una figura caída en la parte inferior. Óleo sobre lienzo.</div>
+        <div class="back-museum">Basílica della Santa Casa, Loreto, Italia</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
+  <button id="lb-next" onclick="lbNav(1)">&#8250;</button>
+</div>
+<footer class="album-footer">
+  <div class="footer-series">Crónicas Eternas · Serie Cristiana / Gnóstica</div>
+  <div class="footer-ep">T1 · E02 · EVA · 23 obras · Dominio público</div>
+</footer>
+<script>
+
+var lbCards=[],lbIdx=0;
+function buildList(){{lbCards=Array.from(document.querySelectorAll('.flip-card[data-url]'));}}
+function openLightbox(el){{if(el.classList.contains('flipped'))return;buildList();lbIdx=lbCards.indexOf(el);showLb(lbIdx);document.getElementById('lightbox').style.display='flex';}}
+function showLb(i){{var c=lbCards[i];document.getElementById('lb-img').src=c.getAttribute('data-url');document.getElementById('lb-caption').textContent=c.getAttribute('data-caption')||'';document.getElementById('lb-counter').textContent=(i+1)+' / '+lbCards.length;}}
+function closeLightbox(){{document.getElementById('lightbox').style.display='none';}}
+function lbNav(dir){{lbIdx=(lbIdx+dir+lbCards.length)%lbCards.length;showLb(lbIdx);}}
+document.addEventListener('keydown',function(e){{var lb=document.getElementById('lightbox');if(lb.style.display==='flex'){{if(e.key==='ArrowLeft')lbNav(-1);else if(e.key==='ArrowRight')lbNav(1);else if(e.key==='Escape')closeLightbox();}}}});
+document.getElementById('lightbox').addEventListener('click',function(e){{if(e.target===this)closeLightbox();}});
+if(window.matchMedia('(hover:none)').matches){{
+  document.querySelectorAll('.flip-card').forEach(function(card){{
+    card.addEventListener('click',function(e){{
+      e.stopPropagation();
+      if(this.classList.contains('flipped')){{this.classList.remove('flipped');}}
+      else{{document.querySelectorAll('.flip-card.flipped').forEach(function(c){{c.classList.remove('flipped');}});this.classList.add('flipped');}}
+    }});
+  }});
+}}
+document.querySelectorAll('.card-img-wrap img').forEach(function(img){{
+  img.addEventListener('error',function(){{
+    if(this.dataset.errored)return;this.dataset.errored='1';this.style.opacity='0.08';
+    var l=document.createElement('div');l.className='img-err-label';l.textContent='no disponible';this.parentNode.appendChild(l);
+  }});
+}});
+function turnPage(url,dir){{var ov=document.getElementById('ptov');sessionStorage.setItem('ptFrom',dir);ov.style.transition='none';ov.style.transform=dir==='right'?'translateX(100%)':'translateX(-100%)';ov.style.pointerEvents='all';requestAnimationFrame(function(){{requestAnimationFrame(function(){{ov.style.transition='transform .48s cubic-bezier(.4,0,.8,0)';ov.style.transform='translateX(0)';}});}});setTimeout(function(){{window.location.href=url;}},500);}}
+window.addEventListener('DOMContentLoaded',function(){{var dir=sessionStorage.getItem('ptFrom');if(!dir)return;sessionStorage.removeItem('ptFrom');var ov=document.getElementById('ptov');ov.style.transition='none';ov.style.transform='translateX(0)';ov.style.pointerEvents='all';requestAnimationFrame(function(){{requestAnimationFrame(function(){{ov.style.transition='transform .48s cubic-bezier(.2,0,.4,1)';ov.style.transform=dir==='right'?'translateX(-100%)':'translateX(100%)';setTimeout(function(){{ov.style.pointerEvents='none';}},520);}});}});}});
+
+</script>
+</body>
+</html>

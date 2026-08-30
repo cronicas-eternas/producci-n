@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVA · Fuentes y Material — Crónicas Eternas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --gold: #C9A84C;
+  --gold-dim: #7a5830;
+  --bg: #05080a;
+  --bg2: #080c10;
+  --bg3: #0c1118;
+  --text: #b8c8c0;
+  --text-dim: #4a6050;
+  --text-bright: #d8e8d0;
+  --accent: #3a7a5a;
+  --accent-light: #5aaa7a;
+  --sep: rgba(90,170,120,0.14);
+  --gold-faint: rgba(201,168,76,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#ptov {
+  position: fixed; inset: 0; z-index: 9000; pointer-events: none;
+  background: linear-gradient(105deg, #020508 0%, #060c10 50%, #010305 100%);
+  transform: translateX(100%);
+}
+
+.nav-l, .nav-r {
+  position: fixed; top: 50%; z-index: 500;
+  transform: translateY(-50%);
+  width: 52px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: .45; transition: opacity .25s;
+}
+.nav-l { left: 0; }
+.nav-r { right: 0; }
+.nav-l:hover, .nav-r:hover { opacity: 1; }
+.nav-arrow {
+  width: 28px; height: 28px;
+  border-top: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+.nav-l .nav-arrow { transform: rotate(-135deg) translateX(4px); }
+.nav-r .nav-arrow { transform: rotate(45deg) translateX(-4px); opacity: .3; }
+
+/* HEADER */
+.site-header {
+  padding: 56px 80px 40px;
+  border-bottom: 1px solid var(--sep);
+  background: linear-gradient(180deg, #080e12 0%, transparent 100%);
+}
+.breadcrumb {
+  font-size: 11px; letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+.breadcrumb span { color: var(--accent-light); }
+.ep-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px; letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 42px; font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px; line-height: 1.1;
+  text-shadow: 0 0 60px rgba(201,168,76,0.15);
+}
+.page-subtitle {
+  margin-top: 12px;
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--text-dim);
+}
+.gold-line { width: 80px; height: 1px; background: var(--gold); margin: 24px 0 0; opacity: 0.4; }
+
+/* TABS */
+.tab-bar {
+  display: flex;
+  padding: 0 80px;
+  border-bottom: 1px solid var(--sep);
+  background: var(--bg2);
+  position: sticky; top: 0; z-index: 100;
+}
+.tab-btn {
+  padding: 18px 28px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer; border: none; background: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent-light); border-bottom-color: var(--accent-light); }
+
+/* PANELS */
+.tab-panel { display: none; padding: 60px 80px 120px; max-width: 1100px; }
+.tab-panel.active { display: block; }
+
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--sep);
+}
+
+/* SOURCE CARDS */
+.source-card {
+  background: var(--bg3);
+  border: 1px solid var(--sep);
+  border-left: 3px solid var(--text-dim);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-left-color .2s;
+}
+.source-card:hover { border-left-color: var(--accent-light); }
+.source-card.open { border-left-color: var(--accent-light); }
+
+.source-header {
+  display: flex; align-items: center;
+  padding: 20px 24px;
+  cursor: pointer; gap: 20px;
+}
+.source-year {
+  min-width: 100px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--accent-light);
+  text-align: right; flex-shrink: 0;
+}
+.source-meta { flex: 1; }
+.source-author {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px; font-weight: 500;
+  color: var(--text-bright); line-height: 1.2;
+}
+.source-work {
+  font-family: 'EB Garamond', serif;
+  font-style: italic; font-size: 15px;
+  color: var(--text-dim); margin-top: 2px;
+}
+.source-toggle {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--text-dim);
+  font-size: 20px; transition: transform .25s;
+  user-select: none;
+}
+.source-card.open .source-toggle { transform: rotate(45deg); }
+
+.source-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .4s cubic-bezier(0,0,.2,1);
+}
+.source-body-inner { padding: 0 24px 28px 144px; }
+
+blockquote {
+  margin: 16px 0; padding: 16px 20px;
+  border-left: 2px solid var(--accent);
+  background: rgba(58,122,90,0.06);
+  border-radius: 0 2px 2px 0;
+}
+blockquote p {
+  font-family: 'EB Garamond', serif;
+  font-style: italic; font-size: 18px;
+  color: var(--text-bright); line-height: 1.65;
+}
+blockquote cite {
+  display: block; margin-top: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; letter-spacing: 1px;
+  color: var(--text-dim); font-style: normal;
+}
+
+.source-note {
+  font-size: 14px; color: var(--text-dim);
+  margin-top: 14px; line-height: 1.6;
+}
+.source-note strong { color: var(--text); }
+.source-note a { color: var(--accent-light); text-decoration: none; }
+.source-note a:hover { color: var(--gold); }
+.source-note.warn {
+  background: rgba(139,32,32,0.1);
+  border-left: 2px solid #8b2020;
+  padding: 14px 16px; margin: 16px 0;
+}
+.source-note.warn strong { color: #c87070; }
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  padding: 20px 0 20px 48px; margin-bottom: 48px;
+}
+.timeline::before {
+  content: '';
+  position: absolute; left: 16px; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--accent) 10%, var(--accent) 90%, transparent);
+  opacity: 0.3;
+}
+.tl-item {
+  position: relative; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer; padding: 8px 12px;
+  border-radius: 2px; transition: background .2s;
+}
+.tl-item:hover { background: rgba(58,122,90,0.08); }
+.tl-dot {
+  position: absolute; left: -40px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-dim);
+  background: var(--bg);
+  transition: background .2s, border-color .2s;
+}
+.tl-item:hover .tl-dot { background: var(--accent-light); border-color: var(--accent-light); }
+.tl-year { font-family: 'Cinzel', serif; font-size: 12px; color: var(--text-dim); min-width: 120px; }
+.tl-desc { font-family: 'EB Garamond', serif; font-size: 16px; color: var(--text); }
+.tl-tag {
+  font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 2px 8px;
+  border: 1px solid var(--sep);
+  color: var(--text-dim); border-radius: 20px;
+  margin-left: auto;
+}
+
+/* PULL QUOTE */
+.pull-quote {
+  margin: 40px 0; padding: 36px 40px;
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  text-align: center;
+  background: rgba(58,122,90,0.04);
+  opacity: 0.4;
+}
+.pull-quote.visible { opacity: 1; transition: opacity 0.5s; }
+.pull-quote p {
+  font-family: 'EB Garamond', serif;
+  font-style: italic; font-size: 26px;
+  color: var(--text-bright); line-height: 1.55;
+}
+.pull-quote cite {
+  display: block; margin-top: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-dim);
+}
+
+/* CREDITS TABLE */
+.credits-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.credits-table th {
+  font-family: 'Cinzel', serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-dim); padding: 10px 16px;
+  text-align: left; border-bottom: 1px solid var(--sep);
+}
+.credits-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(90,170,120,0.06);
+  vertical-align: top;
+}
+.credits-table tr:hover td { background: rgba(58,122,90,0.05); }
+.td-pos { font-family: 'Cinzel', serif; font-size: 12px; color: var(--accent-light); width: 60px; }
+.td-title { font-family: 'EB Garamond', serif; font-style: italic; font-size: 16px; color: var(--text-bright); }
+.td-artist { color: var(--text); }
+.td-year { color: var(--text-dim); font-size: 13px; }
+.td-museum { color: var(--text-dim); font-size: 13px; line-height: 1.4; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; opacity: .5; }
+</style>
+</head>
+<body>
+<div id="ptov"></div>
+
+<!-- NAV LEFT → álbum EVA -->
+<div class="nav-l" onclick="turnPage('EVA_Album_Panini.html','left')" title="← Álbum">
+  <div class="nav-arrow"></div>
+</div>
+<!-- NAV RIGHT → futuro -->
+<div class="nav-r" style="opacity:.1;cursor:default;" title="Próximamente">
+  <div class="nav-arrow"></div>
+</div>
+
+<header class="site-header">
+  <div class="breadcrumb">Crónicas Eternas · <span>Eva</span></div>
+  <div class="ep-title">T1 · E02 · Cristiana / Gnóstica</div>
+  <h1 class="page-title">Archivo de Fuentes</h1>
+  <p class="page-subtitle">Los textos que construyeron a Eva · Referencias y material de producción</p>
+  <div class="gold-line"></div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('fuentes',this)">Fuentes Primarias</button>
+  <button class="tab-btn" onclick="switchTab('arte',this)">Créditos de Arte</button>
+</nav>
+
+<!-- ═══════ TAB 1: FUENTES ═══════ -->
+<div id="tab-fuentes" class="tab-panel active">
+
+  <div class="section-label">Cronología de fuentes · c. 1200 a.C. — 1945 d.C.</div>
+
+  <div class="timeline reveal">
+    <div class="tl-item" onclick="openCard('c-genesis')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 900–500 a.C.</div>
+      <div class="tl-desc">Génesis 2–3 · La creación de Eva y la caída</div>
+      <div class="tl-tag">Fuente principal</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-bensira')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 180 a.C.</div>
+      <div class="tl-desc">Ben Sira (Eclesiástico) · «De la mujer vino el principio del pecado»</div>
+      <div class="tl-tag">Deuterocanónico</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-pablo')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 50–60 d.C.</div>
+      <div class="tl-desc">Pablo de Tarso — 1 Timoteo 2 · Eva como engañada primero</div>
+      <div class="tl-tag">Epístola</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-nag')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 100–300 d.C.</div>
+      <div class="tl-desc">Nag Hammadi — Apócrifo de Juan · Eva como Epínoia</div>
+      <div class="tl-tag">Gnóstico</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-realidad')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 100–350 d.C.</div>
+      <div class="tl-desc">Testimonio de la Verdad · La serpiente como instrumento de sabiduría</div>
+      <div class="tl-tag">Gnóstico</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-alfabeto')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 700–1000 d.C.</div>
+      <div class="tl-desc">Alfabeto de Ben Sira · Primera mención escrita de Lilith como primera mujer</div>
+      <div class="tl-tag">Midrash medieval</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-zohar')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">c. 1280 d.C.</div>
+      <div class="tl-desc">Zohar · «Al principio del mundo existió una hembra…»</div>
+      <div class="tl-tag">Cabalá</div>
+    </div>
+    <div class="tl-item" onclick="openCard('c-jung')">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1945 d.C.</div>
+      <div class="tl-desc">Carl Jung — Aurora Consurgens · Eva como anima</div>
+      <div class="tl-tag">Psicología analítica</div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+
+  <div class="source-card reveal" id="c-genesis">
+    <div class="source-header" onclick="toggleCard('c-genesis')">
+      <div class="source-year">c. 900–500 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Génesis 2–3</div>
+        <div class="source-work">Tanaj / Antiguo Testamento · Fuente canónica</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> La creación de Eva aparece en dos versiones distintas dentro del Génesis. El Génesis 1 (atribuido a la fuente Sacerdotal, siglo VI a.C.) crea al hombre y la mujer simultáneamente. El Génesis 2-3 (fuente Yahvista, siglos X-IX a.C.) narra la creación de Eva de la costilla de Adán — la versión que el episodio desarrolla.</div>
+
+        <blockquote>
+          <p>«Y de la costilla que Yahveh Dios tomó del hombre, hizo una mujer, y la trajo al hombre. Dijo entonces el hombre: Esto es ahora hueso de mis huesos y carne de mi carne; ésta será llamada mujer, porque del hombre fue tomada.»</p>
+          <cite>— Génesis 2:22–23</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Y la serpiente era astuta, más que todos los animales del campo que Yahveh Dios había hecho; y dijo a la mujer: ¿Conque Dios os ha dicho: No comáis de todo árbol del huerto?»</p>
+          <cite>— Génesis 3:1</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«Y Yahveh Dios dijo a la serpiente: Por cuanto esto hiciste, maldita serás entre todas las bestias y entre todos los animales del campo... Y a la mujer dijo: Multiplicaré en gran manera tus dolores en tus preñeces; con dolor darás a luz los hijos; y tu deseo será para tu marido, y él se enseñoreará de ti.»</p>
+          <cite>— Génesis 3:14–16</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Nota crítica:</strong> Existen dos tradiciones editoriales dentro del Génesis. En Génesis 1:27, hombre y mujer son creados simultáneamente («varón y hembra los creó»). En Génesis 2, Eva es creada de la costilla de Adán. La coexistencia de ambas versiones es la base del desarrollo posterior del mito de Lilith como «primera mujer» anterior a Eva.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Edición:</strong> Biblia de Jerusalén (Desclée de Brouwer, 1976) · Versión Reina-Valera 1960 para las citas.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-bensira">
+    <div class="source-header" onclick="toggleCard('c-bensira')">
+      <div class="source-year">c. 180 a.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Jesús Ben Sira</div>
+        <div class="source-work">Eclesiástico (Siracida) · 25:24</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> El Eclesiástico es un texto deuterocanónico (incluido en la Biblia católica pero no en el canon judío ni protestante). Esta es la primera interpretación explícita de Eva como origen del pecado — anterior al texto paulino.</div>
+
+        <blockquote>
+          <p>«De la mujer tuvo principio el pecado, y por causa de ella todos morimos.»</p>
+          <cite>— Eclesiástico (Siracida) 25:24</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Significado:</strong> Ben Sira lee el Génesis con una lente misógina que el texto original no contiene explícitamente. Esta línea, junto con el texto paulino de 1 Timoteo 2, establece la tradición teológica que culpa a Eva de la muerte humana. El propio Génesis no dice esto: dice que el hombre también comió, que ambos son expulsados, y que ambos reciben maldiciones específicas.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-pablo">
+    <div class="source-header" onclick="toggleCard('c-pablo')">
+      <div class="source-year">c. 50–60 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Pablo de Tarso (atrib.)</div>
+        <div class="source-work">Primera Epístola a Timoteo · 2:11–15</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> La primera epístola a Timoteo es uno de los textos más influyentes en la construcción teológica de Eva como responsable primaria de la caída. La mayoría de los investigadores bíblicos contemporáneos la consideran pseudoepigráfica (escrita en nombre de Pablo, no por él).</div>
+
+        <blockquote>
+          <p>«La mujer aprenda en silencio, con toda sujeción... porque Adán fue formado primero, después Eva; y Adán no fue engañado, sino que la mujer, siendo engañada, incurrió en transgresión.»</p>
+          <cite>— 1 Timoteo 2:11–14</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Nota crítica:</strong> Este texto introduce la jerarquía de creación (Adán primero = más autoridad) y el argumento del engaño (Eva fue engañada → es más susceptible al error). Son los dos pilares de la teología patriarcal sobre Eva que dominará el pensamiento occidental durante quince siglos.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Estado académico:</strong> La mayoría de los estudiosos actuales consideran 1 Timoteo deuteropaulino, escrito entre el 80-100 d.C. (cf. Bart Ehrman, <em>Forged</em>, HarperOne, 2011).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>«Adán no fue engañado,<br>sino que la mujer, siendo engañada,<br>incurrió en transgresión.»</p>
+    <cite>1 Timoteo 2:14 · c. 80–100 d.C. · El texto que definió a Eva durante quince siglos</cite>
+  </div>
+
+  <div class="source-card reveal" id="c-nag">
+    <div class="source-header" onclick="toggleCard('c-nag')">
+      <div class="source-year">c. 100–300 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Textos de Nag Hammadi</div>
+        <div class="source-work">Apócrifo de Juan · Eva como Epínoia (Primer Pensamiento)</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> En 1945 se descubrió en Nag Hammadi (Egipto) una biblioteca de 52 textos gnósticos en copto. El <em>Apócrifo de Juan</em> contiene la inversión más radical del mito del Génesis: Eva no es la responsable de la caída — es la portadora del conocimiento divino que desciende al mundo material para despertar a Adán.</div>
+
+        <blockquote>
+          <p>«Epínoia de la luz fue escondida dentro de Adán, para que los arcontes no pudieran alcanzarla... Y la llamaron Eva, "la que da vida", porque ella es la madre de todos los vivientes.»</p>
+          <cite>— Apócrifo de Juan (NH II,1) · Nag Hammadi Codex II</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«El Demiurgo no quiso que fueran iguales. Así que tomó a Eva y la separó de Adán. Pero Epínoia entró en Eva en secreto, y Adán reconoció su semejante.»</p>
+          <cite>— Apócrifo de Juan (NH II,1)</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Inversión gnóstica:</strong> En esta cosmología, el Demiurgo (el dios del Génesis) no es el Dios verdadero sino un ser ignorante que crea el mundo material como prisión. Eva / Epínoia desciende para liberar a Adán del engaño del Demiurgo. La serpiente es el instrumento de la Sabiduría Superior, no del mal.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Edición:</strong> James M. Robinson (ed.), <em>The Nag Hammadi Library</em> (Brill, 1978). Traducción al español: Antonio Piñero, <em>Todos los Evangelios</em> (EDAF, 2009).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-realidad">
+    <div class="source-header" onclick="toggleCard('c-realidad')">
+      <div class="source-year">c. 100–350 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Textos de Nag Hammadi</div>
+        <div class="source-work">Testimonio de la Verdad (NH IX,3) · La serpiente como maestra</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> El <em>Testimonio de la Verdad</em> contiene la inversión más completa del mito: la serpiente es el maestro del conocimiento, y el Dios del Génesis actúa como un tirano celoso que teme perder el control sobre sus criaturas.</div>
+
+        <blockquote>
+          <p>«¿Qué tipo de Dios es este? Primero envidió a Adán porque comió del árbol del conocimiento. Segundo, dijo: "Adán, ¿dónde estás?" Dios no tiene presciencia. Y la serpiente era más sabia que todos los dioses.»</p>
+          <cite>— Testimonio de la Verdad (NH IX,3)</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Relevancia:</strong> Este texto es el argumento que más incomodó a los Padres de la Iglesia: si Dios es omnisciente, ¿por qué pregunta dónde está Adán? El <em>Testimonio de la Verdad</em> usa la lógica interna del Génesis para poner en cuestión la naturaleza del Dios que lo narra.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-alfabeto">
+    <div class="source-header" onclick="toggleCard('c-alfabeto')">
+      <div class="source-year">c. 700–1000 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Anónimo</div>
+        <div class="source-work">Alfabeto de Ben Sira · Primera mujer antes de Eva</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> El <em>Alfabeto de Ben Sira</em> (medievo judío, c. 700-1000 d.C.) es el primer texto que nombra a <strong>Lilith</strong> como la primera mujer de Adán, creada simultáneamente de la tierra, que se niega a yacer debajo de él y abandona el Edén. Su ausencia deja espacio para Eva.</div>
+
+        <blockquote>
+          <p>«Cuando el Santo, bendito sea Él, creó al primer hombre, decidió que no era bueno que estuviera solo y le creó una mujer, también del suelo, y la llamó Lilith. Inmediatamente empezaron a pelearse. Ella dijo: Yo no me acostaré debajo de ti. Y él dijo: Yo tampoco me acostaré debajo de ti, sino encima. Cada uno quería ser el dominante.»</p>
+          <cite>— Alfabeto de Ben Sira (Abecedario de Sirach) · c. siglo IX d.C.</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Origen del mito:</strong> Lilith no aparece como personaje en el Génesis — su nombre aparece una sola vez en el libro de Isaías (34:14) como un ser del desierto. El mito de Lilith como primera esposa de Adán es una creación medieval que resuelve la contradicción entre Génesis 1 y Génesis 2.</div>
+        <div class="source-note" style="margin-top:10px;"><strong>Fuente académica:</strong> Raphael Patai, <em>The Hebrew Goddess</em> (Wayne State University Press, 1967). Estudio de referencia sobre la tradición de Lilith.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-zohar">
+    <div class="source-header" onclick="toggleCard('c-zohar')">
+      <div class="source-year">c. 1280 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Moisés de León (atrib.)</div>
+        <div class="source-work">Zohar · Libro del Esplendor · Cabalá</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> El Zohar es el texto fundamental de la Cabalá judía, escrito probablemente en la España del siglo XIII y atribuido al rabino Simeón bar Yojai (siglo II d.C.). Desarrolla extensamente la dualidad femenina de Lilith vs. Shekhinah como aspecto femenino de la divinidad.</div>
+
+        <blockquote>
+          <p>«Al principio del mundo existía una hembra en el lado izquierdo de Adán, endurecida en maldad... llamada Lilith. Esta mujer tomó el rol de Samael.»</p>
+          <cite>— Zohar I, 34b</cite>
+        </blockquote>
+
+        <blockquote>
+          <p>«El deseo principal de Lilith es destruir a los hijos del mundo. Y por eso existe Eva — para que exista un principio femenino ligado al amor, no al odio.»</p>
+          <cite>— Zohar III, 19a</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Relevancia para el episodio:</strong> La tradición cabalística genera la dualidad Lilith/Eva como el principio femenino oscuro vs. el principio femenino luminoso — ambos necesarios, ninguno completo sin el otro. Esta es la raíz de la interpretación gnóstica moderna de Eva como portadora de sabiduría divina encarnada.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source-card reveal" id="c-jung">
+    <div class="source-header" onclick="toggleCard('c-jung')">
+      <div class="source-year">1945 d.C.</div>
+      <div class="source-meta">
+        <div class="source-author">Carl Gustav Jung</div>
+        <div class="source-work">Aurora Consurgens · Edición y comentario</div>
+      </div>
+      <div class="source-toggle">+</div>
+    </div>
+    <div class="source-body">
+      <div class="source-body-inner">
+        <div class="source-note"><strong>Contexto:</strong> Jung editó y comentó el manuscrito medieval <em>Aurora Consurgens</em> como parte de su obra <em>Mysterium Coniunctionis</em>. Para Jung, la figura femenina que emerge en los textos alquímicos y gnósticos (Sophia, Epínoia, Aurora) es la proyección del <strong>anima</strong> — el principio femenino inconsciente del psiquismo colectivo masculino.</div>
+
+        <blockquote>
+          <p>«Eva no es solo una figura histórica o teológica — es un arquetipo. El nombre que se da en cada cultura al principio femenino que despierta la consciencia masculina: Sophia en los gnósticos, Prajna en el budismo, Shakti en el hinduismo.»</p>
+          <cite>— Jung, <em>Mysterium Coniunctionis</em>, OC vol. 14 (1956)</cite>
+        </blockquote>
+
+        <div class="source-note"><strong>Fuente:</strong> C.G. Jung, <em>Mysterium Coniunctionis</em>, Obras Completas vol. 14 (Trotta, 2002). Marie-Louise von Franz, <em>Aurora Consurgens</em> (1966).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>«Eva no es solo una figura teológica — es un arquetipo.<br>El nombre que se da en cada cultura al principio femenino<br>que despierta la consciencia.»</p>
+    <cite>Carl Gustav Jung · Mysterium Coniunctionis · 1956</cite>
+  </div>
+
+</div><!-- /tab-fuentes -->
+
+
+<!-- ═══════ TAB 2: CRÉDITOS ═══════ -->
+<div id="tab-arte" class="tab-panel">
+
+  <div class="section-label">24 obras · Orden de aparición en el video</div>
+
+  <table class="credits-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Obra</th>
+        <th>Artista</th>
+        <th>Año</th>
+        <th>Colección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-pos">Apertura</td>
+        <td class="td-title">Die Sünde · El Pecado</td>
+        <td class="td-artist">Franz von Stuck</td>
+        <td class="td-year">1893</td>
+        <td class="td-museum">Neue Pinakothek, Múnich, Alemania</td>
+      </tr>
+      <tr>
+        <td class="td-pos">01</td>
+        <td class="td-title">El Jardín de las Delicias — El Edén (panel izquierdo)</td>
+        <td class="td-artist">El Bosco (Hieronymus Bosch)</td>
+        <td class="td-year">~1490–1510</td>
+        <td class="td-museum">Museo del Prado, Madrid</td>
+      </tr>
+      <tr>
+        <td class="td-pos">02</td>
+        <td class="td-title">El Jardín del Edén con la Caída del Hombre</td>
+        <td class="td-artist">Rubens & Jan Brueghel el Viejo</td>
+        <td class="td-year">1615</td>
+        <td class="td-museum">Mauritshuis, La Haya, Países Bajos</td>
+      </tr>
+      <tr>
+        <td class="td-pos">03</td>
+        <td class="td-title">La Caída del Hombre</td>
+        <td class="td-artist">Tiziano Vecellio</td>
+        <td class="td-year">~1550</td>
+        <td class="td-museum">Museo del Prado, Madrid</td>
+      </tr>
+      <tr>
+        <td class="td-pos">04</td>
+        <td class="td-title">Tentación y Expulsión (Capilla Sixtina)</td>
+        <td class="td-artist">Miguel Ángel Buonarroti</td>
+        <td class="td-year">1508–12</td>
+        <td class="td-museum">Capilla Sixtina, Ciudad del Vaticano (fresco in situ)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">05</td>
+        <td class="td-title">Adán y Eva</td>
+        <td class="td-artist">Lucas Cranach el Viejo</td>
+        <td class="td-year">1526</td>
+        <td class="td-museum">Courtauld Gallery, Londres, Reino Unido</td>
+      </tr>
+      <tr>
+        <td class="td-pos">06</td>
+        <td class="td-title">The Fall of Man · La Caída del Hombre</td>
+        <td class="td-artist">Hendrick Goltzius</td>
+        <td class="td-year">1616</td>
+        <td class="td-museum">National Gallery of Art, Washington D.C., EE.UU.</td>
+      </tr>
+      <tr>
+        <td class="td-pos">07</td>
+        <td class="td-title">Caída de Adán · Cuaderno Italiano</td>
+        <td class="td-artist">Francisco de Goya</td>
+        <td class="td-year">~1771</td>
+        <td class="td-museum">Museo del Prado, Madrid (D6068/23)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">08</td>
+        <td class="td-title">Eva, la Serpiente y la Muerte</td>
+        <td class="td-artist">Hans Baldung Grien</td>
+        <td class="td-year">~1510–25</td>
+        <td class="td-museum">National Gallery of Canada, Ottawa, Canadá</td>
+      </tr>
+      <tr>
+        <td class="td-pos">09</td>
+        <td class="td-title">Expulsión del Paraíso</td>
+        <td class="td-artist">Masaccio</td>
+        <td class="td-year">~1425</td>
+        <td class="td-museum">Capilla Brancacci, Santa Maria del Carmine, Florencia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">10</td>
+        <td class="td-title">Expulsión del Jardín del Edén</td>
+        <td class="td-artist">Thomas Cole</td>
+        <td class="td-year">1827–28</td>
+        <td class="td-museum">Museum of Fine Arts, Boston, EE.UU.</td>
+      </tr>
+      <tr>
+        <td class="td-pos">11</td>
+        <td class="td-title">Astarte Syriaca</td>
+        <td class="td-artist">Dante Gabriel Rossetti</td>
+        <td class="td-year">1877</td>
+        <td class="td-museum">Manchester Art Gallery, Manchester, Reino Unido</td>
+      </tr>
+      <tr>
+        <td class="td-pos">12</td>
+        <td class="td-title">Sarcófago Dogmático · Panel de la Creación de Eva</td>
+        <td class="td-artist">Anónimo paleocristiano romano</td>
+        <td class="td-year">~320–350 d.C.</td>
+        <td class="td-museum">Museos Vaticanos, Roma (relieve en mármol)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">13</td>
+        <td class="td-title">Elohim Creating Adam</td>
+        <td class="td-artist">William Blake</td>
+        <td class="td-year">1795</td>
+        <td class="td-museum">Tate Britain, Londres, Reino Unido</td>
+      </tr>
+      <tr>
+        <td class="td-pos">14</td>
+        <td class="td-title">Atalanta Fugiens · Emblema 33</td>
+        <td class="td-artist">Michael Maier (grabado)</td>
+        <td class="td-year">1617</td>
+        <td class="td-museum">Dominio público · Ed. Johann Theodor de Bry, Oppenheim</td>
+      </tr>
+      <tr>
+        <td class="td-pos">15</td>
+        <td class="td-title">Aurora Consurgens · Sophia como la Aurora</td>
+        <td class="td-artist">Anónimo (atrib. círculo de Tomás de Aquino)</td>
+        <td class="td-year">Siglo XV</td>
+        <td class="td-museum">Zentralbibliothek, Zúrich, Suiza (iluminación sobre pergamino)</td>
+      </tr>
+      <tr>
+        <td class="td-pos">16</td>
+        <td class="td-title">La Tentación de Adán y Eva</td>
+        <td class="td-artist">Masolino da Panicale</td>
+        <td class="td-year">~1425</td>
+        <td class="td-museum">Capilla Brancacci, Santa Maria del Carmine, Florencia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">17</td>
+        <td class="td-title">La Charmeuse de Serpents · La Encantadora de Serpientes</td>
+        <td class="td-artist">Henri Rousseau</td>
+        <td class="td-year">1907</td>
+        <td class="td-museum">Musée d'Orsay, París, Francia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">18</td>
+        <td class="td-title">La Caída del Hombre</td>
+        <td class="td-artist">Hugo van der Goes</td>
+        <td class="td-year">~1479–80</td>
+        <td class="td-museum">Kunsthistorisches Museum, Viena, Austria</td>
+      </tr>
+      <tr>
+        <td class="td-pos">19</td>
+        <td class="td-title">La Tentación de Adán</td>
+        <td class="td-artist">Jacopo Tintoretto</td>
+        <td class="td-year">1552</td>
+        <td class="td-museum">Gallerie dell'Accademia, Venecia, Italia</td>
+      </tr>
+      <tr>
+        <td class="td-pos">20</td>
+        <td class="td-title">El Jardín de las Delicias — El Infierno (panel derecho)</td>
+        <td class="td-artist">El Bosco (Hieronymus Bosch)</td>
+        <td class="td-year">~1490–1510</td>
+        <td class="td-museum">Museo del Prado, Madrid</td>
+      </tr>
+      <tr>
+        <td class="td-pos">21</td>
+        <td class="td-title">Cain Slaying Abel · Caín matando a Abel</td>
+        <td class="td-artist">Peter Paul Rubens</td>
+        <td class="td-year">~1608–09</td>
+        <td class="td-museum">Courtauld Gallery, Londres, Reino Unido</td>
+      </tr>
+      <tr>
+        <td class="td-pos">22</td>
+        <td class="td-title">El Primer Duelo · The First Mourning</td>
+        <td class="td-artist">William-Adolphe Bouguereau</td>
+        <td class="td-year">1888</td>
+        <td class="td-museum">Museo Nacional de Bellas Artes, Buenos Aires, Argentina</td>
+      </tr>
+      <tr>
+        <td class="td-pos">23</td>
+        <td class="td-title">San Miguel Arcángel expulsa a Lucifer</td>
+        <td class="td-artist">Lorenzo Lotto</td>
+        <td class="td-year">c. 1545–50</td>
+        <td class="td-museum">Basílica della Santa Casa, Loreto, Italia</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="source-note" style="margin-top:32px; padding:16px 20px; background:var(--bg3); border:1px solid var(--sep); border-radius:2px;">
+    <strong>Licencias:</strong> Todas las obras son de dominio público (anteriores a 1928 o reproducidas bajo uso editorial documentado). Imágenes obtenidas de Wikimedia Commons y archivos de museos. El Cuaderno Italiano de Goya (Museo del Prado) y el Sarcófago Dogmático (Museos Vaticanos) pueden tener restricciones fotográficas adicionales en sus respectivos museos.
+  </div>
+
+</div><!-- /tab-arte -->
+
+<script>
+function switchTab(id, btn){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  setTimeout(triggerReveals, 50);
+}
+
+function toggleCard(id){
+  var card = document.getElementById(id);
+  var body = card.querySelector('.source-body');
+  var isOpen = card.classList.contains('open');
+  document.querySelectorAll('.source-card.open').forEach(function(c){
+    c.classList.remove('open');
+    c.querySelector('.source-body').style.maxHeight = '0';
+  });
+  if(!isOpen){
+    card.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 200 + 'px';
+  }
+}
+
+function openCard(id){
+  var card = document.getElementById(id);
+  if(!card) return;
+  card.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(function(){ toggleCard(id); }, 400);
+}
+
+function triggerReveals(){
+  document.querySelectorAll('.reveal:not(.visible)').forEach(function(el){
+    var rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight * 0.92) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', triggerReveals, { passive: true });
+
+function turnPage(url, dir){
+  var ov = document.getElementById('ptov');
+  sessionStorage.setItem('ptFrom', dir);
+  ov.style.transition = 'none';
+  ov.style.transform = dir==='right' ? 'translateX(100%)' : 'translateX(-100%)';
+  ov.style.pointerEvents = 'all';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      ov.style.transition = 'transform .48s cubic-bezier(.4,0,.8,0)';
+      ov.style.transform = 'translateX(0)';
+    });
+  });
+  setTimeout(function(){ window.location.href = url; }, 500);
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  setTimeout(triggerReveals, 100);
+  var dir = sessionStorage.getItem('ptFrom');
+  if(!dir) return;
+  sessionStorage.removeItem('ptFrom');
+  var ov = document.getElementById('ptov');
+  ov.style.transition = 'none';
+  ov.style.transform = 'translateX(0)';
+  ov.style.pointerEvents = 'all';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      ov.style.transition = 'transform .48s cubic-bezier(.2,0,.4,1)';
+      ov.style.transform = dir==='right' ? 'translateX(-100%)' : 'translateX(100%)';
+      setTimeout(function(){ ov.style.pointerEvents='none'; }, 520);
+    });
+  });
+});
+</script>
+</body>
+</html>
