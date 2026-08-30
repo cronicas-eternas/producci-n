@@ -235,7 +235,7 @@ body{
 <div id="ptov"></div>
 
 <!-- NAV DERECHA → PANDORA -->
-<div class="nav-r" onclick="turnPage('PANDORA_Album_Panini.html','right')">
+<div class="nav-r" onclick="turnPage('PANDORA_album.html','right')">
   <span class="nav-ch">❯</span>
 </div>
 
@@ -263,7 +263,7 @@ body{
   <div class="episodes">
 
     <!-- PANDORA -->
-    <a class="ep ep-side ep-active" href="PANDORA_Album_Panini.html">
+    <a class="ep ep-side ep-active" href="PANDORA_album.html">
       <div class="ep-num">I</div>
       <div class="ep-frame">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Alaux%2C_Jean_-_Pandora_carried_off_by_Mercury.jpg?width=400"
@@ -278,7 +278,7 @@ body{
     </a>
 
     <!-- EVA (centro, más grande) -->
-    <a class="ep ep-main" href="#" onclick="turnPage('EVA_Album_Panini.html','right'); return false;">
+    <a class="ep ep-main" href="#" onclick="turnPage('EVA_album.html','right'); return false;">
       <div class="ep-num">II</div>
       <div class="ep-frame">
         <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hans_Baldung_Grien_-_Eve,_Serpent_and_Death.JPG?width=400"
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(pandoraCard){
     pandoraCard.addEventListener('click',function(e){
       e.preventDefault();
-      turnPage('PANDORA_Album_Panini.html','right');
+      turnPage('PANDORA_album.html','right');
     });
   }
 });

@@ -76,41 +76,71 @@ body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-h
 .album-footer{padding:40px 80px;border-top:1px solid var(--sep);display:flex;justify-content:space-between;align-items:center;}
 .footer-series{font-family:"Cinzel",serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
 .footer-ep{font-size:11px;color:var(--text-dim);letter-spacing:1px;}
+/* ─── INFO BUTTON ─── */
+.card-label{position:relative;}
+.card-info-btn{
+  position:absolute;bottom:8px;right:8px;
+  background:rgba(90,170,122,0.1);
+  border:1px solid rgba(90,170,122,0.25);
+  border-radius:50%;width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;cursor:pointer;color:var(--accent-dim);
+  transition:all .2s;padding:0;line-height:1;
+  z-index:5;
+}
+.card-info-btn:hover{color:var(--accent);background:rgba(90,170,122,0.2);border-color:rgba(90,170,122,0.5);}
+.card-img-wrap{cursor:zoom-in;}
 /* ─── MOBILE ─── */
 @media (hover:none){
   .flip-card:hover .flip-card-inner{transform:none;}
   .flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
   .flip-card:hover .card-img-wrap img{transform:none;}
   .flip-card:hover .card-border{opacity:.22;}
+  .card-info-btn{color:var(--accent);background:rgba(90,170,122,0.15);border-color:rgba(90,170,122,0.35);width:26px;height:26px;font-size:14px;}
 }
 @media (max-width:700px){
-  .album-header{padding:28px 16px 20px;flex-direction:column;gap:8px;align-items:flex-start;}
+  .album-header{padding:56px 16px 20px;flex-direction:column;gap:8px;align-items:flex-start;}
   .album-title{font-size:36px;}
   .album-subtitle{font-size:15px;}
   .card-count{font-size:40px;}
-  .instructions{padding:10px 16px;gap:12px;flex-wrap:wrap;}
+  .instructions{padding:10px 16px;gap:10px;flex-wrap:wrap;}
   .chapter-banner{padding:12px 16px;margin:20px 0 0;}
-  .chapter-number{font-size:36px;}
+  .chapter-number{font-size:32px;}
   .chapter-title{font-size:14px;}
-  .card-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:14px 12px 32px;}
-  .card-grid.apertura-grid{padding:14px 12px 32px;max-width:100%;}
-  .flip-card{height:280px;}
+  .card-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;padding:12px 10px 32px;}
+  .card-grid.apertura-grid{padding:12px 10px 32px;max-width:100%;}
+  .flip-card{height:270px;}
   .flip-card.apertura{height:360px;}
-  .card-label-year{font-size:12px;}
-  .nav-l,.nav-r{width:32px;height:56px;}
-  .nav-arrow{width:18px;height:18px;}
+  .card-label{padding:10px 12px 10px;}
+  .card-label-year{font-size:11px;margin-top:-12px;}
+  .card-label-title{font-size:13px;}
+  .card-label-artist{font-size:10px;}
+  .card-back{padding:14px;}
+  .back-number{font-size:34px;margin-bottom:2px;}
+  .back-title{font-size:15px;}
+  .back-artist{font-size:11px;margin-bottom:10px;}
+  .back-divider{margin-bottom:10px;}
+  .back-desc{font-size:13px;line-height:1.55;}
+  .back-museum{margin-top:8px;padding-top:8px;font-size:10px;}
+  .nav-l,.nav-r{width:28px;height:52px;opacity:.3;}
+  .nav-arrow{width:16px;height:16px;}
   .album-footer{padding:20px 16px;flex-direction:column;gap:6px;text-align:center;}
 }
-@media (max-width:400px){
-  .card-grid{grid-template-columns:1fr 1fr;}
-  .flip-card{height:260px;}
+@media (max-width:420px){
+  .card-grid{grid-template-columns:1fr 1fr;gap:10px;padding:10px 8px 28px;}
+  .flip-card{height:250px;}
+  .flip-card.apertura{height:340px;}
+  .card-back{padding:12px;}
+  .back-number{font-size:28px;}
+  .back-title{font-size:14px;}
+  .back-desc{font-size:12px;}
 }
 </style>
 </head>
 <body>
 <div id="ptov"></div>
 <div class="nav-l" onclick="turnPage('CRONICAS_ETERNAS_Portada.html','left')" title="← Atrás"><div class="nav-arrow"></div></div>
-<div class="nav-r" onclick="turnPage('EVA_Material.html','right')" title="Fuentes →"><div class="nav-arrow"></div></div>
+<div class="nav-r" onclick="turnPage('EVA_fuentes.html','right')" title="Fuentes →"><div class="nav-arrow"></div></div>
 <a class="btn-home" href="CRONICAS_ETERNAS_Portada.html">⌂ &nbsp;Portada</a>
 <header class="album-header">
   <div>
@@ -807,14 +837,38 @@ function closeLightbox(){{document.getElementById('lightbox').style.display='non
 function lbNav(dir){{lbIdx=(lbIdx+dir+lbCards.length)%lbCards.length;showLb(lbIdx);}}
 document.addEventListener('keydown',function(e){{var lb=document.getElementById('lightbox');if(lb.style.display==='flex'){{if(e.key==='ArrowLeft')lbNav(-1);else if(e.key==='ArrowRight')lbNav(1);else if(e.key==='Escape')closeLightbox();}}}});
 document.getElementById('lightbox').addEventListener('click',function(e){{if(e.target===this)closeLightbox();}});
-if(window.matchMedia('(hover:none)').matches){{
-  document.querySelectorAll('.flip-card').forEach(function(card){{
-    card.addEventListener('click',function(e){{
-      e.stopPropagation();
-      if(this.classList.contains('flipped')){{this.classList.remove('flipped');}}
-      else{{document.querySelectorAll('.flip-card.flipped').forEach(function(c){{c.classList.remove('flipped');}});this.classList.add('flipped');}}
-    }});
+var _touch=window.matchMedia('(hover:none)').matches;
+document.querySelectorAll('.flip-card').forEach(function(card){{
+  // ─ Botón ⓘ (voltear) ─
+  var infoBtn=document.createElement('button');
+  infoBtn.className='card-info-btn';infoBtn.title='Ver descripción';infoBtn.innerHTML='ⓘ';
+  infoBtn.addEventListener('click',function(e){{
+    e.stopPropagation();
+    if(card.classList.contains('flipped')){{card.classList.remove('flipped');}}
+    else{{document.querySelectorAll('.flip-card.flipped').forEach(function(c){{c.classList.remove('flipped');}});card.classList.add('flipped');}}
   }});
+  var lbl=card.querySelector('.card-label');if(lbl)lbl.appendChild(infoBtn);
+
+  if(_touch){{
+    // Mobile: toca imagen → ampliar, toca resto → voltear, toca fondo → volver
+    card.onclick=function(){{
+      if(!card.classList.contains('flipped')){{
+        document.querySelectorAll('.flip-card.flipped').forEach(function(c){{c.classList.remove('flipped');}});
+        card.classList.add('flipped');
+      }}
+    }};
+    var iw=card.querySelector('.card-img-wrap');
+    if(iw)iw.addEventListener('click',function(e){{e.stopPropagation();if(!card.classList.contains('flipped'))openLightbox(card);}});
+    var bk=card.querySelector('.card-back');
+    if(bk)bk.addEventListener('click',function(e){{e.stopPropagation();card.classList.remove('flipped');}});
+  }}
+}});
+// Actualizar instrucciones en móvil
+if(_touch){{
+  var ii=document.querySelectorAll('.instr-item');
+  if(ii[0])ii[0].innerHTML='<span>Toca imagen</span> para ampliar';
+  if(ii[1])ii[1].innerHTML='<span>ⓘ</span> para voltear la tarjeta';
+  if(ii[2])ii[2].innerHTML='<span>← →</span> navegar páginas';
 }}
 document.querySelectorAll('.card-img-wrap img').forEach(function(img){{
   img.addEventListener('error',function(){{
