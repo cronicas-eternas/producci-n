@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>
+(function(){var l=localStorage.getItem('ce_lang');if(l==='en'&&location.href.indexOf('_en')<0){location.replace(location.href.replace('.html','_en.html'));}})()
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EVA · Fuentes y Material — Crónicas Eternas</title>
@@ -347,7 +351,7 @@ blockquote cite {
 <body>
 <div id="ptov"></div>
 <a class="btn-home" href="CRONICAS_ETERNAS_Portada.html">⌂ &nbsp;Portada</a>
-<a class="btn-lang" href="EVA_fuentes_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
+<a class="btn-lang" onclick="localStorage.setItem('ce_lang','en')" href="EVA_fuentes_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
 
 <!-- NAV LEFT → álbum EVA -->
 <div class="nav-l" onclick="turnPage('EVA_album.html','left')" title="← Álbum">

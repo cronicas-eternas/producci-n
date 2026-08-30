@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>
+(function(){var l=localStorage.getItem('ce_lang');if(l==='en'&&location.href.indexOf('_en')<0){location.replace(location.href.replace('.html','_en.html'));}})()
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PANDORA · Álbum de Arte — Crónicas Eternas</title>
@@ -151,7 +155,7 @@ body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-h
 <div class="nav-l" onclick="turnPage('CRONICAS_ETERNAS_Portada.html','left')" title="← Atrás"><div class="nav-arrow"></div></div>
 <div class="nav-r" onclick="turnPage('PANDORA_fuentes.html','right')" title="Fuentes →"><div class="nav-arrow"></div></div>
 <a class="btn-home" href="CRONICAS_ETERNAS_Portada.html">⌂ &nbsp;Portada</a>
-<a class="btn-lang" href="PANDORA_album_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
+<a class="btn-lang" onclick="localStorage.setItem('ce_lang','en')" href="PANDORA_album_en.html"><span class="lang-active">ES</span><span class="lang-sep">·</span><span class="lang-link">EN</span></a>
 <header class="album-header">
   <div>
     <div class="series-tag">T1 · E01 · Mitología Griega · Crónicas Eternas</div>
